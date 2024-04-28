@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52368267b58d4f40b93be134a0189138" Name="Diagram1">
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.DatVe" Width="1.5" PointX="9.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.DoAn" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.Ghe" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.KhachHang" Width="1.5" PointX="7.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.LichChieu" Width="1.5" PointX="7.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.NhanVien" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.NVChamSoc" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.NVDangTai" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.NVQuanLy" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.Phim" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.PhongChieu" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.RapChieu" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.SuKien" Width="1.5" PointX="7.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.Ve" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__DatVe__MaDoAn__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__DatVe__MaKH__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__DatVe__MaSuKien__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__DatVe__MaVe__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ghe__MaPC__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaGhe__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__LichChieu__MaPhi__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__NhanVien__MaRC__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__NVChamSoc__MaNV__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__NVDangTai__MaNV__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__NVQuanLy__MaNV__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaPhim__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__PhongChieu__MaRC__4F7CD00D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,121 @@
+﻿<span style="font-family: verdana, geneva, sans-serif;">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Admin Dashboard</title>
+        <link href="~/CSS/AdminPage.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    </head>
+    <body>
+        <div class="container">
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#" class="logo">
+                            <span class="nav-item">Admin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-menorah"></i>
+                            <span class="nav-item">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-comment"></i>
+                            <span class="nav-item">Message</span>
+                        </a>
+                    </li>
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">
+                            <i class="fas fa-database"></i>
+                            <span class="nav-item">Report</span>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-bar"></i>
+                            <span class="nav-item">Attendance</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">
+                            <i class="fas fa-user-shield"></i>
+                            <span class="nav-item">Admin</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="~/Cinema" class="dropbtn">
+                            <i class="fas fa-film"></i>
+                            <span class="nav-item">Cimema</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="~/Movie" class="dropbtn">
+                            <i class="fas fa-film"></i>
+                            <span class="nav-item">Movies</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="~/user" class="dropbtn">
+                            <i class="fas fa-user"></i>
+                            <span class="nav-item">User</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">
+                            <i class="fas fa-clock"></i>
+                            <span class="nav-item">Showtimes</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="~/CinemaRoom" class="dropbtn">
+                            <i class="fas fa-tv"></i>
+                            <span class="nav-item">Cinema Room</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="nav-item">Events</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="~/Food" class="dropbtn">
+                            <i class="fas fa-hamburger"></i>
+                            <span class="nav-item">Food</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="nav-item">Log out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <section class="main">
+                
+            @RenderBody()
+            </section>
+        </div>
+    </body>
+</html>
+</span>

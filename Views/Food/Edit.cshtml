@@ -1,0 +1,87 @@
+﻿@model BookingFilm.DoAn
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Edit Food</h2>
+
+@using (Html.BeginForm("Edit", "Food", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <label for="TenDA">Food Code:</label><br>
+    @Html.TextBoxFor(model => model.MaDA)
+    @Html.ValidationMessageFor(model => model.MaDA, "", new { @class = "text-danger", @required = "required" })<br>
+    <label for="TenDA">Food Name:</label><br>
+    @Html.TextBoxFor(model => model.TenDA, new { id = "TenDA", @required = "required" })<br>
+
+    <label for="GiaDA">Food Price (VND)</label><br>
+    @Html.TextBoxFor(model => model.GiaDA, new { id = "GiaDA", type = "number", step = "0.01" , @required = "required" })<br>
+
+    <label for="HinhDA">Food Image:</label><br>
+    <input type="file" name="HinhDA" id="HinhDA" /><br>
+
+    <input type="submit" value="Save Changes">
+</div>
+}
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 10px 0;
+        color: #333;
+    }
+
+    .form-horizontal {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    }
+
+        .form-horizontal label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-horizontal input[type="text"],
+        .form-horizontal input[type="email"],
+        .form-horizontal input[type="password"],
+        .form-horizontal input[type="date"],
+        .form-horizontal input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .form-horizontal input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 0px;
+        }
+
+            .form-horizontal input[type="submit"]:hover {
+                background-color: #2980b9;
+            }
+
+    input {
+        margin-top: -25px;
+    }
+
+    .text-danger {
+        color: red;
+    }
+</style>
+

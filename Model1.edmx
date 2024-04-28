@@ -1,0 +1,953 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BookingFilmTicketsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DatVe">
+          <Key>
+            <PropertyRef Name="MaDat" />
+          </Key>
+          <Property Name="MaDat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="MaVe" Type="int" />
+          <Property Name="NgayDat" Type="date" />
+          <Property Name="MaDoAn" Type="nvarchar" MaxLength="30" />
+          <Property Name="SoLuongDoAn" Type="int" />
+          <Property Name="TongTien" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="MaSuKien" Type="int" />
+          <Property Name="ThanhTien" Type="decimal" Precision="9" Scale="0" />
+        </EntityType>
+        <EntityType Name="DoAn">
+          <Key>
+            <PropertyRef Name="MaDA" />
+          </Key>
+          <Property Name="MaDA" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="TenDA" Type="nvarchar" MaxLength="40" />
+          <Property Name="GiaDA" Type="numeric" Precision="9" Scale="0" />
+          <Property Name="HinhDA" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Ghe">
+          <Key>
+            <PropertyRef Name="MaGhe" />
+          </Key>
+          <Property Name="MaGhe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenGhe" Type="nvarchar" MaxLength="4" />
+          <Property Name="LoaiGhe" Type="nvarchar" MaxLength="10" />
+          <Property Name="TinhTrangGhe" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaPC" Type="int" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTenKH" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatKhauKH" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NgaySinh" Type="date" Nullable="false" />
+          <Property Name="GioiTinh" Type="bit" Nullable="false" />
+          <Property Name="CCCD" Type="varchar" MaxLength="12" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="LichChieu">
+          <Key>
+            <PropertyRef Name="MaLC" />
+          </Key>
+          <Property Name="MaLC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayChieu" Type="date" />
+          <Property Name="SuatChieu" Type="time" Precision="7" />
+          <Property Name="MaPhim" Type="int" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserNameNV" Type="nvarchar" MaxLength="45" />
+          <Property Name="MatKhauNV" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HoTenNV" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="NgaySinh" Type="date" Nullable="false" />
+          <Property Name="GioiTinh" Type="bit" Nullable="false" />
+          <Property Name="CCCD" Type="varchar" MaxLength="12" />
+          <Property Name="HeSoLuong" Type="numeric" Precision="5" Scale="2" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="MaRC" Type="int" />
+        </EntityType>
+        <EntityType Name="NVChamSoc">
+          <Key>
+            <PropertyRef Name="MaNVCS" />
+          </Key>
+          <Property Name="MaNVCS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="int" />
+        </EntityType>
+        <EntityType Name="NVDangTai">
+          <Key>
+            <PropertyRef Name="MaNVDT" />
+          </Key>
+          <Property Name="MaNVDT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="int" />
+        </EntityType>
+        <EntityType Name="NVQuanLy">
+          <Key>
+            <PropertyRef Name="MaNVQL" />
+          </Key>
+          <Property Name="MaNVQL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="int" />
+        </EntityType>
+        <EntityType Name="Phim">
+          <Key>
+            <PropertyRef Name="MaPhim" />
+          </Key>
+          <Property Name="MaPhim" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenPhim" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="TheLoai" Type="nvarchar" MaxLength="40" />
+          <Property Name="ThoiLuong" Type="smallint" />
+          <Property Name="DaoDien" Type="nvarchar" MaxLength="20" />
+          <Property Name="NamSanXuat" Type="smallint" />
+          <Property Name="HinhPhim" Type="nvarchar" MaxLength="200" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="PhongChieu">
+          <Key>
+            <PropertyRef Name="MaPC" />
+          </Key>
+          <Property Name="MaPC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenPC" Type="nvarchar" MaxLength="20" />
+          <Property Name="SoHangGhe" Type="int" />
+          <Property Name="SoGheMoiHang" Type="int" />
+          <Property Name="MaRC" Type="int" />
+        </EntityType>
+        <EntityType Name="RapChieu">
+          <Key>
+            <PropertyRef Name="MaRC" />
+          </Key>
+          <Property Name="MaRC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenRC" Type="nvarchar" MaxLength="40" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SuKien">
+          <Key>
+            <PropertyRef Name="MaSK" />
+          </Key>
+          <Property Name="MaSK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenSK" Type="nvarchar" MaxLength="30" />
+          <Property Name="NgayBatDau" Type="date" />
+          <Property Name="NgayKetThuc" Type="date" />
+          <Property Name="MucKhuyenMai" Type="decimal" Precision="4" Scale="1" />
+        </EntityType>
+        <EntityType Name="Ve">
+          <Key>
+            <PropertyRef Name="MaVe" />
+          </Key>
+          <Property Name="MaVe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GiaVe" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="MaPhim" Type="int" />
+          <Property Name="MaGhe" Type="int" />
+        </EntityType>
+        <Association Name="FK__DatVe__MaDoAn__628FA481">
+          <End Role="DoAn" Type="Self.DoAn" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoAn">
+              <PropertyRef Name="MaDA" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaDoAn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatVe__MaKH__60A75C0F">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatVe__MaSuKien__6383C8BA">
+          <End Role="SuKien" Type="Self.SuKien" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuKien">
+              <PropertyRef Name="MaSK" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaSuKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatVe__MaVe__619B8048">
+          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ve">
+              <PropertyRef Name="MaVe" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaVe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ghe__MaPC__5535A963">
+          <End Role="PhongChieu" Type="Self.PhongChieu" Multiplicity="0..1" />
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhongChieu">
+              <PropertyRef Name="MaPC" />
+            </Principal>
+            <Dependent Role="Ghe">
+              <PropertyRef Name="MaPC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichChieu__MaPhi__52593CB8">
+          <End Role="Phim" Type="Self.Phim" Multiplicity="0..1" />
+          <End Role="LichChieu" Type="Self.LichChieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phim">
+              <PropertyRef Name="MaPhim" />
+            </Principal>
+            <Dependent Role="LichChieu">
+              <PropertyRef Name="MaPhim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__MaRC__3B75D760">
+          <End Role="RapChieu" Type="Self.RapChieu" Multiplicity="0..1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RapChieu">
+              <PropertyRef Name="MaRC" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="MaRC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NVChamSoc__MaNV__3F466844">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="NVChamSoc" Type="Self.NVChamSoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="NVChamSoc">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NVDangTai__MaNV__46E78A0C">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="NVDangTai" Type="Self.NVDangTai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="NVDangTai">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NVQuanLy__MaNV__4316F928">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="NVQuanLy" Type="Self.NVQuanLy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="NVQuanLy">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PhongChieu__MaRC__4F7CD00D">
+          <End Role="RapChieu" Type="Self.RapChieu" Multiplicity="0..1" />
+          <End Role="PhongChieu" Type="Self.PhongChieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RapChieu">
+              <PropertyRef Name="MaRC" />
+            </Principal>
+            <Dependent Role="PhongChieu">
+              <PropertyRef Name="MaRC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaGhe__5CD6CB2B">
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ghe">
+              <PropertyRef Name="MaGhe" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaGhe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaPhim__5BE2A6F2">
+          <End Role="Phim" Type="Self.Phim" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phim">
+              <PropertyRef Name="MaPhim" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaPhim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingFilmTicketsModelStoreContainer">
+          <EntitySet Name="DatVe" EntityType="Self.DatVe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoAn" EntityType="Self.DoAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ghe" EntityType="Self.Ghe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichChieu" EntityType="Self.LichChieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NVChamSoc" EntityType="Self.NVChamSoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NVDangTai" EntityType="Self.NVDangTai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NVQuanLy" EntityType="Self.NVQuanLy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phim" EntityType="Self.Phim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhongChieu" EntityType="Self.PhongChieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RapChieu" EntityType="Self.RapChieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuKien" EntityType="Self.SuKien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DatVe__MaDoAn__628FA481" Association="Self.FK__DatVe__MaDoAn__628FA481">
+            <End Role="DoAn" EntitySet="DoAn" />
+            <End Role="DatVe" EntitySet="DatVe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatVe__MaKH__60A75C0F" Association="Self.FK__DatVe__MaKH__60A75C0F">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="DatVe" EntitySet="DatVe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatVe__MaSuKien__6383C8BA" Association="Self.FK__DatVe__MaSuKien__6383C8BA">
+            <End Role="SuKien" EntitySet="SuKien" />
+            <End Role="DatVe" EntitySet="DatVe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatVe__MaVe__619B8048" Association="Self.FK__DatVe__MaVe__619B8048">
+            <End Role="Ve" EntitySet="Ve" />
+            <End Role="DatVe" EntitySet="DatVe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ghe__MaPC__5535A963" Association="Self.FK__Ghe__MaPC__5535A963">
+            <End Role="PhongChieu" EntitySet="PhongChieu" />
+            <End Role="Ghe" EntitySet="Ghe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichChieu__MaPhi__52593CB8" Association="Self.FK__LichChieu__MaPhi__52593CB8">
+            <End Role="Phim" EntitySet="Phim" />
+            <End Role="LichChieu" EntitySet="LichChieu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__MaRC__3B75D760" Association="Self.FK__NhanVien__MaRC__3B75D760">
+            <End Role="RapChieu" EntitySet="RapChieu" />
+            <End Role="NhanVien" EntitySet="NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NVChamSoc__MaNV__3F466844" Association="Self.FK__NVChamSoc__MaNV__3F466844">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="NVChamSoc" EntitySet="NVChamSoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NVDangTai__MaNV__46E78A0C" Association="Self.FK__NVDangTai__MaNV__46E78A0C">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="NVDangTai" EntitySet="NVDangTai" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NVQuanLy__MaNV__4316F928" Association="Self.FK__NVQuanLy__MaNV__4316F928">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="NVQuanLy" EntitySet="NVQuanLy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PhongChieu__MaRC__4F7CD00D" Association="Self.FK__PhongChieu__MaRC__4F7CD00D">
+            <End Role="RapChieu" EntitySet="RapChieu" />
+            <End Role="PhongChieu" EntitySet="PhongChieu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaGhe__5CD6CB2B" Association="Self.FK__Ve__MaGhe__5CD6CB2B">
+            <End Role="Ghe" EntitySet="Ghe" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaPhim__5BE2A6F2" Association="Self.FK__Ve__MaPhim__5BE2A6F2">
+            <End Role="Phim" EntitySet="Phim" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookingFilmTicketsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DatVe">
+          <Key>
+            <PropertyRef Name="MaDat" />
+          </Key>
+          <Property Name="MaDat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="MaVe" Type="Int32" />
+          <Property Name="NgayDat" Type="DateTime" Precision="0" />
+          <Property Name="MaDoAn" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SoLuongDoAn" Type="Int32" />
+          <Property Name="TongTien" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="MaSuKien" Type="Int32" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="9" Scale="0" />
+          <NavigationProperty Name="DoAn" Relationship="Self.FK__DatVe__MaDoAn__628FA481" FromRole="DatVe" ToRole="DoAn" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK__DatVe__MaKH__60A75C0F" FromRole="DatVe" ToRole="KhachHang" />
+          <NavigationProperty Name="SuKien" Relationship="Self.FK__DatVe__MaSuKien__6383C8BA" FromRole="DatVe" ToRole="SuKien" />
+          <NavigationProperty Name="Ve" Relationship="Self.FK__DatVe__MaVe__619B8048" FromRole="DatVe" ToRole="Ve" />
+        </EntityType>
+        <EntityType Name="DoAn">
+          <Key>
+            <PropertyRef Name="MaDA" />
+          </Key>
+          <Property Name="MaDA" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenDA" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="GiaDA" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="HinhDA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaDoAn__628FA481" FromRole="DoAn" ToRole="DatVe" />
+        </EntityType>
+        <EntityType Name="Ghe">
+          <Key>
+            <PropertyRef Name="MaGhe" />
+          </Key>
+          <Property Name="MaGhe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenGhe" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGhe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrangGhe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaPC" Type="Int32" />
+          <NavigationProperty Name="PhongChieu" Relationship="Self.FK__Ghe__MaPC__5535A963" FromRole="Ghe" ToRole="PhongChieu" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaGhe__5CD6CB2B" FromRole="Ghe" ToRole="Ve" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTenKH" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhauKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GioiTinh" Type="Boolean" Nullable="false" />
+          <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaKH__60A75C0F" FromRole="KhachHang" ToRole="DatVe" />
+        </EntityType>
+        <EntityType Name="LichChieu">
+          <Key>
+            <PropertyRef Name="MaLC" />
+          </Key>
+          <Property Name="MaLC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayChieu" Type="DateTime" Precision="0" />
+          <Property Name="SuatChieu" Type="Time" Precision="7" />
+          <Property Name="MaPhim" Type="Int32" />
+          <NavigationProperty Name="Phim" Relationship="Self.FK__LichChieu__MaPhi__52593CB8" FromRole="LichChieu" ToRole="Phim" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserNameNV" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhauNV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HoTenNV" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GioiTinh" Type="Boolean" Nullable="false" />
+          <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="HeSoLuong" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaRC" Type="Int32" />
+          <NavigationProperty Name="RapChieu" Relationship="Self.FK__NhanVien__MaRC__3B75D760" FromRole="NhanVien" ToRole="RapChieu" />
+          <NavigationProperty Name="NVChamSocs" Relationship="Self.FK__NVChamSoc__MaNV__3F466844" FromRole="NhanVien" ToRole="NVChamSoc" />
+          <NavigationProperty Name="NVDangTais" Relationship="Self.FK__NVDangTai__MaNV__46E78A0C" FromRole="NhanVien" ToRole="NVDangTai" />
+          <NavigationProperty Name="NVQuanLies" Relationship="Self.FK__NVQuanLy__MaNV__4316F928" FromRole="NhanVien" ToRole="NVQuanLy" />
+        </EntityType>
+        <EntityType Name="NVChamSoc">
+          <Key>
+            <PropertyRef Name="MaNVCS" />
+          </Key>
+          <Property Name="MaNVCS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNV" Type="Int32" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__NVChamSoc__MaNV__3F466844" FromRole="NVChamSoc" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="NVDangTai">
+          <Key>
+            <PropertyRef Name="MaNVDT" />
+          </Key>
+          <Property Name="MaNVDT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNV" Type="Int32" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__NVDangTai__MaNV__46E78A0C" FromRole="NVDangTai" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="NVQuanLy">
+          <Key>
+            <PropertyRef Name="MaNVQL" />
+          </Key>
+          <Property Name="MaNVQL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNV" Type="Int32" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__NVQuanLy__MaNV__4316F928" FromRole="NVQuanLy" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="Phim">
+          <Key>
+            <PropertyRef Name="MaPhim" />
+          </Key>
+          <Property Name="MaPhim" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenPhim" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TheLoai" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiLuong" Type="Int16" />
+          <Property Name="DaoDien" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NamSanXuat" Type="Int16" />
+          <Property Name="HinhPhim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LichChieux" Relationship="Self.FK__LichChieu__MaPhi__52593CB8" FromRole="Phim" ToRole="LichChieu" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaPhim__5BE2A6F2" FromRole="Phim" ToRole="Ve" />
+        </EntityType>
+        <EntityType Name="PhongChieu">
+          <Key>
+            <PropertyRef Name="MaPC" />
+          </Key>
+          <Property Name="MaPC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenPC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SoHangGhe" Type="Int32" />
+          <Property Name="SoGheMoiHang" Type="Int32" />
+          <Property Name="MaRC" Type="Int32" />
+          <NavigationProperty Name="Ghes" Relationship="Self.FK__Ghe__MaPC__5535A963" FromRole="PhongChieu" ToRole="Ghe" />
+          <NavigationProperty Name="RapChieu" Relationship="Self.FK__PhongChieu__MaRC__4F7CD00D" FromRole="PhongChieu" ToRole="RapChieu" />
+        </EntityType>
+        <EntityType Name="RapChieu">
+          <Key>
+            <PropertyRef Name="MaRC" />
+          </Key>
+          <Property Name="MaRC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenRC" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NhanViens" Relationship="Self.FK__NhanVien__MaRC__3B75D760" FromRole="RapChieu" ToRole="NhanVien" />
+          <NavigationProperty Name="PhongChieux" Relationship="Self.FK__PhongChieu__MaRC__4F7CD00D" FromRole="RapChieu" ToRole="PhongChieu" />
+        </EntityType>
+        <EntityType Name="SuKien">
+          <Key>
+            <PropertyRef Name="MaSK" />
+          </Key>
+          <Property Name="MaSK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenSK" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
+          <Property Name="NgayKetThuc" Type="DateTime" Precision="0" />
+          <Property Name="MucKhuyenMai" Type="Decimal" Precision="4" Scale="1" />
+          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaSuKien__6383C8BA" FromRole="SuKien" ToRole="DatVe" />
+        </EntityType>
+        <EntityType Name="Ve">
+          <Key>
+            <PropertyRef Name="MaVe" />
+          </Key>
+          <Property Name="MaVe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GiaVe" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="MaPhim" Type="Int32" />
+          <Property Name="MaGhe" Type="Int32" />
+          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaVe__619B8048" FromRole="Ve" ToRole="DatVe" />
+          <NavigationProperty Name="Ghe" Relationship="Self.FK__Ve__MaGhe__5CD6CB2B" FromRole="Ve" ToRole="Ghe" />
+          <NavigationProperty Name="Phim" Relationship="Self.FK__Ve__MaPhim__5BE2A6F2" FromRole="Ve" ToRole="Phim" />
+        </EntityType>
+        <Association Name="FK__DatVe__MaDoAn__628FA481">
+          <End Role="DoAn" Type="Self.DoAn" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoAn">
+              <PropertyRef Name="MaDA" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaDoAn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatVe__MaKH__60A75C0F">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatVe__MaSuKien__6383C8BA">
+          <End Role="SuKien" Type="Self.SuKien" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuKien">
+              <PropertyRef Name="MaSK" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaSuKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatVe__MaVe__619B8048">
+          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
+          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ve">
+              <PropertyRef Name="MaVe" />
+            </Principal>
+            <Dependent Role="DatVe">
+              <PropertyRef Name="MaVe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ghe__MaPC__5535A963">
+          <End Role="PhongChieu" Type="Self.PhongChieu" Multiplicity="0..1" />
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhongChieu">
+              <PropertyRef Name="MaPC" />
+            </Principal>
+            <Dependent Role="Ghe">
+              <PropertyRef Name="MaPC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaGhe__5CD6CB2B">
+          <End Role="Ghe" Type="Self.Ghe" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ghe">
+              <PropertyRef Name="MaGhe" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaGhe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichChieu__MaPhi__52593CB8">
+          <End Role="Phim" Type="Self.Phim" Multiplicity="0..1" />
+          <End Role="LichChieu" Type="Self.LichChieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phim">
+              <PropertyRef Name="MaPhim" />
+            </Principal>
+            <Dependent Role="LichChieu">
+              <PropertyRef Name="MaPhim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__MaRC__3B75D760">
+          <End Role="RapChieu" Type="Self.RapChieu" Multiplicity="0..1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RapChieu">
+              <PropertyRef Name="MaRC" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="MaRC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NVChamSoc__MaNV__3F466844">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="NVChamSoc" Type="Self.NVChamSoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="NVChamSoc">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NVDangTai__MaNV__46E78A0C">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="NVDangTai" Type="Self.NVDangTai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="NVDangTai">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NVQuanLy__MaNV__4316F928">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="NVQuanLy" Type="Self.NVQuanLy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="NVQuanLy">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaPhim__5BE2A6F2">
+          <End Role="Phim" Type="Self.Phim" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phim">
+              <PropertyRef Name="MaPhim" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaPhim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PhongChieu__MaRC__4F7CD00D">
+          <End Role="RapChieu" Type="Self.RapChieu" Multiplicity="0..1" />
+          <End Role="PhongChieu" Type="Self.PhongChieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RapChieu">
+              <PropertyRef Name="MaRC" />
+            </Principal>
+            <Dependent Role="PhongChieu">
+              <PropertyRef Name="MaRC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingFilmTicketsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DatVes" EntityType="Self.DatVe" />
+          <EntitySet Name="DoAns" EntityType="Self.DoAn" />
+          <EntitySet Name="Ghes" EntityType="Self.Ghe" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="LichChieux" EntityType="Self.LichChieu" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="NVChamSocs" EntityType="Self.NVChamSoc" />
+          <EntitySet Name="NVDangTais" EntityType="Self.NVDangTai" />
+          <EntitySet Name="NVQuanLies" EntityType="Self.NVQuanLy" />
+          <EntitySet Name="Phims" EntityType="Self.Phim" />
+          <EntitySet Name="PhongChieux" EntityType="Self.PhongChieu" />
+          <EntitySet Name="RapChieux" EntityType="Self.RapChieu" />
+          <EntitySet Name="SuKiens" EntityType="Self.SuKien" />
+          <EntitySet Name="Ves" EntityType="Self.Ve" />
+          <AssociationSet Name="FK__DatVe__MaDoAn__628FA481" Association="Self.FK__DatVe__MaDoAn__628FA481">
+            <End Role="DoAn" EntitySet="DoAns" />
+            <End Role="DatVe" EntitySet="DatVes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatVe__MaKH__60A75C0F" Association="Self.FK__DatVe__MaKH__60A75C0F">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="DatVe" EntitySet="DatVes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatVe__MaSuKien__6383C8BA" Association="Self.FK__DatVe__MaSuKien__6383C8BA">
+            <End Role="SuKien" EntitySet="SuKiens" />
+            <End Role="DatVe" EntitySet="DatVes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatVe__MaVe__619B8048" Association="Self.FK__DatVe__MaVe__619B8048">
+            <End Role="Ve" EntitySet="Ves" />
+            <End Role="DatVe" EntitySet="DatVes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ghe__MaPC__5535A963" Association="Self.FK__Ghe__MaPC__5535A963">
+            <End Role="PhongChieu" EntitySet="PhongChieux" />
+            <End Role="Ghe" EntitySet="Ghes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaGhe__5CD6CB2B" Association="Self.FK__Ve__MaGhe__5CD6CB2B">
+            <End Role="Ghe" EntitySet="Ghes" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichChieu__MaPhi__52593CB8" Association="Self.FK__LichChieu__MaPhi__52593CB8">
+            <End Role="Phim" EntitySet="Phims" />
+            <End Role="LichChieu" EntitySet="LichChieux" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__MaRC__3B75D760" Association="Self.FK__NhanVien__MaRC__3B75D760">
+            <End Role="RapChieu" EntitySet="RapChieux" />
+            <End Role="NhanVien" EntitySet="NhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NVChamSoc__MaNV__3F466844" Association="Self.FK__NVChamSoc__MaNV__3F466844">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="NVChamSoc" EntitySet="NVChamSocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NVDangTai__MaNV__46E78A0C" Association="Self.FK__NVDangTai__MaNV__46E78A0C">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="NVDangTai" EntitySet="NVDangTais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NVQuanLy__MaNV__4316F928" Association="Self.FK__NVQuanLy__MaNV__4316F928">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="NVQuanLy" EntitySet="NVQuanLies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaPhim__5BE2A6F2" Association="Self.FK__Ve__MaPhim__5BE2A6F2">
+            <End Role="Phim" EntitySet="Phims" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PhongChieu__MaRC__4F7CD00D" Association="Self.FK__PhongChieu__MaRC__4F7CD00D">
+            <End Role="RapChieu" EntitySet="RapChieux" />
+            <End Role="PhongChieu" EntitySet="PhongChieux" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookingFilmTicketsModelStoreContainer" CdmEntityContainer="BookingFilmTicketsEntities1">
+          <EntitySetMapping Name="DatVes">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.DatVe">
+              <MappingFragment StoreEntitySet="DatVe">
+                <ScalarProperty Name="MaDat" ColumnName="MaDat" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaVe" ColumnName="MaVe" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="MaDoAn" ColumnName="MaDoAn" />
+                <ScalarProperty Name="SoLuongDoAn" ColumnName="SoLuongDoAn" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaSuKien" ColumnName="MaSuKien" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoAns">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.DoAn">
+              <MappingFragment StoreEntitySet="DoAn">
+                <ScalarProperty Name="MaDA" ColumnName="MaDA" />
+                <ScalarProperty Name="TenDA" ColumnName="TenDA" />
+                <ScalarProperty Name="GiaDA" ColumnName="GiaDA" />
+                <ScalarProperty Name="HinhDA" ColumnName="HinhDA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ghes">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.Ghe">
+              <MappingFragment StoreEntitySet="Ghe">
+                <ScalarProperty Name="MaGhe" ColumnName="MaGhe" />
+                <ScalarProperty Name="TenGhe" ColumnName="TenGhe" />
+                <ScalarProperty Name="LoaiGhe" ColumnName="LoaiGhe" />
+                <ScalarProperty Name="TinhTrangGhe" ColumnName="TinhTrangGhe" />
+                <ScalarProperty Name="MaPC" ColumnName="MaPC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="HoTenKH" ColumnName="HoTenKH" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MatKhauKH" ColumnName="MatKhauKH" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichChieux">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.LichChieu">
+              <MappingFragment StoreEntitySet="LichChieu">
+                <ScalarProperty Name="MaLC" ColumnName="MaLC" />
+                <ScalarProperty Name="NgayChieu" ColumnName="NgayChieu" />
+                <ScalarProperty Name="SuatChieu" ColumnName="SuatChieu" />
+                <ScalarProperty Name="MaPhim" ColumnName="MaPhim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="UserNameNV" ColumnName="UserNameNV" />
+                <ScalarProperty Name="MatKhauNV" ColumnName="MatKhauNV" />
+                <ScalarProperty Name="HoTenNV" ColumnName="HoTenNV" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+                <ScalarProperty Name="HeSoLuong" ColumnName="HeSoLuong" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="MaRC" ColumnName="MaRC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NVChamSocs">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.NVChamSoc">
+              <MappingFragment StoreEntitySet="NVChamSoc">
+                <ScalarProperty Name="MaNVCS" ColumnName="MaNVCS" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NVDangTais">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.NVDangTai">
+              <MappingFragment StoreEntitySet="NVDangTai">
+                <ScalarProperty Name="MaNVDT" ColumnName="MaNVDT" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NVQuanLies">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.NVQuanLy">
+              <MappingFragment StoreEntitySet="NVQuanLy">
+                <ScalarProperty Name="MaNVQL" ColumnName="MaNVQL" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phims">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.Phim">
+              <MappingFragment StoreEntitySet="Phim">
+                <ScalarProperty Name="MaPhim" ColumnName="MaPhim" />
+                <ScalarProperty Name="TenPhim" ColumnName="TenPhim" />
+                <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+                <ScalarProperty Name="ThoiLuong" ColumnName="ThoiLuong" />
+                <ScalarProperty Name="DaoDien" ColumnName="DaoDien" />
+                <ScalarProperty Name="NamSanXuat" ColumnName="NamSanXuat" />
+                <ScalarProperty Name="HinhPhim" ColumnName="HinhPhim" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhongChieux">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.PhongChieu">
+              <MappingFragment StoreEntitySet="PhongChieu">
+                <ScalarProperty Name="MaPC" ColumnName="MaPC" />
+                <ScalarProperty Name="TenPC" ColumnName="TenPC" />
+                <ScalarProperty Name="SoHangGhe" ColumnName="SoHangGhe" />
+                <ScalarProperty Name="SoGheMoiHang" ColumnName="SoGheMoiHang" />
+                <ScalarProperty Name="MaRC" ColumnName="MaRC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RapChieux">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.RapChieu">
+              <MappingFragment StoreEntitySet="RapChieu">
+                <ScalarProperty Name="MaRC" ColumnName="MaRC" />
+                <ScalarProperty Name="TenRC" ColumnName="TenRC" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuKiens">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.SuKien">
+              <MappingFragment StoreEntitySet="SuKien">
+                <ScalarProperty Name="MaSK" ColumnName="MaSK" />
+                <ScalarProperty Name="TenSK" ColumnName="TenSK" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+                <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+                <ScalarProperty Name="MucKhuyenMai" ColumnName="MucKhuyenMai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ves">
+            <EntityTypeMapping TypeName="BookingFilmTicketsModel.Ve">
+              <MappingFragment StoreEntitySet="Ve">
+                <ScalarProperty Name="MaVe" ColumnName="MaVe" />
+                <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
+                <ScalarProperty Name="MaPhim" ColumnName="MaPhim" />
+                <ScalarProperty Name="MaGhe" ColumnName="MaGhe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

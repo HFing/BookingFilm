@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model BookingFilm.Phim
+
+@using (Html.BeginForm("Create", "Movie", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Create Movie</h4>
+        <hr />
+        <label for="TenPhim">Name Moive:</label><br>
+        @Html.TextBoxFor(model => model.TenPhim, new { id = "TenPhim", @required = "required", @maxlength = "60" })<br>
+
+        <label for="TheLoai">Movie Genre:</label><br>
+        @Html.TextBoxFor(model => model.TheLoai, new { id = "TheLoai", @required = "required", @maxlength = "40" })<br>
+
+        <label for="ThoiLuong">Movie Duration:</label><br>
+        @Html.TextBoxFor(model => model.ThoiLuong, new { id = "ThoiLuong", type = "number", step = "1", @required = "required" })<br>
+
+        <label for="DaoDien">Directorth</label><br>
+        @Html.TextBoxFor(model => model.DaoDien, new { id = "DaoDien", @required = "required" , @maxlength = "20" })<br>
+
+        <label for="NamSanXuat">Year of Manufacture</label><br>
+        @Html.TextBoxFor(model => model.NamSanXuat, new { id = "NamSanXuat", type = "number", @required = "required" })<br>
+
+        <label for="MoTa">Describe</label><br>
+        @Html.TextBoxFor(model => model.MoTa, new { id = "MoTa" , @maxlength = "2000" })<br>
+
+        <label for="HinhPhim">Movie Pictures:</label><br>
+        <input type="file" id="movieImage" name="HinhPhim" required><br>
+
+        <input type="submit" value="Create">
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 10px 0;
+        color: #333;
+    }
+
+    .form-horizontal {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    }
+
+        .form-horizontal label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-horizontal input[type="text"],
+        .form-horizontal input[type="email"],
+        .form-horizontal input[type="password"],
+        .form-horizontal input[type="date"],
+        .form-horizontal input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .form-horizontal input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 0px;
+        }
+
+            .form-horizontal input[type="submit"]:hover {
+                background-color: #2980b9;
+            }
+
+    input {
+        margin-top: -25px;
+    }
+
+    .text-danger {
+        color: red;
+    }
+</style>
+
+
+

@@ -1,0 +1,114 @@
+﻿@model BookingFilm.KhachHang
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.MaKH)
+
+        <label for="HoTenKH">Name Customer:</label><br>
+        @Html.TextBoxFor(model => model.HoTenKH, new { id = "HoTenKH" , @required = "required" })<br>
+
+        <label for="Email">Email Customer</label><br>
+        @Html.TextBoxFor(model => model.Email, new { id = "Email", type = "email", @required = "required" })<br>
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })<br>
+        <label for="MatKhauKH">Pass Customer</label><br>
+        @Html.TextBoxFor(model => model.MatKhauKH, new { id = "MatKhauKH", @required = "required" })
+        @Html.ValidationMessageFor(model => model.MatKhauKH, "", new { @class = "text-danger" })<br>
+
+
+        <label for="NgaySinh">Date of Birth Customer</label><br>
+        @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { id = "NgaySinh", type = "date" , @required = "required" })<br>
+
+        <div style="display: flex; align-items: center;">
+            <label for="GioiTinh">Sex: </label>
+            @Html.RadioButtonFor(model => model.GioiTinh, true, new { id = "GioiTinhNam" }) <label for="GioiTinhNam">Nam</label>
+            @Html.RadioButtonFor(model => model.GioiTinh, false, new { id = "GioiTinhNu" }) <label for="GioiTinhNu">Nữ</label>
+        </div><br>
+
+        <label for="CCCD">CCCD</label><br>
+        @Html.TextBoxFor(model => model.CCCD, new { id = "CCCD", @required = "required" })
+        @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger" })<br>
+
+        <label for="DiaChi">Address Customer</label><br>
+        @Html.TextBoxFor(model => model.DiaChi, new { id = "DiaChi", @required = "required" })<br>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 10px 0;
+        color: #333;
+    }
+
+    .form-horizontal {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    }
+
+        .form-horizontal label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-horizontal input[type="text"],
+        .form-horizontal input[type="email"],
+        .form-horizontal input[type="password"],
+        .form-horizontal input[type="date"],
+        .form-horizontal input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .form-horizontal input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 0px;
+        }
+
+            .form-horizontal input[type="submit"]:hover {
+                background-color: #2980b9;
+            }
+
+    input {
+        margin-top: -25px;
+    }
+    .text-danger {
+        color: red;
+    }
+</style>
