@@ -30,8 +30,7 @@
 
                 <td>
                     <a href="@Url.Action("Edit", "CinemaRoom", new { id = phongChieu.MaPC })" style="display: inline !important">EDIT</a>
-                    <a href="@Url.Action("Delete", "CinemaRoom", new { id = phongChieu.MaPC })" style="display: inline !important" onclick="return confirm('Are you sure you want to delete this item?');">REMOVE</a>
-                </td>
+                    <a href="@Url.Action("Delete", "CinemaRoom", new { id = phongChieu.MaPC })" style="display: inline !important" onclick="return confirm('Are you sure you want to delete this cinema room ? All seats in this cinema room will also be deleted.');">REMOVE</a>                </td>
             </tr>
         }
     </tbody>

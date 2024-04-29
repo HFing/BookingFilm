@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,9 +52,41 @@ namespace BookingFilm.Controllers
 				return HttpNotFound();
 			}
 
+			var ghes = _context.Ghes.Where(g => g.MaPC == id).ToList();
+
+			foreach (var ghe in ghes)
+			{
+				_context.Ghes.Remove(ghe);
+			}
+
 			_context.PhongChieux.Remove(pc);
 			_context.SaveChanges();
 			return RedirectToAction("Index");
+		}
+
+
+		public ActionResult Edit(int id)
+		{
+			var pc = _context.PhongChieux.Find(id);
+			if (pc == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.MaRC = new SelectList(_context.RapChieux, "MaRC", "TenRC", pc.MaRC);
+			return View(pc);
+		}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit([Bind(Include = "MaPC,TenPC,SoHangGhe,SoGheMoiHang,MaRC")] PhongChieu phongChieu)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Entry(phongChieu).State = EntityState.Modified;
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			ViewBag.MaRC = new SelectList(_context.RapChieux, "MaRC", "TenRC", phongChieu.MaRC);
+			return View(phongChieu);
 		}
 	}
 }

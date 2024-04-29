@@ -1,0 +1,112 @@
+﻿@model BookingFilm.Ghe
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Index", "Seat", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Select Cinema and Cinema Room</h4>
+        <hr />
+        <label for="MaRC">Cinema:</label><br>
+        @Html.DropDownList("MaRC", null, "Select Cinema", new { @class = "form-control", @required = "required", id = "cinemaDropdown" })
+
+        <label for="MaPC">Cinema Room:</label><br>
+        @Html.DropDownList("MaPC", null, "Select Cinema Room", new { @class = "form-control", @required = "required", id = "cinemaRoomDropdown" })
+
+        <input type="submit" value="Submit">
+    </div>
+}
+
+
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 10px 0;
+        color: #333;
+    }
+
+    .form-horizontal {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    }
+
+        .form-horizontal label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-horizontal input[type="text"],
+        .form-horizontal input[type="email"],
+        .form-horizontal input[type="password"],
+        .form-horizontal input[type="date"],
+        .form-horizontal input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .form-horizontal input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block;
+        }
+
+            .form-horizontal input[type="submit"]:hover {
+                background-color: #2980b9;
+            }
+
+    input {
+        margin-top: -25px;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .form-control {
+        border: solid 1px;
+        border-radius: 10px;
+        margin-top: -28px;
+        font-size: 20px;
+        width: 300px;
+    }
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cinemaDropdown").change(function () {
+            var maRC = $(this).val();
+            if (!maRC) {
+                $('#cinemaRoomDropdown').html('<option>Select Cinema Room</option>');
+                return;
+            }
+            $.getJSON('https://localhost:44363/Seat/GetCinemaRooms', { MaRC: maRC }, function (data) {
+                var items = '<option>Select Cinema Room</option>';
+                $.each(data, function (i, cinemaRoom) {
+                    items += "<option value='" + cinemaRoom.Value + "'>" + cinemaRoom.Text + "</option>";
+                });
+                $('#cinemaRoomDropdown').html(items);
+            });
+        });
+    });
+</script>

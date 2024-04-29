@@ -215,6 +215,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DatVe.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -337,6 +338,9 @@
     <Content Include="Views\Cinema\Edit.cshtml" />
     <Content Include="Views\CinemaRoom\Create.cshtml" />
     <Content Include="Views\CinemaRoom\Index.cshtml" />
+    <Content Include="Views\CinemaRoom\Edit.cshtml" />
+    <Content Include="Views\Seat\Index.cshtml" />
+    <Content Include="Views\Seat\CinemaRoomLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
