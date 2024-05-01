@@ -216,6 +216,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\ProfileUserController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DatVe.cs">
@@ -285,6 +286,7 @@
     <Content Include="CSS\AdminPage.css" />
     <Content Include="CSS\home.css" />
     <Content Include="CSS\LoginPage.css" />
+    <Content Include="CSS\ProfileUser.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="JS\app.js" />
@@ -346,6 +348,9 @@
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutProfileUser.cshtml" />
+    <Content Include="Views\ProfileUser\Index.cshtml" />
+    <Content Include="Views\ProfileUser\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

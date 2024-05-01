@@ -38,5 +38,6 @@ namespace BookingFilm.Controllers
 			Session["User"] = null; // Xóa người dùng khỏi phiên
 			return RedirectToAction("Index", "Home");
 		}
+
 	}
 }
