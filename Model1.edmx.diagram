@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="52368267b58d4f40b93be134a0189138" Name="Diagram1">
+      <Diagram DiagramId="72c7f0a5aeb34fb1a268e25dd9b717e6" Name="Diagram1">
         <EntityTypeShape EntityType="BookingFilmTicketsModel.DatVe" Width="1.5" PointX="9.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.DoAn" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.Ghe" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />

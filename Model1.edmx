@@ -35,8 +35,8 @@
           <Property Name="MaGhe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenGhe" Type="nvarchar" MaxLength="4" />
           <Property Name="LoaiGhe" Type="nvarchar" MaxLength="10" />
-          <Property Name="TinhTrangGhe" Type="nvarchar" MaxLength="10" />
           <Property Name="MaPC" Type="int" />
+          <Property Name="TrangThaiGhe" Type="bit" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -410,8 +410,8 @@
           <Property Name="MaGhe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenGhe" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="LoaiGhe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TinhTrangGhe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MaPC" Type="Int32" />
+          <Property Name="TrangThaiGhe" Type="Boolean" />
           <NavigationProperty Name="PhongChieu" Relationship="Self.FK__Ghe__MaPC__5535A963" FromRole="Ghe" ToRole="PhongChieu" />
           <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaGhe__5CD6CB2B" FromRole="Ghe" ToRole="Ve" />
         </EntityType>
@@ -803,8 +803,8 @@
                 <ScalarProperty Name="MaGhe" ColumnName="MaGhe" />
                 <ScalarProperty Name="TenGhe" ColumnName="TenGhe" />
                 <ScalarProperty Name="LoaiGhe" ColumnName="LoaiGhe" />
-                <ScalarProperty Name="TinhTrangGhe" ColumnName="TinhTrangGhe" />
                 <ScalarProperty Name="MaPC" ColumnName="MaPC" />
+                <ScalarProperty Name="TrangThaiGhe" ColumnName="TrangThaiGhe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

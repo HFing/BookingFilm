@@ -36,6 +36,24 @@ namespace BookingFilm.Controllers
 			if (ModelState.IsValid)
 			{
 				_context.PhongChieux.Add(phongChieu);
+
+				// Tạo số ghế tương ứng
+				for (int i = 0; i < phongChieu.SoHangGhe; i++)
+				{
+					for (int j = 0; j < phongChieu.SoGheMoiHang; j++)
+					{
+						Ghe ghe = new Ghe
+						{
+							// Tên ghế theo dạng "{chữ cái hàng}{số ghế 2 chữ số}"
+							TenGhe = $"{(char)('A' + i)}{j + 1:D2}",
+							LoaiGhe = "Thường", // Thay đổi theo loại ghế thực tế của bạn
+							TrangThaiGhe = false, // giả sử ban đầu tất cả ghế đều trống
+							MaPC = phongChieu.MaPC
+						};
+						_context.Ghes.Add(ghe);
+					}
+				}
+
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			}

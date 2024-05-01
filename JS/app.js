@@ -1,32 +1,31 @@
 ﻿let num_cards_GLOBAL = 5;
 
 let cards = [];
-
-async function fetchData() {
-    try {
-        const response = await fetch('/Home/GetMovies');
-        const data = await response.json()
-
-        return data.map(item => ({
+fetch('/Home/GetMovies')
+    .then(response => response.json())
+    .then(data => {
+        // Xử lý dữ liệu đã nhận được từ server
+        cards = data.map(item => ({
             background: item.background,
             display_background: item.background,
             title: item.title,
             description: item.description
-        }))
-    } catch (error) {
-        console.error('Error:', error)
+        }));
+
+        // Tiếp tục xử lý với dữ liệu cards nếu cần
+        console.log(cards.length);
+        AddCarouselButtons();
+        CheckSizeAttributes();
+        AddCards();
+        MakeJumbotron();
+        CheckCards();
+        ResizeHeader();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Xử lý lỗi nếu cần
         return []; // Trả về một mảng rỗng nếu có lỗi
-    }
-}
-
-async function loadPage() {
-    const phims = await fetchData()
-    cards = phims
-    console.log(cards.length)
-    AddCarouselButtons(); CheckSizeAttributes(); AddCards(); MakeJumbotron(); CheckCards(); ResizeHeader();
-}
-
-window.addEventListener('load', loadPage); // Gọi hàm loadPage khi trang được tải xong
+    });
 
 let cast = [
     {
@@ -155,7 +154,7 @@ const ResizeHeader = () => {
             header.children[0].remove();
             header.append(brand, main_nav, right_nav);
         }
-        
+
     }
 };
 
