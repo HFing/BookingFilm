@@ -117,7 +117,6 @@ namespace BookingFilm.Controllers
 
 				existingDoAn.TenDA = doAn.TenDA;
 				existingDoAn.GiaDA = doAn.GiaDA;
-
 				if (HinhDA != null && HinhDA.ContentLength > 0)
 				{
 					existingDoAn.HinhDA = UrlImageAfterUpload(HinhDA);
