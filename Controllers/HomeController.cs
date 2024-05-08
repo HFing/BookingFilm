@@ -17,11 +17,41 @@ namespace BookingFilm.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			var phimList = _context.Phims.ToList();
+			var today = DateTime.Today;
+			var oneWeekLater = today.AddDays(7);
+
+			// Lấy danh sách các lịch chiếu trong vòng 7 ngày từ ngày hiện tại
+			var upcomingLichChieuList = _context.LichChieux
+				.Where(lc => lc.NgayChieu >= today && lc.NgayChieu <= oneWeekLater)
+				.ToList();
+
+			// Lấy danh sách các phim có lịch chiếu trong vòng 7 ngày từ ngày hiện tại
+			var upcomingPhimList = upcomingLichChieuList.Select(lc => lc.Phim).Distinct().ToList();
+
+			// Lấy danh sách các lịch chiếu sau 7 ngày từ ngày hiện tại
+			var futureLichChieuList = _context.LichChieux
+				.Where(lc => lc.NgayChieu > oneWeekLater)
+				.ToList();
+
+			// Lấy danh sách các phim sẽ chiếu sau 7 ngày từ ngày hiện tại
+			var futurePhimList = futureLichChieuList.Select(lc => lc.Phim).Distinct().ToList();
+
+			// Lấy danh sách các phim chưa có lịch chiếu
+			var noSchedulePhimList = _context.Phims
+				.Where(p => !_context.LichChieux.Any(lc => lc.MaPhim == p.MaPhim))
+				.ToList();
+
+			// Lấy danh sách tất cả các phim
+			var allPhimList = _context.Phims.ToList();
 
 			var user = Session["User"] as KhachHang; // Lấy user từ Session
 			ViewBag.User = user;
-			return View(phimList);
+			ViewBag.UpcomingPhimList = upcomingPhimList;
+			ViewBag.FuturePhimList = futurePhimList;
+			ViewBag.NoSchedulePhimList = noSchedulePhimList;
+			ViewBag.AllPhimList = allPhimList;
+
+			return View();
 		}
 
 

@@ -14,10 +14,7 @@ const IsMobile = () => {
 };
 
 const CheckSizeAttributes = () => {
-    let width =
-        window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.getElementsByTagName("body")[0].clientWidth;
+    let width = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName("body")[0].clientWidth;
 
     let carousels = document.getElementsByClassName("card-carousel");
 
@@ -44,7 +41,6 @@ const CheckSizeAttributes = () => {
             }
         }
     }
-
     num_cards_GLOBAL = new_num_cards;
 };
 
@@ -81,9 +77,16 @@ const CheckCards = () => {
     for (let i = 0; i < carousels.length; i++) {
         let carousel_width = carousels[i].clientWidth;
 
-        let btn_width =
-            carousels[i].getElementsByClassName("carousel-btn")[0].clientWidth +
-            carousels[i].getElementsByClassName("carousel-btn")[1].clientWidth;
+        let carouselBtns = carousels[i].getElementsByClassName("carousel-btn");
+        let btn_width = 0;
+
+        if (carouselBtns[0]) {
+            btn_width += carouselBtns[0].clientWidth;
+        }
+
+        if (carouselBtns[1]) {
+            btn_width += carouselBtns[1].clientWidth;
+        }
 
         let num_cards = num_cards_GLOBAL;
         let card_margin = 2;
@@ -114,6 +117,9 @@ const CheckCards = () => {
     }
 };
 
+document.addEventListener("DOMContentLoaded", function () {
+    CheckCards();
+});
 
 
 const ScrollFunction = () => {
