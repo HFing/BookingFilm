@@ -17,22 +17,14 @@ namespace BookingFilm.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
+			var phimList = _context.Phims.ToList();
+
 			var user = Session["User"] as KhachHang; // Lấy user từ Session
-			return View(user);
+			ViewBag.User = user;
+			return View(phimList);
 		}
 
-		public ActionResult GetMovies()
-		{
-			var cards = _context.Phims.Select(c => new
-			{
-				background = c.HinhPhim,
-				display_background = c.HinhPhim,
-				title = c.TenPhim,
-				description = c.MoTa
-			}).ToList();
 
-			return Json(cards, JsonRequestBehavior.AllowGet);
-		}
 		public ActionResult Logout()
 		{
 			Session["User"] = null; // Xóa người dùng khỏi phiên

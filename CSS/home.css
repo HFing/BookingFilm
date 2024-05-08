@@ -199,6 +199,7 @@ a {
 
 /* TOP SECTION */
 .top {
+    height: 600px;
     width: 100%;
     min-height: 250px;
     display: flex;
@@ -1161,4 +1162,29 @@ a {
     .socials svg {
         padding: 0px 10px;
     }
+}
+
+
+
+
+
+
+.card-carousel {
+    width: 100%;
+    margin: 25px 0px;
+    display: flex;
+}
+
+.card {
+    background-size: cover;
+    transform: scale(1);
+    transition: transform 0.2s;
+    border-radius: 5px;
+}
+
+.carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
