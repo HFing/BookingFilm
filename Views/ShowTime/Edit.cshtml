@@ -12,20 +12,24 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.HiddenFor(model => model.MaLC, new { id = "MaLC" })
-        <label>Showtime ID: @Html.DisplayFor(model => model.MaLC)</label>
+<div class="form-horizontal">
+    @Html.HiddenFor(model => model.MaLC, new { id = "MaLC" })
+    <label>Showtime ID: @Html.DisplayFor(model => model.MaLC)</label>
 
 
-        <label for="NgayChieu">Show Date:</label><br>
-        @Html.TextBoxFor(model => model.NgayChieu, "{0:yyyy-MM-dd}", new { id = "NgayChieu", type = "date", @required = "required" })<br>
+    <label for="NgayChieu">Show Date:</label><br>
+    @Html.TextBoxFor(model => model.NgayChieu, "{0:yyyy-MM-dd}", new { id = "NgayChieu", type = "date", @required = "required" })<br>
 
-        <label for="SuatChieu">Show Time:</label><br>
-        @Html.TextBoxFor(model => model.SuatChieu, "{0:hh\\:mm}", new { id = "SuatChieu", type = "time", @required = "required" })<br>
+    <label for="SuatChieu">Show Time:</label><br>
+    @Html.TextBoxFor(model => model.SuatChieu, "{0:hh\\:mm}", new { id = "SuatChieu", type = "time", @required = "required" })<br>
 
-        <label for="MaPhim">Film:</label><br>
-        @Html.DropDownListFor(model => model.MaPhim, (IEnumerable<SelectListItem>)ViewData["MaPhim"], "Select a film", new { @class = "form-control", @required = "required" })    <input type="submit" value="Save Changes">
-    </div>
+    <label for="MaPhim">Film:</label><br>
+    @Html.DropDownListFor(model => model.MaPhim, (IEnumerable<SelectListItem>)ViewData["MaPhim"], "Select a film", new { @class = "form-control", @required = "required" })
+
+    <label for="MaPC">Room:</label><br>
+    @Html.DropDownListFor(model => model.MaPC, (IEnumerable<SelectListItem>)ViewData["MaPC"], "Select a room", new { @class = "form-control", @required = "required" })
+    <input type="submit" value="Save Changes">
+</div>
 }
 
 

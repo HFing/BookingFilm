@@ -219,6 +219,7 @@
     <Compile Include="Controllers\ProfileUserController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\ShowTimeController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DatVe.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -288,9 +289,11 @@
     <Content Include="CSS\home.css" />
     <Content Include="CSS\LoginPage.css" />
     <Content Include="CSS\ProfileUser.css" />
+    <Content Include="CSS\Ticket.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="JS\app.js" />
+    <Content Include="JS\Ticket.js" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -355,6 +358,8 @@
     <Content Include="Views\ShowTime\Index.cshtml" />
     <Content Include="Views\ShowTime\Edit.cshtml" />
     <Content Include="Views\ShowTime\Create.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\GetSeats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

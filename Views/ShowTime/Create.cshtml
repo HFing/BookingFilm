@@ -11,21 +11,24 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Create Show Time</h4>
-        <hr />
+<div class="form-horizontal">
+    <h4>Create Show Time</h4>
+    <hr />
 
-        <label for="NgayChieu">Show Date:</label><br>
-        @Html.TextBoxFor(model => model.NgayChieu, "{0:yyyy-MM-dd}", new { id = "NgayChieu", type = "date", @required = "required" })<br>
+    <label for="NgayChieu">Show Date:</label><br>
+    @Html.TextBoxFor(model => model.NgayChieu, "{0:yyyy-MM-dd}", new { id = "NgayChieu", type = "date", @required = "required" })<br>
 
-        <label for="SuatChieu">Show Time:</label><br>
-        @Html.TextBoxFor(model => model.SuatChieu, "{0:hh\\:mm}", new { id = "SuatChieu", type = "time", @required = "required" })<br>
+    <label for="SuatChieu">Show Time:</label><br>
+    @Html.TextBoxFor(model => model.SuatChieu, "{0:hh\\:mm}", new { id = "SuatChieu", type = "time", @required = "required" })<br>
 
-        <label for="MaPhim">Movie:</label><br>
-        @Html.DropDownListFor(model => model.MaPhim, (SelectList)ViewBag.MaPhim, "Select a movie", new {  id = "MaPhim", @class = "form-control", @required = "required" })<br>
+    <label for="MaPhim">Movie:</label><br>
+    @Html.DropDownListFor(model => model.MaPhim, (SelectList)ViewBag.MaPhim, "Select a movie", new { id = "MaPhim", @class = "form-control", @required = "required" })<br>
 
-        <input type="submit" value="Create">
-    </div>
+    <label for="MaPC">Room:</label><br>
+    @Html.DropDownListFor(model => model.MaPC, (SelectList)ViewBag.MaPC, "Select a room", new { id = "MaPC", @class = "form-control", @required = "required" })<br> <!-- DropDownListFor cho Phòng Chiếu -->
+
+    <input type="submit" value="Create">
+</div>
 }
 
 

@@ -18,7 +18,9 @@ namespace BookingFilm
         public Nullable<System.DateTime> NgayChieu { get; set; }
         public Nullable<System.TimeSpan> SuatChieu { get; set; }
         public Nullable<int> MaPhim { get; set; }
+        public Nullable<int> MaPC { get; set; }
     
+        public virtual PhongChieu PhongChieu { get; set; }
         public virtual Phim Phim { get; set; }
     }
 }

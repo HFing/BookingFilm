@@ -18,7 +18,7 @@ namespace BookingFilm.Controllers
 		}
 		public ActionResult Index()
 		{
-			var lichChieu = _context.LichChieux.Include("Phim").ToList(); // Join với bảng Phim
+			var lichChieu = _context.LichChieux.Include("Phim").Include("PhongChieu").ToList(); // Join với bảng Phim và PhongChieu
 			ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim");
 			return View(lichChieu); // Truyền dữ liệu sang View
 		}
@@ -32,12 +32,13 @@ namespace BookingFilm.Controllers
 			}
 
 			ViewData["MaPhim"] = new SelectList(_context.Phims, "MaPhim", "TenPhim", lichChieu.MaPhim);
+			ViewData["MaPC"] = new SelectList(_context.PhongChieux, "MaPC", "TenPC", lichChieu.MaPC); // SelectList cho Phòng Chiếu
 			return View(lichChieu);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "MaLC,NgayChieu,SuatChieu,MaPhim")] BookingFilm.LichChieu lichChieu)
+		public ActionResult Edit([Bind(Include = "MaLC,NgayChieu,SuatChieu,MaPhim,MaPC")] BookingFilm.LichChieu lichChieu) // Thêm MaPC vào Bind
 		{
 			if (ModelState.IsValid)
 			{
@@ -50,6 +51,7 @@ namespace BookingFilm.Controllers
 				existingLichChieu.NgayChieu = lichChieu.NgayChieu;
 				existingLichChieu.SuatChieu = lichChieu.SuatChieu;
 				existingLichChieu.MaPhim = lichChieu.MaPhim;
+				existingLichChieu.MaPC = lichChieu.MaPC; // Cập nhật MaPC
 
 				_context.Entry(existingLichChieu).State = EntityState.Modified;
 				_context.SaveChanges();
@@ -57,6 +59,7 @@ namespace BookingFilm.Controllers
 			}
 
 			ViewData["MaPhim"] = new SelectList(_context.Phims, "MaPhim", "TenPhim", lichChieu.MaPhim);
+			ViewData["MaPC"] = new SelectList(_context.PhongChieux, "MaPC", "TenPC", lichChieu.MaPC); // SelectList cho Phòng Chiếu
 			return View(lichChieu);
 		}
 
@@ -79,16 +82,16 @@ namespace BookingFilm.Controllers
 			return RedirectToAction("Index");
 		}
 
-		[HttpGet]
 		public ActionResult Create()
 		{
 			ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim");
+			ViewBag.MaPC = new SelectList(_context.PhongChieux, "MaPC", "TenPC"); // SelectList cho Phòng Chiếu
 			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "MaLC,NgayChieu,SuatChieu,MaPhim")] LichChieu lichChieu)
+		public ActionResult Create([Bind(Include = "MaLC,NgayChieu,SuatChieu,MaPhim,MaPC")] LichChieu lichChieu) // Thêm MaPC vào Bind
 		{
 			if (ModelState.IsValid)
 			{
@@ -98,6 +101,7 @@ namespace BookingFilm.Controllers
 			}
 
 			ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim", lichChieu.MaPhim);
+			ViewBag.MaPC = new SelectList(_context.PhongChieux, "MaPC", "TenPC", lichChieu.MaPC); // SelectList cho Phòng Chiếu
 			return View(lichChieu);
 		}
 	}

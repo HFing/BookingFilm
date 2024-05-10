@@ -13,6 +13,7 @@
             <th>Movie Name</th>
             <th>Show Date</th>
             <th>Show Time</th>
+            <th>Room Name</th> <!-- Thêm cột mới cho Phòng Chiếu -->
             <th>Action</th>
         </tr>
     </thead>
@@ -24,6 +25,7 @@
                 <td>@lichChieu.Phim.TenPhim</td>
                 <td>@(lichChieu.NgayChieu.HasValue ? lichChieu.NgayChieu.Value.ToShortDateString() : "")</td>
                 <td>@lichChieu.SuatChieu</td>
+                <td>@lichChieu.PhongChieu.TenPC</td> <!-- Hiển thị tên Phòng Chiếu -->
                 <td>
                     <a href="@Url.Action("Edit", "ShowTime", new { id = lichChieu.MaLC })" style="display: inline !important">EDIT</a>
                     <a href="@Url.Action("Delete", "ShowTime", new { id = lichChieu.MaLC })" style="display: inline !important" onclick="return confirm('Are you sure you want to delete this item?');">REMOVE</a>

@@ -18,6 +18,7 @@ namespace BookingFilm
         public PhongChieu()
         {
             this.Ghes = new HashSet<Ghe>();
+            this.LichChieux = new HashSet<LichChieu>();
         }
     
         public int MaPC { get; set; }
@@ -28,6 +29,8 @@ namespace BookingFilm
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ghe> Ghes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichChieu> LichChieux { get; set; }
         public virtual RapChieu RapChieu { get; set; }
     }
 }
