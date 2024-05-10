@@ -44,31 +44,21 @@ namespace BookingFilm.Controllers
 			return View(phim);
 		}
 
+
 		[HttpPost]
 		public ActionResult GetSeats(int MaRC, int MaLC)
 		{
-			// Lấy LichChieu tương ứng với MaLC
-			var lichChieu = _context.LichChieux.Include(lc => lc.Phim).FirstOrDefault(lc => lc.MaLC == MaLC);
-
+			var lichChieu = _context.LichChieux.Include(lc => lc.PhongChieu.Ghes)
+											   .Include(lc => lc.Phim)
+											   .SingleOrDefault(lc => lc.MaLC == MaLC && lc.PhongChieu.MaRC == MaRC);
 			if (lichChieu == null)
 			{
-				// Xử lý trường hợp không tìm thấy LichChieu
 				return HttpNotFound();
 			}
 
-			// Lấy thông tin phim từ LichChieu
-			var phim = lichChieu.Phim;
-
-			// Lấy danh sách ghế từ PhongChieu
-			var seats = _context.PhongChieux.FirstOrDefault(pc => pc.MaRC == MaRC)?.Ghes.ToList();
-
-			// Truyền Phim và Ghes vào ViewBag
-			ViewBag.Phim = phim;
-			ViewBag.Ghes = seats;
-
-			// Trả về view
-			return View();
+			return View("GetSeats", lichChieu);
 		}
+
 
 	}
 }

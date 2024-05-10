@@ -17,14 +17,14 @@
         <div class="cinema-row">
             @foreach (var ghe in hang.OrderBy(ghe => ghe.TenGhe))
             {
-                <a href="@Url.Action("Edit", "Seat", new { id = ghe.MaGhe })" class="cinema-seat @(ghe.TrangThaiGhe.GetValueOrDefault() ? "empty-seat" : "")">
+                <a href="@Url.Action("Edit", "Seat", new { id = ghe.MaGhe })" class="cinema-seat @(ghe.TinhTrangGhe.GetValueOrDefault() ? "empty-seat" : "")">
                     @ghe.TenGhe
                 </a>
             }
         </div>
     }
     <div class="details" id="det">
-        <button class="Block" >Block</button>
+        <button class="Block">Block</button>
         <button class="Available">Available</button>
 
     </div>
@@ -138,6 +138,5 @@
             top: -20px;
             left: 0;
         }
-    
 
 </style>

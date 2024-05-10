@@ -1,8 +1,4 @@
-﻿@model BookingFilm.Ghe
-
-@{
-    Layout = null;
-}
+﻿@model BookingFilm.LichChieu
 
 
 <!DOCTYPE html>
@@ -20,46 +16,160 @@
             <div class="play">
                 <i class="bi bi-house-fill" id="play"></i>
             </div>
-            <img src="@ViewBag.Phim.HinhPhim" alt="" id="poster" />
+            <img src="@Model.Phim.HinhPhim" alt="" id="poster" />
 
             <div class="cont">
                 <h6>Directed by</h6>
-                <p>@ViewBag.Phim.DaoDien</p>
+                <p>@Model.Phim.DaoDien</p>
                 <h6>Category</h6>
                 <p>
-                    @ViewBag.Phim.TheLoai
+                    @Model.Phim.TheLoai
                 </p>
                 <h6>Year Of Manufacture</h6>
-                <p>	@ViewBag.Phim.NamSanXuat</p>
+                <p>	@Model.Phim.NamSanXuat</p>
                 <h6>Describe</h6>
-                <p>	@ViewBag.Phim.MoTa</p>
+                <p>	@Model.Phim.MoTa</p>
             </div>
         </div>
         <div class="right">
 
-
-
-
             <div class="head_time">
-                <h1 id="title">@ViewBag.Phim.TenPhim</h1>
+                <h1 id="title">@Model.Phim.TenPhim</h1>
                 <div class="time">
-                    <h6><i class="bi bi-clock"></i> @ViewBag.Phim.ThoiLuong minutes</h6>
+                    <h6><i class="bi bi-clock"></i> @Model.Phim.ThoiLuong minutes</h6>
                     <button>PG-13</button>
                 </div>
             </div>
 
-            
+            <div class="screen" id="screen">
+                Screen
+            </div>
+            <div class="chair" id="chair">
+                @foreach (var hang in Model.PhongChieu.Ghes.GroupBy(ghe => ghe.TenGhe.Substring(0, 1)))
+                {
+                    <div class="cinema-row">
+                        @foreach (var ghe in hang.OrderBy(ghe => ghe.TenGhe))
+                        {
+                            if (ghe.TinhTrangGhe == false)
+                            {
+                                <li class="seat" data-id="@ghe.TenGhe">
+                                    @ghe.TenGhe
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="seat" style="background: #fd6565 !important;">
+                                    @ghe.TenGhe
+                                </li>
+                            }
+
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="details" id="det">
+                <div class="details_chair">
+                    <li>Avalable</li>
+                    <li>Booked</li>
+                    <li>Selected</li>
+                </div>
+            </div>
+            <button class="book_tic" id="book_ticket">
+                <i class="bi bi-arrow-right-short"></i>
+            </button>
+
             <footer>
                 <p class="footer-text">© 2024 LeeWinHS, By H-Fing</p>
             </footer>
         </div>
-    </div>
+        </div>
 
     <script src="~/JS/Ticket.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.js" integrity="sha512-wkHtSbhQMx77jh9oKL0AlLBd15fOMoJUowEpAzmSG5q5Pg9oF+XoMLCitFmi7AOhIVhR6T6BsaHJr6ChuXaM/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-            JsBarcode("#barcode", "J18800792023");
+        JsBarcode("#barcode", "J18800792023");
     </script>
 </body>
 </html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var selectedSeats = [];
+
+        var seats = document.querySelectorAll(".seat");
+        seats.forEach(function (seat) {
+            seat.addEventListener("click", function () {
+                var seatId = this.getAttribute("data-id");
+                if (this.classList.contains("selected")) {
+                    this.classList.remove("selected");
+                    var index = selectedSeats.indexOf(seatId);
+                    if (index > -1) {
+                        selectedSeats.splice(index, 1);
+                    }
+                } else {
+                    this.classList.add("selected");
+                    selectedSeats.push(seatId);
+                }
+                updateButtonDisplay();
+            });
+        });
+
+        function updateButtonDisplay() {
+            var bookButton = document.getElementById("book_ticket");
+            var backButton = document.getElementById("back_ticket");
+            if (selectedSeats.length > 0) {
+                bookButton.style.display = "unset";
+                backButton.style.display = "unset";
+            } else {
+                bookButton.style.display = "none";
+                backButton.style.display = "none";
+            }
+        }
+
+        // Call updateButtonDisplay at the start to ensure buttons are in correct state
+        updateButtonDisplay();
+    });
+</script>
+<style>
+    .cinema-row {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .seat {
+        margin-right: 10px;
+        position: relative;
+        width: 40px;
+        height: 35px;
+        background: rgb(184, 184, 184, .3);
+        list-style: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .3s linear;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 600;
+    }
+        .seat:hover {
+            background: greenyellow;
+            color: #000;
+        }
+    footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        text-align: center;
+    }
+
+    .footer-text {
+        display: flex;
+        color: white;
+        font-size: 10px;
+    }
+</style>
