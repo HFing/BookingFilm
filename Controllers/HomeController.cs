@@ -17,23 +17,23 @@ namespace BookingFilm.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			var today = DateTime.Today;
-			var oneWeekLater = today.AddDays(7);
+			var now = DateTime.Now;
+			var future = now.AddDays(7);
 
-			// Lấy danh sách các lịch chiếu trong vòng 7 ngày từ ngày hiện tại
+			// Lấy danh sách các lịch chiếu từ thời điểm hiện tại đến 7 ngày tới
 			var upcomingLichChieuList = _context.LichChieux
-				.Where(lc => lc.NgayChieu >= today && lc.NgayChieu <= oneWeekLater)
+				.Where(lc => lc.NgayChieu >= now && lc.NgayChieu <= future)
 				.ToList();
 
-			// Lấy danh sách các phim có lịch chiếu trong vòng 7 ngày từ ngày hiện tại
+			// Lấy danh sách các phim có lịch chiếu từ thời điểm hiện tại đến 7 ngày tới
 			var upcomingPhimList = upcomingLichChieuList.Select(lc => lc.Phim).Distinct().ToList();
 
-			// Lấy danh sách các lịch chiếu sau 7 ngày từ ngày hiện tại
+			// Lấy danh sách các lịch chiếu sau 7 ngày từ thời điểm hiện tại
 			var futureLichChieuList = _context.LichChieux
-				.Where(lc => lc.NgayChieu > oneWeekLater)
+				.Where(lc => lc.NgayChieu > future)
 				.ToList();
 
-			// Lấy danh sách các phim sẽ chiếu sau 7 ngày từ ngày hiện tại
+			// Lấy danh sách các phim sẽ chiếu sau 7 ngày từ thời điểm hiện tại
 			var futurePhimList = futureLichChieuList.Select(lc => lc.Phim).Distinct().ToList();
 
 			// Lấy danh sách các phim chưa có lịch chiếu

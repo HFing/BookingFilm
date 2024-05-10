@@ -25,11 +25,22 @@ namespace BookingFilm.Controllers
 			{
 				return HttpNotFound();
 			}
-			ViewBag.RapChieuList = new SelectList(_context.RapChieux, "MaRC", "TenRC");
+
 			var now = DateTime.Now;
-			ViewBag.LichChieuList = new SelectList(_context.LichChieux
-				.Where(lc => lc.MaPhim == id && (lc.NgayChieu > now || (lc.NgayChieu == now.Date && lc.SuatChieu > now.TimeOfDay)))
-				, "MaLC", "NgayChieu");
+			var future = now.AddDays(7);
+
+			// Lấy danh sách rạp chiếu phim này trong vòng 7 ngày tới
+			var rapChieuList = _context.RapChieux
+				.Where(rc => rc.PhongChieux.Any(pc => pc.LichChieux.Any(lc => lc.MaPhim == id && lc.NgayChieu >= now && lc.NgayChieu <= future)));
+
+			ViewBag.RapChieuList = new SelectList(rapChieuList, "MaRC", "TenRC");
+
+			// Lấy danh sách lịch chiếu của phim này trong vòng 7 ngày tới
+			var lichChieuList = _context.LichChieux
+				.Where(lc => lc.MaPhim == id && lc.NgayChieu >= now && lc.NgayChieu <= future);
+
+			ViewBag.LichChieuList = new SelectList(lichChieuList, "MaLC", "NgayChieu");
+
 			return View(phim);
 		}
 
