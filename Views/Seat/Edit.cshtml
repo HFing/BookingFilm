@@ -26,7 +26,7 @@
 
     <label for="LoaiGhe">Seat Type:</label><br />
     @Html.TextBoxFor(model => model.LoaiGhe, new { id = "LoaiGhe", @required = "required" })
-    <label for="TrangThaiGhe">Seat Status: @Html.CheckBox("TrangThaiGhe", Model.TrangThaiGhe.GetValueOrDefault())<br></label>
+    <label for="TrangThaiGhe">Seat Status: @Html.CheckBox("TrangThaiGhe", Model.TinhTrangGhe.GetValueOrDefault())<br></label>
 
 
     <input type="submit" value="Save Changes"><br />    

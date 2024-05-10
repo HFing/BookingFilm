@@ -6,6 +6,67 @@
 
 <a href="@Url.Action("Create", "ShowTime")" class="btntest" style="border-radius: 10px; border: 1px solid; width: 125px; font-size: 16px; color:white; background-color:forestgreen ">Add Show Time</a>
 
+@using (Html.BeginForm("Index", "ShowTime", FormMethod.Get, new { @class = "search-form" }))
+{
+    <div class="form-row">
+        <div class="form-group">
+            <label>Tên Phim:</label>
+            @Html.TextBox("tenPhim", ViewBag.TenPhim as string)
+        </div>
+        <div class="form-group">
+            <label>Ngày Chiếu Từ:</label>
+            @Html.TextBox("ngayChieuTu", ViewBag.NgayChieuTu as string, new { type = "date" })
+        </div>
+        <div class="form-group">
+            <label>Ngày Chiếu Đến:</label>
+            @Html.TextBox("ngayChieuDen", ViewBag.NgayChieuDen as string, new { type = "date" })
+        </div>
+        <div class="form-group">
+            <label>Phòng Chiếu:</label>
+            @Html.DropDownList("maPC", ViewBag.MaPC as SelectList, "All")
+        </div>
+        <button type="submit" class="btn-search" style="background-color: #4CAF50">Search</button>
+        <button type="button" class="btn-search" id="clearButton">Clear</button>
+    </div>
+}
+
+<style>
+    .search-form {
+        margin-top: 20px;
+        padding: 10px;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+        margin: 20px auto;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .form-row {
+        display: flex;
+        align-items: center;
+    }
+    .form-group {
+        margin-right: 10px;
+    }
+    .btn-search {
+        margin-left: 10px;
+        width: 100px;
+        height: 30px;
+        border: solid 1px green;
+        border-radius: 10%;
+    }
+</style>
+
+<script>
+    document.getElementById('clearButton').addEventListener('click', function () {
+        document.getElementById('tenPhim').value = '';
+        document.getElementById('ngayChieuTu').value = '';
+        document.getElementById('ngayChieuDen').value = '';
+        document.getElementById('maPC').selectedIndex = 0;
+    });
+</script>
+
+
+
+
 <table class="table">
     <thead>
         <tr>

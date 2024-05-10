@@ -17,20 +17,22 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-		// GET: Cinema
-		public ActionResult Index()
-		{
-			var ra = _context.RapChieux.ToList(); // Truy vấn dữ liệu từ database
-			return View(ra); // Truyền dữ liệu sang View
-		}
+        // GET: Cinema
+        public ActionResult Index(string searchString)
+        {
+            var ra = from r in _context.RapChieux
+                     select r;
 
-		public ActionResult Create()
-		{
-			return View();
-		}
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ra = ra.Where(s => s.TenRC.Contains(searchString) || s.MaRC.ToString() == searchString);
+            }
+
+            return View(ra.ToList());
+        }
 
 
-		[HttpPost]
+        [HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaRC,TenRC,DiaChi")] RapChieu rapChieu)
 		{

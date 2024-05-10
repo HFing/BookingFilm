@@ -17,12 +17,19 @@ namespace BookingFilm.Controllers
 			_context = new BookingFilmTicketsEntities1();
 		}
 
-		public ActionResult Index()
-		{
-			var phongChieu = _context.PhongChieux.ToList(); // Truy vấn dữ liệu từ database
-			return View(phongChieu); // Truyền dữ liệu sang View
-		}
-		public ActionResult Create()
+        public ActionResult Index(string searchString)
+        {
+            var rooms = from r in _context.PhongChieux
+                        select r;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                rooms = rooms.Where(s => s.TenPC.Contains(searchString) || s.MaPC.ToString() == searchString);
+            }
+
+            return View(rooms.ToList());
+        }
+        public ActionResult Create()
 		{
 			ViewBag.MaRC = new SelectList(_context.RapChieux, "MaRC", "TenRC");
 			return View();

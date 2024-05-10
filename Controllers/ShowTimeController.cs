@@ -16,14 +16,39 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-		public ActionResult Index()
-		{
-			var lichChieu = _context.LichChieux.Include("Phim").Include("PhongChieu").ToList(); // Join với bảng Phim và PhongChieu
-			ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim");
-			return View(lichChieu); // Truyền dữ liệu sang View
-		}
+        public ActionResult Index(string tenPhim, DateTime? ngayChieuTu, DateTime? ngayChieuDen, int? maPC)
+        {
+            var lichChieuQuery = _context.LichChieux.Include("Phim").Include("PhongChieu").AsQueryable();
 
-		public ActionResult Edit(int? id)
+            if (!string.IsNullOrEmpty(tenPhim))
+            {
+                lichChieuQuery = lichChieuQuery.Where(lc => lc.Phim.TenPhim.Contains(tenPhim));
+            }
+
+            if (ngayChieuTu != null && ngayChieuDen != null)
+            {
+                lichChieuQuery = lichChieuQuery.Where(lc => lc.NgayChieu >= ngayChieuTu && lc.NgayChieu <= ngayChieuDen);
+            }
+
+            if (maPC != null)
+            {
+                lichChieuQuery = lichChieuQuery.Where(lc => lc.MaPC == maPC);
+            }
+
+            var lichChieu = lichChieuQuery.ToList();
+
+            ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim");
+            ViewBag.maPC = new SelectList(_context.PhongChieux, "MaPC", "TenPC"); // Sửa key thành "maPC"
+
+            ViewBag.TenPhim = tenPhim;
+            ViewBag.NgayChieuTu = ngayChieuTu;
+            ViewBag.NgayChieuDen = ngayChieuDen;
+
+            return View(lichChieu);
+        }
+
+
+        public ActionResult Edit(int? id)
 		{
 			var lichChieu = _context.LichChieux.Find(id);
 			if (lichChieu == null)
