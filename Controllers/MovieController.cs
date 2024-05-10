@@ -20,13 +20,17 @@ namespace BookingFilm.Controllers
 			_context = new BookingFilmTicketsEntities1();
 		}
 
-		public ActionResult Index()
-		{
-			var khachHangs = _context.Phims.ToList(); // Truy vấn dữ liệu từ database
-			return View(khachHangs); // Truyền dữ liệu sang View
-		}
+        public ActionResult Index(string searchString)
+        {
+            var phim = from p in _context.Phims select p;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                phim = phim.Where(p => p.TenPhim.Contains(searchString) || p.MaPhim.ToString() == searchString);
+            }
+            return View(phim.ToList());
+        }
 
-		public ActionResult Create()
+        public ActionResult Create()
 		{
 			return View();
 		}

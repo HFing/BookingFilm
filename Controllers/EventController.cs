@@ -16,14 +16,18 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-		// GET: Event
-		public ActionResult Index()
-		{
-			var sk = _context.SuKiens.ToList(); // Truy vấn dữ liệu từ database
-			return View(sk); // Truyền dữ liệu sang View
-		}
+        // GET: Event
+        public ActionResult Index(string searchString)
+        {
+            var sk = from sukien in _context.SuKiens select sukien;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                sk = sk.Where(s => s.TenSK.Contains(searchString) || s.MaSK.ToString() == searchString);
+            }
+            return View(sk.ToList());
+        }
 
-		public ActionResult Create()
+        public ActionResult Create()
 		{
 			return View();
 		}

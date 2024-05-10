@@ -22,12 +22,20 @@ namespace BookingFilm.Controllers
 			_context = new BookingFilmTicketsEntities1();
 		}
 
-		public ActionResult Index()
-		{
-			var doAns = _context.DoAns.ToList(); // Truy vấn dữ liệu từ database
-			return View(doAns); // Truyền dữ liệu sang View
-		}
-		public ActionResult Create()
+        public ActionResult Index(string searchString)
+        {
+            var da = from f in _context.DoAns
+                     select f;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                da = da.Where(s => s.TenDA.Contains(searchString)
+                                   || s.MaDA.Contains(searchString));
+            }
+
+            return View(da.ToList());
+        }
+        public ActionResult Create()
 		{
 			return View();
 		}

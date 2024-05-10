@@ -6,7 +6,13 @@
 
 @model IEnumerable<BookingFilm.Phim>
 <a href="@Url.Action("Create", "Movie")" class="btntest" style="border-radius: 10px; border: 1px solid; width: 100px; font-size: 16px; ">Add Movie</a>
-
+<div style="text-align: center; margin-top: 20px; padding: 10px; border: 2px solid #4CAF50; border-radius: 5px; width: 300px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+    @using (Html.BeginForm("Index", "Movie", FormMethod.Get))
+    {
+        <input type="text" name="searchString" placeholder="Search by name or ID" style="width: 200px; height: 30px; padding: 3px 10px; border-radius: 5px; border: 1px solid #ccc;" />
+        <input type="submit" value="Search" style="height: 30px; padding: 3px 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #4CAF50; color: white;" />
+    }
+</div>
 <table class="table" style="overflow-x: auto;">
     <thead>
         <tr>
