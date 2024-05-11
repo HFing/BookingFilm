@@ -83,8 +83,11 @@ namespace BookingFilm.Controllers
 			var phim = System.Web.HttpContext.Current.Session["Phim"] as Phim;
 			if (phim == null)
 			{
-				return HttpNotFound();
+				// Redirect the user back to the first step of the booking process
+				return RedirectToAction("Index");
 			}
+
+			ViewBag.Phim = phim; // Set ViewBag.Phim
 
 			return View(doAns);
 		}
@@ -123,13 +126,12 @@ namespace BookingFilm.Controllers
 			var selectedSeats = System.Web.HttpContext.Current.Session["SelectedSeats"] as string[];
 			var doAn = System.Web.HttpContext.Current.Session["DoAn"] as DoAn;
 
-			//if (phim == null || rapChieu == null || lichChieu == null || selectedSeats == null || doAn == null)
-			//{
-			//	return HttpNotFound();
-			//}
+			if (phim == null || rapChieu == null || lichChieu == null || selectedSeats == null || doAn == null)
+			{
+				return HttpNotFound();
+			}
 
-			// Tạo vé mới
-			var ve = new Ve
+		   var ve = new Ve
 			{
 				MaPhim = phim.MaPhim,
 				MaGhe = _context.Ghes.FirstOrDefault(ghe => selectedSeats.Contains(ghe.TenGhe)).MaGhe, // Giả sử rằng mỗi vé chỉ tương ứng với một ghế
