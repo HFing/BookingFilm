@@ -221,9 +221,6 @@
     <Compile Include="Controllers\ShowTimeController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DatVe.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DoAn.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

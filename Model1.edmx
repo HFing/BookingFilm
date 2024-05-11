@@ -5,20 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="BookingFilmTicketsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="DatVe">
-          <Key>
-            <PropertyRef Name="MaDat" />
-          </Key>
-          <Property Name="MaDat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaKH" Type="int" />
-          <Property Name="MaVe" Type="int" />
-          <Property Name="NgayDat" Type="date" />
-          <Property Name="MaDoAn" Type="nvarchar" MaxLength="30" />
-          <Property Name="SoLuongDoAn" Type="int" />
-          <Property Name="TongTien" Type="decimal" Precision="9" Scale="0" />
-          <Property Name="MaSuKien" Type="int" />
-          <Property Name="ThanhTien" Type="decimal" Precision="9" Scale="0" />
-        </EntityType>
         <EntityType Name="DoAn">
           <Key>
             <PropertyRef Name="MaDA" />
@@ -146,55 +132,13 @@
           <Property Name="GiaVe" Type="decimal" Precision="9" Scale="0" />
           <Property Name="MaPhim" Type="int" />
           <Property Name="MaGhe" Type="int" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="NgayDat" Type="date" />
+          <Property Name="MaDoAn" Type="nvarchar" MaxLength="30" />
+          <Property Name="TongTien" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="MaSuKien" Type="int" />
+          <Property Name="ThanhTien" Type="decimal" Precision="9" Scale="0" />
         </EntityType>
-        <Association Name="FK__DatVe__MaDoAn__6383C8BA">
-          <End Role="DoAn" Type="Self.DoAn" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DoAn">
-              <PropertyRef Name="MaDA" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaDoAn" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DatVe__MaKH__619B8048">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DatVe__MaSuKien__6477ECF3">
-          <End Role="SuKien" Type="Self.SuKien" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SuKien">
-              <PropertyRef Name="MaSK" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaSuKien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DatVe__MaVe__628FA481">
-          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ve">
-              <PropertyRef Name="MaVe" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaVe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Ghe__MaPC__5629CD9C">
           <End Role="PhongChieu" Type="Self.PhongChieu" Multiplicity="0..1" />
           <End Role="Ghe" Type="Self.Ghe" Multiplicity="*" />
@@ -291,7 +235,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ve__MaGhe__5DCAEF64">
+        <Association Name="FK__Ve__MaDoAn__72C60C4A">
+          <End Role="DoAn" Type="Self.DoAn" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoAn">
+              <PropertyRef Name="MaDA" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaDoAn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaGhe__70DDC3D8">
           <End Role="Ghe" Type="Self.Ghe" Multiplicity="0..1" />
           <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
           <ReferentialConstraint>
@@ -303,7 +259,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ve__MaPhim__5CD6CB2B">
+        <Association Name="FK__Ve__MaKH__71D1E811">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaPhim__6FE99F9F">
           <End Role="Phim" Type="Self.Phim" Multiplicity="0..1" />
           <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
           <ReferentialConstraint>
@@ -315,8 +283,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Ve__MaSuKien__73BA3083">
+          <End Role="SuKien" Type="Self.SuKien" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuKien">
+              <PropertyRef Name="MaSK" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaSuKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BookingFilmTicketsModelStoreContainer">
-          <EntitySet Name="DatVe" EntityType="Self.DatVe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoAn" EntityType="Self.DoAn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ghe" EntityType="Self.Ghe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
@@ -330,22 +309,6 @@
           <EntitySet Name="RapChieu" EntityType="Self.RapChieu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuKien" EntityType="Self.SuKien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__DatVe__MaDoAn__6383C8BA" Association="Self.FK__DatVe__MaDoAn__6383C8BA">
-            <End Role="DoAn" EntitySet="DoAn" />
-            <End Role="DatVe" EntitySet="DatVe" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DatVe__MaKH__619B8048" Association="Self.FK__DatVe__MaKH__619B8048">
-            <End Role="KhachHang" EntitySet="KhachHang" />
-            <End Role="DatVe" EntitySet="DatVe" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DatVe__MaSuKien__6477ECF3" Association="Self.FK__DatVe__MaSuKien__6477ECF3">
-            <End Role="SuKien" EntitySet="SuKien" />
-            <End Role="DatVe" EntitySet="DatVe" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DatVe__MaVe__628FA481" Association="Self.FK__DatVe__MaVe__628FA481">
-            <End Role="Ve" EntitySet="Ve" />
-            <End Role="DatVe" EntitySet="DatVe" />
-          </AssociationSet>
           <AssociationSet Name="FK__Ghe__MaPC__5629CD9C" Association="Self.FK__Ghe__MaPC__5629CD9C">
             <End Role="PhongChieu" EntitySet="PhongChieu" />
             <End Role="Ghe" EntitySet="Ghe" />
@@ -378,12 +341,24 @@
             <End Role="RapChieu" EntitySet="RapChieu" />
             <End Role="PhongChieu" EntitySet="PhongChieu" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ve__MaGhe__5DCAEF64" Association="Self.FK__Ve__MaGhe__5DCAEF64">
+          <AssociationSet Name="FK__Ve__MaDoAn__72C60C4A" Association="Self.FK__Ve__MaDoAn__72C60C4A">
+            <End Role="DoAn" EntitySet="DoAn" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaGhe__70DDC3D8" Association="Self.FK__Ve__MaGhe__70DDC3D8">
             <End Role="Ghe" EntitySet="Ghe" />
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ve__MaPhim__5CD6CB2B" Association="Self.FK__Ve__MaPhim__5CD6CB2B">
+          <AssociationSet Name="FK__Ve__MaKH__71D1E811" Association="Self.FK__Ve__MaKH__71D1E811">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaPhim__6FE99F9F" Association="Self.FK__Ve__MaPhim__6FE99F9F">
             <End Role="Phim" EntitySet="Phim" />
+            <End Role="Ve" EntitySet="Ve" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaSuKien__73BA3083" Association="Self.FK__Ve__MaSuKien__73BA3083">
+            <End Role="SuKien" EntitySet="SuKien" />
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
         </EntityContainer>
@@ -392,24 +367,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingFilmTicketsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="DatVe">
-          <Key>
-            <PropertyRef Name="MaDat" />
-          </Key>
-          <Property Name="MaDat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaKH" Type="Int32" />
-          <Property Name="MaVe" Type="Int32" />
-          <Property Name="NgayDat" Type="DateTime" Precision="0" />
-          <Property Name="MaDoAn" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="SoLuongDoAn" Type="Int32" />
-          <Property Name="TongTien" Type="Decimal" Precision="9" Scale="0" />
-          <Property Name="MaSuKien" Type="Int32" />
-          <Property Name="ThanhTien" Type="Decimal" Precision="9" Scale="0" />
-          <NavigationProperty Name="DoAn" Relationship="Self.FK__DatVe__MaDoAn__6383C8BA" FromRole="DatVe" ToRole="DoAn" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK__DatVe__MaKH__619B8048" FromRole="DatVe" ToRole="KhachHang" />
-          <NavigationProperty Name="SuKien" Relationship="Self.FK__DatVe__MaSuKien__6477ECF3" FromRole="DatVe" ToRole="SuKien" />
-          <NavigationProperty Name="Ve" Relationship="Self.FK__DatVe__MaVe__628FA481" FromRole="DatVe" ToRole="Ve" />
-        </EntityType>
         <EntityType Name="DoAn">
           <Key>
             <PropertyRef Name="MaDA" />
@@ -418,7 +375,7 @@
           <Property Name="TenDA" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="GiaDA" Type="Decimal" Precision="9" Scale="0" />
           <Property Name="HinhDA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaDoAn__6383C8BA" FromRole="DoAn" ToRole="DatVe" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaDoAn__72C60C4A" FromRole="DoAn" ToRole="Ve" />
         </EntityType>
         <EntityType Name="Ghe">
           <Key>
@@ -430,7 +387,7 @@
           <Property Name="TinhTrangGhe" Type="Boolean" />
           <Property Name="MaPC" Type="Int32" />
           <NavigationProperty Name="PhongChieu" Relationship="Self.FK__Ghe__MaPC__5629CD9C" FromRole="Ghe" ToRole="PhongChieu" />
-          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaGhe__5DCAEF64" FromRole="Ghe" ToRole="Ve" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaGhe__70DDC3D8" FromRole="Ghe" ToRole="Ve" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -444,7 +401,7 @@
           <Property Name="GioiTinh" Type="Boolean" Nullable="false" />
           <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaKH__619B8048" FromRole="KhachHang" ToRole="DatVe" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaKH__71D1E811" FromRole="KhachHang" ToRole="Ve" />
         </EntityType>
         <EntityType Name="LichChieu">
           <Key>
@@ -514,7 +471,7 @@
           <Property Name="HinhPhim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LichChieux" Relationship="Self.FK__LichChieu__MaPhi__6754599E" FromRole="Phim" ToRole="LichChieu" />
-          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaPhim__5CD6CB2B" FromRole="Phim" ToRole="Ve" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaPhim__6FE99F9F" FromRole="Phim" ToRole="Ve" />
         </EntityType>
         <EntityType Name="PhongChieu">
           <Key>
@@ -548,7 +505,7 @@
           <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
           <Property Name="NgayKetThuc" Type="DateTime" Precision="0" />
           <Property Name="MucKhuyenMai" Type="Decimal" Precision="4" Scale="1" />
-          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaSuKien__6477ECF3" FromRole="SuKien" ToRole="DatVe" />
+          <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaSuKien__73BA3083" FromRole="SuKien" ToRole="Ve" />
         </EntityType>
         <EntityType Name="Ve">
           <Key>
@@ -558,55 +515,27 @@
           <Property Name="GiaVe" Type="Decimal" Precision="9" Scale="0" />
           <Property Name="MaPhim" Type="Int32" />
           <Property Name="MaGhe" Type="Int32" />
-          <NavigationProperty Name="DatVes" Relationship="Self.FK__DatVe__MaVe__628FA481" FromRole="Ve" ToRole="DatVe" />
-          <NavigationProperty Name="Ghe" Relationship="Self.FK__Ve__MaGhe__5DCAEF64" FromRole="Ve" ToRole="Ghe" />
-          <NavigationProperty Name="Phim" Relationship="Self.FK__Ve__MaPhim__5CD6CB2B" FromRole="Ve" ToRole="Phim" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="NgayDat" Type="DateTime" Precision="0" />
+          <Property Name="MaDoAn" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="MaSuKien" Type="Int32" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="9" Scale="0" />
+          <NavigationProperty Name="DoAn" Relationship="Self.FK__Ve__MaDoAn__72C60C4A" FromRole="Ve" ToRole="DoAn" />
+          <NavigationProperty Name="Ghe" Relationship="Self.FK__Ve__MaGhe__70DDC3D8" FromRole="Ve" ToRole="Ghe" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK__Ve__MaKH__71D1E811" FromRole="Ve" ToRole="KhachHang" />
+          <NavigationProperty Name="Phim" Relationship="Self.FK__Ve__MaPhim__6FE99F9F" FromRole="Ve" ToRole="Phim" />
+          <NavigationProperty Name="SuKien" Relationship="Self.FK__Ve__MaSuKien__73BA3083" FromRole="Ve" ToRole="SuKien" />
         </EntityType>
-        <Association Name="FK__DatVe__MaDoAn__6383C8BA">
+        <Association Name="FK__Ve__MaDoAn__72C60C4A">
           <End Role="DoAn" Type="Self.DoAn" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DoAn">
               <PropertyRef Name="MaDA" />
             </Principal>
-            <Dependent Role="DatVe">
+            <Dependent Role="Ve">
               <PropertyRef Name="MaDoAn" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DatVe__MaKH__619B8048">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DatVe__MaSuKien__6477ECF3">
-          <End Role="SuKien" Type="Self.SuKien" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SuKien">
-              <PropertyRef Name="MaSK" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaSuKien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DatVe__MaVe__628FA481">
-          <End Role="Ve" Type="Self.Ve" Multiplicity="0..1" />
-          <End Role="DatVe" Type="Self.DatVe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ve">
-              <PropertyRef Name="MaVe" />
-            </Principal>
-            <Dependent Role="DatVe">
-              <PropertyRef Name="MaVe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -622,7 +551,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ve__MaGhe__5DCAEF64">
+        <Association Name="FK__Ve__MaGhe__70DDC3D8">
           <End Role="Ghe" Type="Self.Ghe" Multiplicity="0..1" />
           <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
           <ReferentialConstraint>
@@ -631,6 +560,18 @@
             </Principal>
             <Dependent Role="Ve">
               <PropertyRef Name="MaGhe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ve__MaKH__71D1E811">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaKH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -706,7 +647,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ve__MaPhim__5CD6CB2B">
+        <Association Name="FK__Ve__MaPhim__6FE99F9F">
           <End Role="Phim" Type="Self.Phim" Multiplicity="0..1" />
           <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
           <ReferentialConstraint>
@@ -730,8 +671,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Ve__MaSuKien__73BA3083">
+          <End Role="SuKien" Type="Self.SuKien" Multiplicity="0..1" />
+          <End Role="Ve" Type="Self.Ve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuKien">
+              <PropertyRef Name="MaSK" />
+            </Principal>
+            <Dependent Role="Ve">
+              <PropertyRef Name="MaSuKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BookingFilmTicketsEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DatVes" EntityType="Self.DatVe" />
           <EntitySet Name="DoAns" EntityType="Self.DoAn" />
           <EntitySet Name="Ghes" EntityType="Self.Ghe" />
           <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
@@ -745,28 +697,20 @@
           <EntitySet Name="RapChieux" EntityType="Self.RapChieu" />
           <EntitySet Name="SuKiens" EntityType="Self.SuKien" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
-          <AssociationSet Name="FK__DatVe__MaDoAn__6383C8BA" Association="Self.FK__DatVe__MaDoAn__6383C8BA">
+          <AssociationSet Name="FK__Ve__MaDoAn__72C60C4A" Association="Self.FK__Ve__MaDoAn__72C60C4A">
             <End Role="DoAn" EntitySet="DoAns" />
-            <End Role="DatVe" EntitySet="DatVes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DatVe__MaKH__619B8048" Association="Self.FK__DatVe__MaKH__619B8048">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DatVe" EntitySet="DatVes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DatVe__MaSuKien__6477ECF3" Association="Self.FK__DatVe__MaSuKien__6477ECF3">
-            <End Role="SuKien" EntitySet="SuKiens" />
-            <End Role="DatVe" EntitySet="DatVes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DatVe__MaVe__628FA481" Association="Self.FK__DatVe__MaVe__628FA481">
             <End Role="Ve" EntitySet="Ves" />
-            <End Role="DatVe" EntitySet="DatVes" />
           </AssociationSet>
           <AssociationSet Name="FK__Ghe__MaPC__5629CD9C" Association="Self.FK__Ghe__MaPC__5629CD9C">
             <End Role="PhongChieu" EntitySet="PhongChieux" />
             <End Role="Ghe" EntitySet="Ghes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ve__MaGhe__5DCAEF64" Association="Self.FK__Ve__MaGhe__5DCAEF64">
+          <AssociationSet Name="FK__Ve__MaGhe__70DDC3D8" Association="Self.FK__Ve__MaGhe__70DDC3D8">
             <End Role="Ghe" EntitySet="Ghes" />
+            <End Role="Ve" EntitySet="Ves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaKH__71D1E811" Association="Self.FK__Ve__MaKH__71D1E811">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="Ve" EntitySet="Ves" />
           </AssociationSet>
           <AssociationSet Name="FK__LichChieu__MaPC__68487DD7" Association="Self.FK__LichChieu__MaPC__68487DD7">
@@ -793,13 +737,17 @@
             <End Role="NhanVien" EntitySet="NhanViens" />
             <End Role="NVQuanLy" EntitySet="NVQuanLies" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ve__MaPhim__5CD6CB2B" Association="Self.FK__Ve__MaPhim__5CD6CB2B">
+          <AssociationSet Name="FK__Ve__MaPhim__6FE99F9F" Association="Self.FK__Ve__MaPhim__6FE99F9F">
             <End Role="Phim" EntitySet="Phims" />
             <End Role="Ve" EntitySet="Ves" />
           </AssociationSet>
           <AssociationSet Name="FK__PhongChieu__MaRC__4F7CD00D" Association="Self.FK__PhongChieu__MaRC__4F7CD00D">
             <End Role="RapChieu" EntitySet="RapChieux" />
             <End Role="PhongChieu" EntitySet="PhongChieux" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ve__MaSuKien__73BA3083" Association="Self.FK__Ve__MaSuKien__73BA3083">
+            <End Role="SuKien" EntitySet="SuKiens" />
+            <End Role="Ve" EntitySet="Ves" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -808,21 +756,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BookingFilmTicketsModelStoreContainer" CdmEntityContainer="BookingFilmTicketsEntities1">
-          <EntitySetMapping Name="DatVes">
-            <EntityTypeMapping TypeName="BookingFilmTicketsModel.DatVe">
-              <MappingFragment StoreEntitySet="DatVe">
-                <ScalarProperty Name="MaDat" ColumnName="MaDat" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaVe" ColumnName="MaVe" />
-                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="MaDoAn" ColumnName="MaDoAn" />
-                <ScalarProperty Name="SoLuongDoAn" ColumnName="SoLuongDoAn" />
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="MaSuKien" ColumnName="MaSuKien" />
-                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DoAns">
             <EntityTypeMapping TypeName="BookingFilmTicketsModel.DoAn">
               <MappingFragment StoreEntitySet="DoAn">
@@ -961,6 +894,12 @@
                 <ScalarProperty Name="GiaVe" ColumnName="GiaVe" />
                 <ScalarProperty Name="MaPhim" ColumnName="MaPhim" />
                 <ScalarProperty Name="MaGhe" ColumnName="MaGhe" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="MaDoAn" ColumnName="MaDoAn" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaSuKien" ColumnName="MaSuKien" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

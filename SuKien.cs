@@ -17,7 +17,7 @@ namespace BookingFilm
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SuKien()
         {
-            this.DatVes = new HashSet<DatVe>();
+            this.Ves = new HashSet<Ve>();
         }
     
         public int MaSK { get; set; }
@@ -27,6 +27,6 @@ namespace BookingFilm
         public Nullable<decimal> MucKhuyenMai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatVe> DatVes { get; set; }
+        public virtual ICollection<Ve> Ves { get; set; }
     }
 }

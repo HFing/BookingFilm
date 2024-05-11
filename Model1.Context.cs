@@ -25,7 +25,6 @@ namespace BookingFilm
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DatVe> DatVes { get; set; }
         public virtual DbSet<DoAn> DoAns { get; set; }
         public virtual DbSet<Ghe> Ghes { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }

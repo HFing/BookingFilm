@@ -17,7 +17,7 @@ namespace BookingFilm
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
-            this.DatVes = new HashSet<DatVe>();
+            this.Ves = new HashSet<Ve>();
         }
     
         public int MaKH { get; set; }
@@ -30,6 +30,6 @@ namespace BookingFilm
         public string DiaChi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatVe> DatVes { get; set; }
+        public virtual ICollection<Ve> Ves { get; set; }
     }
 }

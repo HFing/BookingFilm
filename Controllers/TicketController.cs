@@ -46,7 +46,8 @@ namespace BookingFilm.Controllers
 
 
 		[HttpPost]
-		public ActionResult GetSeats(int MaRC, int MaLC)
+
+		public ActionResult GetSeats(int MaRC, int MaLC, string[] selectedSeats)
 		{
 			var lichChieu = _context.LichChieux.Include(lc => lc.PhongChieu.Ghes)
 											   .Include(lc => lc.Phim)
@@ -55,54 +56,95 @@ namespace BookingFilm.Controllers
 			{
 				return HttpNotFound();
 			}
+
+			List<Ghe> ghes = new List<Ghe>();
+			decimal totalGiaVe = 0;
+			if (selectedSeats != null)
+			{
+				ghes = _context.Ghes.Where(ghe => selectedSeats.Contains(ghe.TenGhe)).ToList();
+				//totalGiaVe = ghes.Sum(ghe => ghe.GiaVe); // Tính tổng giá vé
+			}
+
+			// Lưu thông tin ghế vào TempData
+			TempData["Ghes"] = ghes;
+			TempData.Keep("Ghes");
+
+			// Lưu tổng giá vé vào TempData
+			TempData["TotalGiaVe"] = totalGiaVe;
+			TempData.Keep("TotalGiaVe");
+
 			// Lưu thông tin phim vào TempData
 			TempData["Phim"] = lichChieu.Phim;
+			TempData.Keep("Phim");
+
 			return View("GetSeats", lichChieu);
-		}
-
-
-
-		[HttpPost]
-		public ActionResult CreateTicket(int MaLC, string[] selectedSeats)
-		{
-			var lichChieu = _context.LichChieux.Include(lc => lc.PhongChieu.Ghes)
-											   .Include(lc => lc.Phim)
-											   .SingleOrDefault(lc => lc.MaLC == MaLC);
-			if (lichChieu == null)
-			{
-				return HttpNotFound();
-			}
-
-			// Tạo vé mới cho mỗi ghế đã chọn
-			foreach (var seatId in selectedSeats)
-			{
-				var ghe = lichChieu.PhongChieu.Ghes.SingleOrDefault(g => g.TenGhe == seatId);
-				if (ghe == null)
-				{
-					return HttpNotFound();
-				}
-
-				var ve = new Ve
-				{
-					MaGhe = ghe.MaGhe,
-					MaPhim = lichChieu.Phim.MaPhim,
-					// Đặt các thuộc tính khác của vé ở đây, ví dụ: GiaVe
-				};
-
-				_context.Ves.Add(ve);
-			}
-
-			_context.SaveChanges();
-
-			return View("TicketDetails", lichChieu.Phim);
 		}
 
 		public ActionResult ChooseFood()
 		{
 			var doAns = _context.DoAns.ToList();
-			var phim = TempData["Phim"] as Phim; // Thay 'Phim' bằng class thực tế của bạn
+			var phim = TempData["Phim"] as Phim;
+			if (phim == null)
+			{
+				return HttpNotFound();
+			}
 			ViewBag.Phim = phim;
+			TempData.Keep("Phim"); // Giữ lại dữ liệu cho yêu cầu tiếp theo
+
 			return View(doAns);
+		}
+
+		[HttpPost]
+		public ActionResult ChooseFood(int MaDoAn)
+		{
+			var doAn = _context.DoAns.Find(MaDoAn);
+			if (doAn == null)
+			{
+				return HttpNotFound();
+			}
+			TempData["DoAn"] = doAn;
+			TempData.Keep("DoAn");
+
+			return RedirectToAction("CreateTicket");
+		}
+		[HttpPost]
+		public ActionResult CreateTicket()
+		{
+			// Lấy thông tin từ TempData hoặc Session
+			var phim = TempData["Phim"] as Phim;
+			var ghe = TempData["Ghe"] as Ghe;
+			var doAn = TempData["DoAn"] as DoAn;
+			var khachHang = TempData["KhachHang"] as KhachHang; // Giả sử bạn đã lưu thông tin khách hàng
+
+			if (phim == null || ghe == null || doAn == null || khachHang == null)
+			{
+				return HttpNotFound();
+			}
+
+			// Tạo vé mới
+			var ve = new Ve
+			{
+				MaPhim = phim.MaPhim,
+				MaGhe = ghe.MaGhe,
+				MaKH = khachHang.MaKH,
+				MaDoAn = doAn.MaDA,
+				NgayDat = DateTime.Now,
+				//GiaVe = phim.GiaVe, 
+				//TongTien = phim.GiaVe + doAn.GiaDA,
+			};
+
+			// Thêm vé vào cơ sở dữ liệu
+			_context.Ves.Add(ve);
+			_context.SaveChanges();
+
+			// Xóa thông tin đã lưu trong TempData hoặc Session
+			TempData.Remove("Phim");
+			TempData.Remove("Ghe");
+			TempData.Remove("DoAn");
+			TempData.Remove("KhachHang");
+
+			// Chuyển hướng đến trang xác nhận hoặc trang chi tiết vé
+			return RedirectToAction("Confirmation", new { id = ve.MaVe });
 		}
 
 	}

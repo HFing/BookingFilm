@@ -14,20 +14,21 @@ namespace BookingFilm
     
     public partial class Ve
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ve()
-        {
-            this.DatVes = new HashSet<DatVe>();
-        }
-    
         public int MaVe { get; set; }
         public Nullable<decimal> GiaVe { get; set; }
         public Nullable<int> MaPhim { get; set; }
         public Nullable<int> MaGhe { get; set; }
+        public Nullable<int> MaKH { get; set; }
+        public Nullable<System.DateTime> NgayDat { get; set; }
+        public string MaDoAn { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
+        public Nullable<int> MaSuKien { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatVe> DatVes { get; set; }
+        public virtual DoAn DoAn { get; set; }
         public virtual Ghe Ghe { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
         public virtual Phim Phim { get; set; }
+        public virtual SuKien SuKien { get; set; }
     }
 }
