@@ -75,7 +75,7 @@
                     <li>Selected</li>
                 </div>
             </div>
-            <a href="/Ticket/ChooseFood">
+            <a href="/Ticket/CreateTicket">
                 <button class="book_tic" id="book_ticket">
                     <i class="bi bi-arrow-right-short"></i>
                 </button>
@@ -141,7 +141,7 @@
                     })
                         .then(response => {
                             if (response.ok) {
-                                window.location.href = "/Ticket/ChooseFood";
+                                window.location.href = "/Ticket/CreateTicket";
                             } else {
                                 // Handle error here
                             }

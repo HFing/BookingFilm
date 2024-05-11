@@ -22,6 +22,7 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Index(int id)
 		{
+			var user = Session["User"] as KhachHang;
 			var phim = _context.Phims.Find(id);
 			if (phim == null)
 			{
@@ -45,6 +46,7 @@ namespace BookingFilm.Controllers
 
 			return View(phim);
 		}
+
 
 
 		[HttpPost]
@@ -87,84 +89,80 @@ namespace BookingFilm.Controllers
 		}
 
 
-		public ActionResult ChooseFood()
+
+		[HttpGet]
+		public ActionResult CreateTicket()
 		{
-			var doAns = _context.DoAns.ToList();
-			var phim = System.Web.HttpContext.Current.Session["Phim"] as Phim;
-			if (phim == null)
+			var selectedSeats = Session["SelectedSeats"] as int[];
+			var lichChieu = Session["LichChieu"] as LichChieu;
+			var rapChieu = Session["RapChieu"] as RapChieu;
+			var phim = Session["Phim"] as Phim;
+			var user = Session["User"] as KhachHang;
+			if (selectedSeats == null || phim == null)
 			{
 				// Redirect the user back to the first step of the booking process
 				return RedirectToAction("Index");
 			}
 
-			ViewBag.Phim = phim; // Set ViewBag.Phim
-
-			return View(doAns);
-		}
-
-		[HttpPost]
-		public ActionResult ChooseFood(FormCollection form)
-		{
-			var quantities = new Dictionary<string, int>();
-
-			foreach (var key in form.AllKeys)
+			foreach (var seatId in selectedSeats)
 			{
-				var quantity = int.Parse(form[key]);
-				if (quantity > 0)
+				var ve = new Ve
 				{
-					quantities[key] = quantity;
+					MaPhim = phim.MaPhim,
+					MaGhe = seatId,
+					MaKH = user.MaKH,
+					NgayDat = DateTime.Now,
+					GiaVe = _context.Ghes.Find(seatId)?.GiaGhe,
+				};
+
+				// Find related event
+				var suKien = _context.SuKiens
+					.Where(sk => sk.NgayBatDau <= ve.NgayDat && sk.NgayKetThuc >= ve.NgayDat)
+					.OrderByDescending(sk => sk.NgayBatDau)
+					.FirstOrDefault();
+
+				// Apply discount if event exists
+				if (suKien != null)
+				{
+					ve.ThanhTien = ve.GiaVe * suKien.MucKhuyenMai;
+				}
+				else
+				{
+					ve.ThanhTien = ve.GiaVe;
+				}
+
+				_context.Ves.Add(ve);
+
+				// Update seat status
+				var ghe = _context.Ghes.Find(seatId);
+				if (ghe != null)
+				{
+					ghe.TinhTrangGhe = true;
 				}
 			}
 
-			// Retrieve the DoAn objects from the database
-			var doAns = _context.DoAns.Where(da => quantities.Keys.Contains(da.TenDA)).ToList();
-
-			// Store the DoAn objects and quantities in the session
-			Session["DoAn"] = doAns;
-			Session["Quantities"] = quantities;
-
-			return RedirectToAction("CreateTicket");
-		}
-
-		[HttpPost]
-		public ActionResult CreateTicket()
-		{
-			// Lấy thông tin từ Session
-			var phim = System.Web.HttpContext.Current.Session["Phim"] as Phim;
-			var rapChieu = System.Web.HttpContext.Current.Session["RapChieu"] as RapChieu;
-			var lichChieu = System.Web.HttpContext.Current.Session["LichChieu"] as LichChieu;
-			var selectedSeats = System.Web.HttpContext.Current.Session["SelectedSeats"] as string[];
-			var doAn = System.Web.HttpContext.Current.Session["DoAn"] as DoAn;
-
-			if (phim == null || rapChieu == null || lichChieu == null || selectedSeats == null)
-			{
-				return HttpNotFound();
-			}
-
-		   var ve = new Ve
-			{
-				MaPhim = phim.MaPhim,
-				MaGhe = _context.Ghes.FirstOrDefault(ghe => selectedSeats.Contains(ghe.TenGhe)).MaGhe, // Giả sử rằng mỗi vé chỉ tương ứng với một ghế
-				NgayDat = DateTime.Now,
-				MaDoAn = doAn.MaDA,
-				ThanhTien = doAn.GiaDA + _context.Ghes.Where(ghe => selectedSeats.Contains(ghe.TenGhe)).Sum(ghe => ghe.GiaGhe.GetValueOrDefault()) // Giả sử rằng ThanhTien là tổng giá của vé và đồ ăn
-			};
-
-			// Lưu vé vào cơ sở dữ liệu
-			_context.Ves.Add(ve);
 			_context.SaveChanges();
 
-			// Xóa dữ liệu từ Session
-			System.Web.HttpContext.Current.Session.Remove("Phim");
-			System.Web.HttpContext.Current.Session.Remove("RapChieu");
-			System.Web.HttpContext.Current.Session.Remove("LichChieu");
-			System.Web.HttpContext.Current.Session.Remove("SelectedSeats");
-			System.Web.HttpContext.Current.Session.Remove("DoAn");
-
-			// Chuyển hướng đến trang xác nhận
-			return RedirectToAction("Confirmation", new { id = ve.MaVe });
+			return RedirectToAction("ShowTickets");
 		}
 
+		public ActionResult ShowTickets()
+		{
+			var khachHang = Session["User"] as KhachHang;
+			if (khachHang == null)
+			{
+				// Redirect the user back to the first step of the booking process
+				return RedirectToAction("Index");
+			}
 
+			var today = DateTime.Today;
+			// Lấy danh sách vé mà khách hàng này đã đặt trong ngày hôm nay
+			var tickets = _context.Ves
+				.Include(ve => ve.Phim) // Include Phim data
+				.Where(ve => ve.MaKH == khachHang.MaKH && DbFunctions.TruncateTime(ve.NgayDat) == today)
+				.ToList();
+
+			return View(tickets);
+		}
 	}
 }
