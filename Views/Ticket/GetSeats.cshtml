@@ -75,15 +75,17 @@
                     <li>Selected</li>
                 </div>
             </div>
-            <button class="book_tic" id="book_ticket">
-                <i class="bi bi-arrow-right-short"></i>
-            </button>
+            <a href="/Ticket/ChooseFood">
+                <button class="book_tic" id="book_ticket">
+                    <i class="bi bi-arrow-right-short"></i>
+                </button>
+            </a>
 
             <footer>
                 <p class="footer-text">© 2024 LeeWinHS, By H-Fing</p>
             </footer>
         </div>
-        </div>
+    </div>
 
     <script src="~/JS/Ticket.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.js" integrity="sha512-wkHtSbhQMx77jh9oKL0AlLBd15fOMoJUowEpAzmSG5q5Pg9oF+XoMLCitFmi7AOhIVhR6T6BsaHJr6ChuXaM/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -120,15 +122,25 @@
 
         function updateButtonDisplay() {
             var bookButton = document.getElementById("book_ticket");
-            var backButton = document.getElementById("back_ticket");
             if (selectedSeats.length > 0) {
                 bookButton.style.display = "unset";
-                backButton.style.display = "unset";
+                bookButton.onclick = function () {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/Ticket/CreateTicket", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                            // Xử lý phản hồi từ server ở đây
+                        }
+                    }
+                    xhr.send("MaLC=" + MaLC + "&selectedSeats=" + encodeURIComponent(JSON.stringify(selectedSeats)));
+                }
             } else {
                 bookButton.style.display = "none";
-                backButton.style.display = "none";
             }
         }
+
+
 
         // Call updateButtonDisplay at the start to ensure buttons are in correct state
         updateButtonDisplay();
@@ -140,6 +152,7 @@
         justify-content: center;
         margin-bottom: 15px;
     }
+
     .seat {
         margin-right: 10px;
         position: relative;
@@ -157,10 +170,12 @@
         color: #fff;
         font-weight: 600;
     }
+
         .seat:hover {
             background: greenyellow;
             color: #000;
         }
+
     footer {
         position: fixed;
         width: 100%;

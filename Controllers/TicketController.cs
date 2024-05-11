@@ -55,10 +55,55 @@ namespace BookingFilm.Controllers
 			{
 				return HttpNotFound();
 			}
-
+			// Lưu thông tin phim vào TempData
+			TempData["Phim"] = lichChieu.Phim;
 			return View("GetSeats", lichChieu);
 		}
 
+
+
+		[HttpPost]
+		public ActionResult CreateTicket(int MaLC, string[] selectedSeats)
+		{
+			var lichChieu = _context.LichChieux.Include(lc => lc.PhongChieu.Ghes)
+											   .Include(lc => lc.Phim)
+											   .SingleOrDefault(lc => lc.MaLC == MaLC);
+			if (lichChieu == null)
+			{
+				return HttpNotFound();
+			}
+
+			// Tạo vé mới cho mỗi ghế đã chọn
+			foreach (var seatId in selectedSeats)
+			{
+				var ghe = lichChieu.PhongChieu.Ghes.SingleOrDefault(g => g.TenGhe == seatId);
+				if (ghe == null)
+				{
+					return HttpNotFound();
+				}
+
+				var ve = new Ve
+				{
+					MaGhe = ghe.MaGhe,
+					MaPhim = lichChieu.Phim.MaPhim,
+					// Đặt các thuộc tính khác của vé ở đây, ví dụ: GiaVe
+				};
+
+				_context.Ves.Add(ve);
+			}
+
+			_context.SaveChanges();
+
+			return View("TicketDetails", lichChieu.Phim);
+		}
+
+		public ActionResult ChooseFood()
+		{
+			var doAns = _context.DoAns.ToList();
+			var phim = TempData["Phim"] as Phim; // Thay 'Phim' bằng class thực tế của bạn
+			ViewBag.Phim = phim;
+			return View(doAns);
+		}
 
 	}
 }

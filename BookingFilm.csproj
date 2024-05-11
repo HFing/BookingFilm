@@ -360,6 +360,8 @@
     <Content Include="Views\ShowTime\Create.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\GetSeats.cshtml" />
+    <Content Include="Views\Ticket\CreateTicket.cshtml" />
+    <Content Include="Views\Ticket\ChooseFood.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
