@@ -52,7 +52,7 @@
                         {
                             if (ghe.TinhTrangGhe == false)
                             {
-                                <li class="seat" data-id="@ghe.TenGhe">
+                                <li class="seat" data-id="@ghe.MaGhe">
                                     @ghe.TenGhe
                                 </li>
                             }
@@ -125,22 +125,26 @@
             var bookButton = document.getElementById("book_ticket");
             if (selectedSeats.length > 0) {
                 bookButton.style.display = "unset";
-                bookButton.onclick = function () {
+                bookButton.onclick = function (e) {
+                    e.preventDefault();
                     var body = "MaLC=" + MaLC;
                     selectedSeats.forEach((seat, index) => {
                         body += `&selectedSeats[${index}]=${encodeURIComponent(seat)}`;
                     });
 
-                    fetch("/Ticket/CreateTicket", {
+                    fetch("/Ticket/SaveSelectedSeats", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: body
                     })
-                        .then(response => response.text())
-                        .then(data => {
-                            // Xử lý phản hồi từ server ở đây
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = "/Ticket/ChooseFood";
+                            } else {
+                                // Handle error here
+                            }
                         });
                 }
             } else {
@@ -149,7 +153,6 @@
         }
         // Call updateButtonDisplay at the start to ensure buttons are in correct state
         updateButtonDisplay();
-        System.Diagnostics.Debug.WriteLine("selectedSeats: " + (selectedSeats == null ? "null" : string.Join(", ", selectedSeats)));
     });
 </script>
 <style>

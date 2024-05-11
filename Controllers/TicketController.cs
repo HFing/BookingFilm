@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Net.Sockets;
+using System.Net;
 
 
 
@@ -71,11 +72,20 @@ namespace BookingFilm.Controllers
 			// Lưu chúng vào Session
 			Session["RapChieu"] = rapChieu;
 			Session["LichChieu"] = lichChieu;
-			Session["SelectedSeats"] = selectedSeats; // Lưu số ghế đã chọn vào Session
 			Session["Phim"] = lichChieu.Phim; // Lưu thông tin phim vào Session
 
 			return View("GetSeats", lichChieu);
 		}
+
+
+
+		[HttpPost]
+		public ActionResult SaveSelectedSeats(int[] selectedSeats)
+		{
+			Session["SelectedSeats"] = selectedSeats;
+			return Json(new { success = true });
+		}
+
 
 		public ActionResult ChooseFood()
 		{
@@ -126,7 +136,7 @@ namespace BookingFilm.Controllers
 			var selectedSeats = System.Web.HttpContext.Current.Session["SelectedSeats"] as string[];
 			var doAn = System.Web.HttpContext.Current.Session["DoAn"] as DoAn;
 
-			if (phim == null || rapChieu == null || lichChieu == null || selectedSeats == null || doAn == null)
+			if (phim == null || rapChieu == null || lichChieu == null || selectedSeats == null)
 			{
 				return HttpNotFound();
 			}
