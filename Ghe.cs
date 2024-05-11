@@ -25,6 +25,7 @@ namespace BookingFilm
         public string LoaiGhe { get; set; }
         public Nullable<bool> TinhTrangGhe { get; set; }
         public Nullable<int> MaPC { get; set; }
+        public Nullable<decimal> GiaGhe { get; set; }
     
         public virtual PhongChieu PhongChieu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

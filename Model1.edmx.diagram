@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="43971400c22146ba81a03ba5c8201ef1" Name="Diagram1">
+      <Diagram DiagramId="f92ac3782dcd484bb9b6dbd4b04e4492" Name="Diagram1">
         <EntityTypeShape EntityType="BookingFilmTicketsModel.DoAn" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingFilmTicketsModel.Ghe" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.Ghe" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.KhachHang" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.LichChieu" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.NhanVien" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Net.Sockets;
 
 
 
@@ -46,7 +47,6 @@ namespace BookingFilm.Controllers
 
 
 		[HttpPost]
-
 		public ActionResult GetSeats(int MaRC, int MaLC, string[] selectedSeats)
 		{
 			var lichChieu = _context.LichChieux.Include(lc => lc.PhongChieu.Ghes)
@@ -62,20 +62,17 @@ namespace BookingFilm.Controllers
 			if (selectedSeats != null)
 			{
 				ghes = _context.Ghes.Where(ghe => selectedSeats.Contains(ghe.TenGhe)).ToList();
-				//totalGiaVe = ghes.Sum(ghe => ghe.GiaVe); // Tính tổng giá vé
+				totalGiaVe += ghes.Sum(ghe => ghe.GiaGhe.GetValueOrDefault()); // Tính tổng giá vé
 			}
 
-			// Lưu thông tin ghế vào TempData
-			TempData["Ghes"] = ghes;
-			TempData.Keep("Ghes");
+			var rapChieu = _context.RapChieux.Find(MaRC);
+			Session["selectedSeats"] = selectedSeats;
 
-			// Lưu tổng giá vé vào TempData
-			TempData["TotalGiaVe"] = totalGiaVe;
-			TempData.Keep("TotalGiaVe");
-
-			// Lưu thông tin phim vào TempData
-			TempData["Phim"] = lichChieu.Phim;
-			TempData.Keep("Phim");
+			// Lưu chúng vào Session
+			Session["RapChieu"] = rapChieu;
+			Session["LichChieu"] = lichChieu;
+			Session["SelectedSeats"] = selectedSeats; // Lưu số ghế đã chọn vào Session
+			Session["Phim"] = lichChieu.Phim; // Lưu thông tin phim vào Session
 
 			return View("GetSeats", lichChieu);
 		}
@@ -83,69 +80,79 @@ namespace BookingFilm.Controllers
 		public ActionResult ChooseFood()
 		{
 			var doAns = _context.DoAns.ToList();
-			var phim = TempData["Phim"] as Phim;
+			var phim = System.Web.HttpContext.Current.Session["Phim"] as Phim;
 			if (phim == null)
 			{
 				return HttpNotFound();
 			}
-			ViewBag.Phim = phim;
-			TempData.Keep("Phim"); // Giữ lại dữ liệu cho yêu cầu tiếp theo
 
 			return View(doAns);
 		}
 
 		[HttpPost]
-		public ActionResult ChooseFood(int MaDoAn)
+		public ActionResult ChooseFood(FormCollection form)
 		{
-			var doAn = _context.DoAns.Find(MaDoAn);
-			if (doAn == null)
+			var quantities = new Dictionary<string, int>();
+
+			foreach (var key in form.AllKeys)
 			{
-				return HttpNotFound();
+				var quantity = int.Parse(form[key]);
+				if (quantity > 0)
+				{
+					quantities[key] = quantity;
+				}
 			}
-			TempData["DoAn"] = doAn;
-			TempData.Keep("DoAn");
+
+			// Retrieve the DoAn objects from the database
+			var doAns = _context.DoAns.Where(da => quantities.Keys.Contains(da.TenDA)).ToList();
+
+			// Store the DoAn objects and quantities in the session
+			Session["DoAn"] = doAns;
+			Session["Quantities"] = quantities;
 
 			return RedirectToAction("CreateTicket");
 		}
+
 		[HttpPost]
 		public ActionResult CreateTicket()
 		{
-			// Lấy thông tin từ TempData hoặc Session
-			var phim = TempData["Phim"] as Phim;
-			var ghe = TempData["Ghe"] as Ghe;
-			var doAn = TempData["DoAn"] as DoAn;
-			var khachHang = TempData["KhachHang"] as KhachHang; // Giả sử bạn đã lưu thông tin khách hàng
+			// Lấy thông tin từ Session
+			var phim = System.Web.HttpContext.Current.Session["Phim"] as Phim;
+			var rapChieu = System.Web.HttpContext.Current.Session["RapChieu"] as RapChieu;
+			var lichChieu = System.Web.HttpContext.Current.Session["LichChieu"] as LichChieu;
+			var selectedSeats = System.Web.HttpContext.Current.Session["SelectedSeats"] as string[];
+			var doAn = System.Web.HttpContext.Current.Session["DoAn"] as DoAn;
 
-			if (phim == null || ghe == null || doAn == null || khachHang == null)
-			{
-				return HttpNotFound();
-			}
+			//if (phim == null || rapChieu == null || lichChieu == null || selectedSeats == null || doAn == null)
+			//{
+			//	return HttpNotFound();
+			//}
 
 			// Tạo vé mới
 			var ve = new Ve
 			{
 				MaPhim = phim.MaPhim,
-				MaGhe = ghe.MaGhe,
-				MaKH = khachHang.MaKH,
-				MaDoAn = doAn.MaDA,
+				MaGhe = _context.Ghes.FirstOrDefault(ghe => selectedSeats.Contains(ghe.TenGhe)).MaGhe, // Giả sử rằng mỗi vé chỉ tương ứng với một ghế
 				NgayDat = DateTime.Now,
-				//GiaVe = phim.GiaVe, 
-				//TongTien = phim.GiaVe + doAn.GiaDA,
+				MaDoAn = doAn.MaDA,
+				ThanhTien = doAn.GiaDA + _context.Ghes.Where(ghe => selectedSeats.Contains(ghe.TenGhe)).Sum(ghe => ghe.GiaGhe.GetValueOrDefault()) // Giả sử rằng ThanhTien là tổng giá của vé và đồ ăn
 			};
 
-			// Thêm vé vào cơ sở dữ liệu
+			// Lưu vé vào cơ sở dữ liệu
 			_context.Ves.Add(ve);
 			_context.SaveChanges();
 
-			// Xóa thông tin đã lưu trong TempData hoặc Session
-			TempData.Remove("Phim");
-			TempData.Remove("Ghe");
-			TempData.Remove("DoAn");
-			TempData.Remove("KhachHang");
+			// Xóa dữ liệu từ Session
+			System.Web.HttpContext.Current.Session.Remove("Phim");
+			System.Web.HttpContext.Current.Session.Remove("RapChieu");
+			System.Web.HttpContext.Current.Session.Remove("LichChieu");
+			System.Web.HttpContext.Current.Session.Remove("SelectedSeats");
+			System.Web.HttpContext.Current.Session.Remove("DoAn");
 
-			// Chuyển hướng đến trang xác nhận hoặc trang chi tiết vé
+			// Chuyển hướng đến trang xác nhận
 			return RedirectToAction("Confirmation", new { id = ve.MaVe });
 		}
+
 
 	}
 }

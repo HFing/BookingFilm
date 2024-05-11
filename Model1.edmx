@@ -23,6 +23,7 @@
           <Property Name="LoaiGhe" Type="nvarchar" MaxLength="10" />
           <Property Name="TinhTrangGhe" Type="bit" />
           <Property Name="MaPC" Type="int" />
+          <Property Name="GiaGhe" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -386,6 +387,7 @@
           <Property Name="LoaiGhe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TinhTrangGhe" Type="Boolean" />
           <Property Name="MaPC" Type="Int32" />
+          <Property Name="GiaGhe" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="PhongChieu" Relationship="Self.FK__Ghe__MaPC__5629CD9C" FromRole="Ghe" ToRole="PhongChieu" />
           <NavigationProperty Name="Ves" Relationship="Self.FK__Ve__MaGhe__70DDC3D8" FromRole="Ghe" ToRole="Ve" />
         </EntityType>
@@ -774,6 +776,7 @@
                 <ScalarProperty Name="LoaiGhe" ColumnName="LoaiGhe" />
                 <ScalarProperty Name="TinhTrangGhe" ColumnName="TinhTrangGhe" />
                 <ScalarProperty Name="MaPC" ColumnName="MaPC" />
+                <ScalarProperty Name="GiaGhe" ColumnName="GiaGhe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
