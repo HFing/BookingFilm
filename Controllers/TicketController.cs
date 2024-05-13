@@ -23,6 +23,7 @@ namespace BookingFilm.Controllers
 		public ActionResult Index(int id)
 		{
 			var user = Session["User"] as KhachHang;
+			ViewBag.User = user;
 			var phim = _context.Phims.Find(id);
 			if (phim == null)
 			{
@@ -149,6 +150,7 @@ namespace BookingFilm.Controllers
 		public ActionResult ShowTickets()
 		{
 			var khachHang = Session["User"] as KhachHang;
+			ViewBag.User = khachHang;
 			if (khachHang == null)
 			{
 				// Redirect the user back to the first step of the booking process
