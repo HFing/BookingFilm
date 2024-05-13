@@ -18,9 +18,13 @@ namespace BookingFilm.Controllers
 			_context = new BookingFilmTicketsEntities1();
 		}
 
-		public ActionResult Index()
+		public ActionResult Index(string searchString)
 		{
-			var khachHangs = _context.KhachHangs.ToList(); // Truy vấn dữ liệu từ database
+			var khachHangs = from k in _context.KhachHangs select k;
+			if(!String.IsNullOrEmpty(searchString))
+			{
+				khachHangs = khachHangs.Where(s => s.HoTenKH.Contains(searchString) || s.MaKH.ToString() == searchString);
+			}	
 			return View(khachHangs); // Truyền dữ liệu sang View
 		}
 		public ActionResult Delete(int maKH)

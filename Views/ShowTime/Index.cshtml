@@ -10,19 +10,19 @@
 {
     <div class="form-row">
         <div class="form-group">
-            <label>Tên Phim:</label>
+            <label>ID/Name:</label>
             @Html.TextBox("tenPhim", ViewBag.TenPhim as string)
         </div>
         <div class="form-group">
-            <label>Ngày Chiếu Từ:</label>
+            <label>ShowDate From:</label>
             @Html.TextBox("ngayChieuTu", ViewBag.NgayChieuTu as string, new { type = "date" })
         </div>
         <div class="form-group">
-            <label>Ngày Chiếu Đến:</label>
+            <label>ShowDate To:</label>
             @Html.TextBox("ngayChieuDen", ViewBag.NgayChieuDen as string, new { type = "date" })
         </div>
         <div class="form-group">
-            <label>Phòng Chiếu:</label>
+            <label>Cinema Room:</label>
             @Html.DropDownList("maPC", ViewBag.MaPC as SelectList, "All")
         </div>
         <button type="submit" class="btn-search" style="background-color: #4CAF50">Search</button>

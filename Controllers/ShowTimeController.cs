@@ -25,8 +25,10 @@ namespace BookingFilm.Controllers
                 lichChieuQuery = lichChieuQuery.Where(lc => lc.Phim.TenPhim.Contains(tenPhim));
             }
 
-            if (ngayChieuTu != null && ngayChieuDen != null)
+            if (ngayChieuTu != null)
             {
+				if(ngayChieuDen == null)
+					ngayChieuDen = ngayChieuTu.Value.AddMonths(1).AddDays(-1);
                 lichChieuQuery = lichChieuQuery.Where(lc => lc.NgayChieu >= ngayChieuTu && lc.NgayChieu <= ngayChieuDen);
             }
 
