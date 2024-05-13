@@ -14,7 +14,9 @@
     <div class="book">
         <div class="left">
             <div class="play">
-                <i class="bi bi-house-fill" id="play"></i>
+                <a href="/home" style="color: white;">
+                    <i class="bi bi-house-fill" id="play"></i>
+                </a>
             </div>
             <img src="@Html.DisplayFor(model => model.HinhPhim)" alt="" id="poster" />
 
@@ -33,7 +35,7 @@
         </div>
         <div class="right">
 
-            
+
 
 
             <div class="head_time">
@@ -50,16 +52,14 @@
                     <form action="@Url.Action("GetSeats", "Ticket")" method="post">
                         <div style="display: flex; align-items: center; margin: 20px 10px;">
                             <h3 style="color: white; margin-right: 10px;">Select Cinema:  </h3>
-                            @Html.DropDownList("MaRC", (SelectList)ViewBag.RapChieuList, "Select Cinema:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required" })
+                            @Html.DropDownList("MaRC", (SelectList)ViewBag.RapChieuList, "Select Cinema:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required", @onchange = "getCinemaShowtimes(this.value);" })
                         </div>
 
                         <div style="display: flex; align-items: center; margin: 20px 10px;">
                             <h3 style="color: white; margin-right: 10px;">Select Showtime: </h3>
-                            @Html.DropDownList("MaLC", (SelectList)ViewBag.LichChieuList, "Select Showtime:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required" })
+                            <select id="MaLC" name="MaLC" class="my-dropdown" style="width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;" required></select>
 
                             <button type="submit" class="book-ticket">Book</button>
-
-
                         </div>
                     </form>
                 }
@@ -73,16 +73,35 @@
             </footer>
         </div>
     </div>
-       
-        <script src="~/JS/Ticket.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.js" integrity="sha512-wkHtSbhQMx77jh9oKL0AlLBd15fOMoJUowEpAzmSG5q5Pg9oF+XoMLCitFmi7AOhIVhR6T6BsaHJr6ChuXaM/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script>
-            JsBarcode("#barcode", "J18800792023");
-        </script>
+    <script src="~/JS/Ticket.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.js" integrity="sha512-wkHtSbhQMx77jh9oKL0AlLBd15fOMoJUowEpAzmSG5q5Pg9oF+XoMLCitFmi7AOhIVhR6T6BsaHJr6ChuXaM/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        JsBarcode("#barcode", "J18800792023");
+    </script>
 </body>
 </html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#MaRC').change(function() {
+        var cinemaId = $(this).val();
+        if (cinemaId) {
+            $.getJSON('@Url.Action("GetShowtimes", "Ticket")', { cinemaId: cinemaId }, function(showtimes) {
+                var $showtimeSelect = $('#MaLC');
+                $showtimeSelect.empty();
+                $.each(showtimes, function(index, showtime) {
+                    // Combine NgayChieu and SuatChieu for the option text
+                    var optionText = showtime.NgayChieu + ' ' + showtime.SuatChieu;
+                    $showtimeSelect.append($('<option></option>').val(showtime.MaLC).text(optionText));
+                });
+            });
+        }
+    });
+});
+</script>
 <style>
     .book-ticket {
         padding: 4px 10px;
@@ -101,6 +120,7 @@
         .book-ticket:hover {
             background: #fd6565;
         }
+
     footer {
         position: fixed;
         width: 100%;

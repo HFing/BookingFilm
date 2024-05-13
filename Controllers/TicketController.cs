@@ -47,7 +47,23 @@ namespace BookingFilm.Controllers
 
 			return View(phim);
 		}
+		[HttpGet]
+		public ActionResult GetShowtimes(int cinemaId)
+		{
+			var now = DateTime.Now;
+			var future = now.AddDays(7);
 
+			var showtimes = _context.LichChieux
+				.Where(lc => lc.PhongChieu.MaRC == cinemaId && lc.NgayChieu >= now && lc.NgayChieu <= future)
+				.ToList() // Execute the query here
+				.Select(lc => new {
+					MaLC = lc.MaLC,
+					NgayChieu = lc.NgayChieu.Value.ToString("dd/MM/yyyy"), // Convert NgayChieu to string
+					SuatChieu = lc.SuatChieu.Value.ToString(@"hh\:mm") // Convert SuatChieu to string
+				});
+
+			return Json(showtimes, JsonRequestBehavior.AllowGet);
+		}
 
 
 		[HttpPost]

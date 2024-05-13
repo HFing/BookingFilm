@@ -14,7 +14,9 @@
     <div class="book">
         <div class="left">
             <div class="play">
-                <i class="bi bi-house-fill" id="play"></i>
+                <a href="/home" style="color: white;">
+                    <i class="bi bi-house-fill" id="play"></i>
+                </a>
             </div>
             <img src="@Model.Phim.HinhPhim" alt="" id="poster" />
 
@@ -52,17 +54,16 @@
                         {
                             if (ghe.TinhTrangGhe == false)
                             {
-                                <li class="seat" data-id="@ghe.MaGhe">
+                                <li class="seat" data-id="@ghe.MaGhe" data-booked="false">
                                     @ghe.TenGhe
                                 </li>
                             }
                             else
                             {
-                                <li class="seat" style="background: #fd6565 !important;">
+                                <li class="seat" style="background: #fd6565 !important;" data-booked="true" disabled>
                                     @ghe.TenGhe
                                 </li>
                             }
-
                         }
                     </div>
                 }
@@ -106,6 +107,11 @@
         var seats = document.querySelectorAll(".seat");
         seats.forEach(function (seat) {
             seat.addEventListener("click", function () {
+                // If the seat is already booked, return immediately
+                if (this.getAttribute("data-booked") === "true") {
+                    return;
+                }
+
                 var seatId = this.getAttribute("data-id");
                 if (this.classList.contains("selected")) {
                     this.classList.remove("selected");
