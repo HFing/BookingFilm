@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Confirm Selection";
+}
+
+<h2>Confirm Selection</h2>
+
+<p>
+    <strong>Selected Seats:</strong>
+    @foreach (var seat in ViewBag.SeatIds)
+    {
+        <span>@seat</span>
+    }
+</p>
+
+<p>
+    <strong>Selected Food:</strong>
+    <span>@ViewBag.FoodId</span>
+</p>
+
+<button onclick="location.href='@Url.Action("CreateTicket", "Ticket")'">Confirm</button>
+
+

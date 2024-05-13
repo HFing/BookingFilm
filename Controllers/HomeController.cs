@@ -15,7 +15,7 @@ namespace BookingFilm.Controllers
 			_context = new BookingFilmTicketsEntities1();
 		}
 		// GET: Home
-		public ActionResult Index()
+		public ActionResult Index(string searchTerm = null)
 		{
 			var now = DateTime.Now;
 			var future = now.AddDays(7);
@@ -44,7 +44,15 @@ namespace BookingFilm.Controllers
 			// Lấy danh sách tất cả các phim
 			var allPhimList = _context.Phims.ToList();
 
-			var user = Session["User"] as KhachHang; // Lấy user từ Session
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                upcomingPhimList = upcomingPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+                futurePhimList = futurePhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+                noSchedulePhimList = noSchedulePhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+                allPhimList = allPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+            }
+
+            var user = Session["User"] as KhachHang; // Lấy user từ Session
 			ViewBag.User = user;
 			ViewBag.UpcomingPhimList = upcomingPhimList;
 			ViewBag.FuturePhimList = futurePhimList;
@@ -54,8 +62,79 @@ namespace BookingFilm.Controllers
 			return View();
 		}
 
+        public ActionResult FoodOrder()
+        {
+            // Get the list of food from the database
+            var foodList = _context.DoAns.ToList();
 
-		public ActionResult Logout()
+            // Pass the list of food to the view
+            return View(foodList);
+        }
+
+        [HttpPost]
+        public ActionResult FoodOrder(FormCollection form)
+        {
+            var user = Session["User"] as KhachHang; // Lấy user từ Session
+            if (user == null)
+            {
+                // Nếu người dùng chưa đăng nhập, hãy chuyển hướng họ đến trang đăng nhập
+                return RedirectToAction("Login", "Home");
+            }
+
+            // Create a new order
+            var order = new HoaDonDoAn
+            {
+                MaKH = user.MaKH,
+                NgayDat = DateTime.Now,
+                TongTien = 0m,
+            };
+
+            // Add each food item to the order
+            foreach (var key in form.AllKeys)
+            {
+                var quantity = int.Parse(form[key]);
+                if (quantity > 0)
+                {
+                    var food = _context.DoAns.Find(key);
+                    if (food != null)
+                    {
+                        var orderDetail = new ChiTietHoaDon
+                        {
+                            MaDA = key,
+                            SoLuong = quantity,
+                        };
+                        order.ChiTietHoaDons.Add(orderDetail);
+                        if (food.GiaDA.HasValue)
+                        {
+                            order.TongTien += quantity * food.GiaDA.Value;
+                        }
+                    }
+                }
+            }
+
+            // Save the order to the database
+            _context.HoaDonDoAns.Add(order);
+            _context.SaveChanges();
+
+            return RedirectToAction("OrderSummary", new { id = order.MaHD });
+        }
+
+        public ActionResult OrderSummary(int id)
+        {
+            // Get the order from the database
+            var order = _context.HoaDonDoAns.Include("ChiTietHoaDons").SingleOrDefault(hd => hd.MaHD == id);
+            if (order == null)
+            {
+                // If the order does not exist, redirect to the home page
+                return RedirectToAction("Index");
+            }
+
+            // Pass the order to the view
+            return View(order);
+        }
+
+
+        public ActionResult Logout()
 		{
 			Session["User"] = null; // Xóa người dùng khỏi phiên
 			return RedirectToAction("Index", "Home");

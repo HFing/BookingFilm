@@ -4,33 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="43971400c22146ba81a03ba5c8201ef1" Name="Diagram1">
-        <EntityTypeShape EntityType="BookingFilmTicketsModel.DoAn" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingFilmTicketsModel.Ghe" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+      <Diagram DiagramId="4fbe098ce3314d6fa48de4de578e3121" Name="Diagram1">
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.ChiTietHoaDon" Width="1.5" PointX="9.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.DoAn" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.Ghe" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.HoaDonDoAn" Width="1.5" PointX="7.5" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.KhachHang" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.LichChieu" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingFilmTicketsModel.NhanVien" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.NVChamSoc" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.NVDangTai" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.NVQuanLy" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingFilmTicketsModel.Phim" Width="1.5" PointX="5.25" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.NhanVien" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.Phim" Width="1.5" PointX="5.25" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.PhongChieu" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.RapChieu" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingFilmTicketsModel.SuKien" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingFilmTicketsModel.SuKien" Width="1.5" PointX="5.25" PointY="26.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BookingFilmTicketsModel.Ve" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
-        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaDoAn__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__ChiTietHoa__MaDA__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__ChiTietHoa__MaHD__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaDoAn__6E01572D" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__Ghe__MaPC__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaGhe__70DDC3D8" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaKH__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaGhe__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__HoaDonDoAn__MaKH__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaKH__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__LichChieu__MaPC__68487DD7" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__LichChieu__MaPhi__6754599E" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingFilmTicketsModel.FK__NhanVien__MaRC__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__NVChamSoc__MaNV__3F466844" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__NVDangTai__MaNV__46E78A0C" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__NVQuanLy__MaNV__4316F928" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaPhim__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__NhanVien__MaRC__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaPhim__6B24EA82" ManuallyRouted="false" />
         <AssociationConnector Association="BookingFilmTicketsModel.FK__PhongChieu__MaRC__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaSuKien__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingFilmTicketsModel.FK__Ve__MaSuKien__6EF57B66" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

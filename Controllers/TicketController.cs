@@ -9,8 +9,8 @@ using System.Data.Entity;
 
 namespace BookingFilm.Controllers
 {
-    public class TicketController : Controller
-    {
+	public class TicketController : Controller
+	{
 		// GET: Ticket
 		private readonly BookingFilmTicketsEntities1 _context;
 		public TicketController()
@@ -105,9 +105,22 @@ namespace BookingFilm.Controllers
 			TempData["DoAn"] = doAn;
 			TempData.Keep("DoAn");
 
-			return RedirectToAction("CreateTicket");
-		}
-		[HttpPost]
+            var ghes = TempData["Ghes"] as List<Ghe>;
+
+            if (ghes == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Truyền thông tin này đến view thông qua ViewBag
+            ViewBag.SeatIds = ghes.Select(ghe => ghe.MaGhe).ToList();
+            ViewBag.FoodId = doAn.MaDA;
+
+            return View("ConfirmSelection");
+
+            //return RedirectToAction("CreateTicket");
+        }
+		//[HttpPost]
 		public ActionResult CreateTicket()
 		{
 			// Lấy thông tin từ TempData hoặc Session
@@ -147,5 +160,24 @@ namespace BookingFilm.Controllers
 			return RedirectToAction("Confirmation", new { id = ve.MaVe });
 		}
 
-	}
+        [HttpPost]
+        public ActionResult ConfirmSelection()
+        {
+            // Lấy thông tin từ TempData
+            var ghes = TempData["Ghes"] as List<Ghe>;
+            var doAn = TempData["DoAn"] as DoAn;
+
+            if (ghes == null || doAn == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Truyền thông tin này đến view thông qua ViewBag
+            ViewBag.SeatIds = ghes.Select(ghe => ghe.MaGhe).ToList();
+            ViewBag.FoodId = doAn.MaDA;
+
+            return View("ConfirmSelection");
+        }
+
+    }
 }

@@ -1,0 +1,62 @@
+﻿@model HoaDonDoAn
+
+<style>
+ 
+
+    .center-text {
+        text-align: center;
+    }
+
+    .card {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        background-color: #fff;
+    }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+    .detail {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .back-button {
+        display: inline-block;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        color: white;
+        background-color: #007bff;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+</style>
+
+<h2 class="center-text">Order Summary</h2>
+
+<a href="@Url.Action("Index", "Home")" class="back-button">Back Home</a>
+
+<div class="card">
+    <p>Order ID: @Model.MaHD</p>
+    <p>Order Date: @Model.NgayDat</p>
+    <p>Total: @Model.TongTien</p>
+
+    <h3>Order Details</h3>
+
+    @foreach (var detail in Model.ChiTietHoaDons)
+    {
+        <div class="detail">
+            <p>Food ID: @detail.MaDA</p>
+            <p>Quantity: @detail.SoLuong</p>
+        </div>
+    }
+</div>

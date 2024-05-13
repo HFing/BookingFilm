@@ -1,0 +1,33 @@
+﻿@model List<BookingFilm.Ve>
+
+@{
+    ViewBag.Title = "BookedTickets";
+    Layout = "~/Views/Shared/_LayoutProfileUser.cshtml";
+}
+
+<h2>BookedTickets</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Movie Name</th>
+            <th>Show Time</th>
+            <th>Seat Number</th>
+            <!-- Add other columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.MaVe</td>
+                <td>@ticket.MaGhe</td> <!-- Replace with the actual property name for movie name -->
+                @*<td>@ticket.Ma</td>*@ <!-- Replace with the actual property name for show time -->
+                <td>@ticket.NgayDat</td> <!-- Replace with the actual property name for seat number -->
+                <!-- Add other columns as needed -->
+            </tr>
+        }
+    </tbody>
+</table>

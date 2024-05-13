@@ -17,6 +17,7 @@ namespace BookingFilm
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DoAn()
         {
+            this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
             this.Ves = new HashSet<Ve>();
         }
     
@@ -25,6 +26,8 @@ namespace BookingFilm
         public Nullable<decimal> GiaDA { get; set; }
         public string HinhDA { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ve> Ves { get; set; }
     }

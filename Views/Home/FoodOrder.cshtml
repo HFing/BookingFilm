@@ -1,0 +1,56 @@
+﻿@model List<DoAn>
+
+<style>
+  
+
+    .back-home {
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    form {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .food-item {
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .submit-button {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<a href="@Url.Action("Index", "Home")" class="back-home">Back Home</a>
+
+<h2 style="text-align: center;">Order Food</h2>
+
+<form method="post" action="@Url.Action("FoodOrder", "Home")" style="max-width: 600px; margin: 0 auto;">
+    @foreach (var food in Model)
+    {
+        <div class="food-item" style="display: flex; align-items: center; margin-bottom: 20px; padding: 20px; border-radius: 10px;">
+            <img src="@food.HinhDA" alt="@food.TenDA" style="width: 100px; height: 100px; margin-right: 20px;" />
+            <div>
+                <h3>@food.TenDA</h3>
+                <p>@food.GiaDA</p>
+                <input type="number" name="@food.MaDA" min="0" max="99" value="0" style="width: 50px;" />
+            </div>
+        </div>
+    }
+    <button type="submit" class="submit-button" style="display: block; width: 100%; padding: 10px;">Submit Order</button>
+</form>

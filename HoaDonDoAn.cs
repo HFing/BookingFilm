@@ -12,27 +12,21 @@ namespace BookingFilm
     using System;
     using System.Collections.Generic;
     
-    public partial class KhachHang
+    public partial class HoaDonDoAn
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KhachHang()
+        public HoaDonDoAn()
         {
-            this.HoaDonDoAns = new HashSet<HoaDonDoAn>();
-            this.Ves = new HashSet<Ve>();
+            this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
         }
     
-        public int MaKH { get; set; }
-        public string HoTenKH { get; set; }
-        public string Email { get; set; }
-        public string MatKhauKH { get; set; }
-        public System.DateTime NgaySinh { get; set; }
-        public bool GioiTinh { get; set; }
-        public string CCCD { get; set; }
-        public string DiaChi { get; set; }
+        public int MaHD { get; set; }
+        public Nullable<int> MaKH { get; set; }
+        public System.DateTime NgayDat { get; set; }
+        public decimal TongTien { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDonDoAn> HoaDonDoAns { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ve> Ves { get; set; }
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }

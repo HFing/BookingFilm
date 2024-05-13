@@ -33,12 +33,12 @@ namespace BookingFilm
         public string DiaChi { get; set; }
         public Nullable<int> MaRC { get; set; }
     
-        public virtual RapChieu RapChieu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NVChamSoc> NVChamSocs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NVDangTai> NVDangTais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NVQuanLy> NVQuanLies { get; set; }
+        public virtual RapChieu RapChieu { get; set; }
     }
 }
