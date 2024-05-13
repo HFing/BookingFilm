@@ -17,10 +17,19 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-        // GET: Cinema
-        public ActionResult Index(string searchString)
+		// GET: Cinema
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
+		public ActionResult Index(string searchString)
         {
-            var ra = from r in _context.RapChieux
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			var ra = from r in _context.RapChieux
                      select r;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -36,6 +45,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaRC,TenRC,DiaChi")] RapChieu rapChieu)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				if (_context.RapChieux.Any(ra => ra.MaRC == rapChieu.MaRC))
@@ -53,6 +66,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Delete(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var ra = _context.RapChieux.Find(id);
 
 			if (ra == null)
@@ -67,6 +84,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Edit(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			RapChieu ra = _context.RapChieux.Find(id);
 			if (ra == null)
 			{
@@ -79,6 +100,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaRC,TenRC,DiaChi")] RapChieu rapChieu)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				//if (_context.RapChieux.Any(ra => ra.MaRC == rapChieu.MaRC && ra.MaRC != rapChieu.MaRC))

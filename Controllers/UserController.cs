@@ -17,14 +17,26 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
 		public ActionResult Index()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var khachHangs = _context.KhachHangs.ToList(); // Truy vấn dữ liệu từ database
 			return View(khachHangs); // Truyền dữ liệu sang View
 		}
 		public ActionResult Delete(int maKH)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var khachHang = _context.KhachHangs.Find(maKH);
 			if (khachHang == null)
 			{
@@ -38,6 +50,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Create()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			return View();
 		}
 
@@ -46,6 +62,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaKH,HoTenKH,Email,MatKhauKH,NgaySinh,GioiTinh,CCCD,DiaChi")] KhachHang khachHang)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				// Check if the CCCD already exists in the database
@@ -77,6 +97,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Edit(int? MaKH)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (MaKH == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +117,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaKH,HoTenKH,Email,MatKhauKH,NgaySinh,GioiTinh,CCCD,DiaChi")] KhachHang khachHang)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				// Check CCCD in database

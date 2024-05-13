@@ -16,9 +16,19 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-        public ActionResult Index(string tenPhim, DateTime? ngayChieuTu, DateTime? ngayChieuDen, int? maPC)
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
+
+		public ActionResult Index(string tenPhim, DateTime? ngayChieuTu, DateTime? ngayChieuDen, int? maPC)
         {
-            var lichChieuQuery = _context.LichChieux.Include("Phim").Include("PhongChieu").AsQueryable();
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			var lichChieuQuery = _context.LichChieux.Include("Phim").Include("PhongChieu").AsQueryable();
 
             if (!string.IsNullOrEmpty(tenPhim))
             {
@@ -38,7 +48,7 @@ namespace BookingFilm.Controllers
             var lichChieu = lichChieuQuery.ToList();
 
             ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim");
-            ViewBag.maPC = new SelectList(_context.PhongChieux, "MaPC", "TenPC"); // Sửa key thành "maPC"
+            ViewBag.maPC = new SelectList(_context.PhongChieux, "MaPC", "TenPC");
 
             ViewBag.TenPhim = tenPhim;
             ViewBag.NgayChieuTu = ngayChieuTu;
@@ -50,6 +60,10 @@ namespace BookingFilm.Controllers
 
         public ActionResult Edit(int? id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var lichChieu = _context.LichChieux.Find(id);
 			if (lichChieu == null)
 			{
@@ -65,6 +79,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaLC,NgayChieu,SuatChieu,MaPhim,MaPC")] BookingFilm.LichChieu lichChieu) // Thêm MaPC vào Bind
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				var existingLichChieu = _context.LichChieux.Find(lichChieu.MaLC);
@@ -90,6 +108,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Delete(int? id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +131,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Create()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			ViewBag.MaPhim = new SelectList(_context.Phims, "MaPhim", "TenPhim");
 			ViewBag.MaPC = new SelectList(_context.PhongChieux, "MaPC", "TenPC"); // SelectList cho Phòng Chiếu
 			return View();
@@ -118,6 +144,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaLC,NgayChieu,SuatChieu,MaPhim,MaPC")] LichChieu lichChieu) // Thêm MaPC vào Bind
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				_context.LichChieux.Add(lichChieu);

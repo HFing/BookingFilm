@@ -52,8 +52,17 @@ namespace BookingFilm.Controllers
                 allPhimList = allPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
             }
 
-            var user = Session["User"] as KhachHang; // Lấy user từ Session
-			ViewBag.User = user;
+			var user = Session["User"] as KhachHang;
+			var quanLy = Session["User"] as QuanLy;
+
+			if (user != null)
+			{
+				ViewBag.User = user;
+			}
+			else if (quanLy != null)
+			{
+				ViewBag.User = quanLy;
+			}
 			ViewBag.UpcomingPhimList = upcomingPhimList;
 			ViewBag.FuturePhimList = futurePhimList;
 			ViewBag.NoSchedulePhimList = noSchedulePhimList;

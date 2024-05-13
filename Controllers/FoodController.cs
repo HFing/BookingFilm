@@ -21,10 +21,19 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
 
-        public ActionResult Index(string searchString)
+		public ActionResult Index(string searchString)
         {
-            var da = from f in _context.DoAns
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			var da = from f in _context.DoAns
                      select f;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -37,6 +46,10 @@ namespace BookingFilm.Controllers
         }
         public ActionResult Create()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			return View();
 		}
 
@@ -65,6 +78,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaDA,TenDA,GiaDA,HinhDA")] DoAn doAn,HttpPostedFileBase HinhDA)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				// Kiểm tra xem mã đồ ăn đã tồn tại chưa
@@ -84,6 +101,10 @@ namespace BookingFilm.Controllers
 		// GET: Food/Delete/BAPPHOMAI
 		public ActionResult Delete(string id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var doAn = _context.DoAns.Find(id);
 			if (doAn == null)
 			{
@@ -97,6 +118,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Edit(string id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			DoAn doAn = _context.DoAns.Find(id);
 			if (doAn == null)
 			{
@@ -109,6 +134,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaDA,TenDA,GiaDA")] DoAn doAn, HttpPostedFileBase HinhDA)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				var existingDoAn = _context.DoAns.Find(doAn.MaDA);

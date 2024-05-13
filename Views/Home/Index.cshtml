@@ -49,7 +49,7 @@
             </div>
             <div class="right-nav">
 
-                @if (@ViewBag.User != null)
+                @if (ViewBag.User != null)
                 {
                     <a href="~/ProfileUser" style="margin: 0px 10px;">
                         <div class="button-container login">
@@ -68,6 +68,15 @@
                             <h2>Log Out</h2>
                         </div>
                     </a>
+
+                    if (ViewBag.User is QuanLy)
+                    {
+                        <a href="@Url.Action("Index", "Admin")">
+                            <div class="button-container login">
+                                <h2>Admin</h2>
+                            </div>
+                        </a>
+                    }
                 }
                 else
                 {

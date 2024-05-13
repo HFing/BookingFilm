@@ -16,10 +16,19 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-        // GET: Event
-        public ActionResult Index(string searchString)
+		// GET: Event
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
+		public ActionResult Index(string searchString)
         {
-            var sk = from sukien in _context.SuKiens select sukien;
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			var sk = from sukien in _context.SuKiens select sukien;
             if (!String.IsNullOrEmpty(searchString))
             {
                 sk = sk.Where(s => s.TenSK.Contains(searchString) || s.MaSK.ToString() == searchString);
@@ -29,6 +38,10 @@ namespace BookingFilm.Controllers
 
         public ActionResult Create()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			return View();
 		}
 
@@ -37,6 +50,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaSK,TenSK,NgayBatDau,NgayKetThuc,MucKhuyenMai")] SuKien suKien)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				_context.SuKiens.Add(suKien);
@@ -49,6 +66,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Delete(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var sk = _context.SuKiens.Find(id);
 
 			if (sk == null)
@@ -63,6 +84,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Edit(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			SuKien sk = _context.SuKiens.Find(id);
 			if (sk == null)
 			{
@@ -75,6 +100,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaSK,TenSK,NgayBatDau,NgayKetThuc,MucKhuyenMai")] SuKien suKien)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				_context.Entry(suKien).State = EntityState.Modified;

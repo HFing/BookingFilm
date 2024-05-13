@@ -16,10 +16,18 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-
-        public ActionResult Index(string searchString)
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
+		public ActionResult Index(string searchString)
         {
-            var rooms = from r in _context.PhongChieux
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			var rooms = from r in _context.PhongChieux
                         select r;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -31,6 +39,10 @@ namespace BookingFilm.Controllers
         }
         public ActionResult Create()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			ViewBag.MaRC = new SelectList(_context.RapChieux, "MaRC", "TenRC");
 			return View();
 		}
@@ -40,6 +52,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaPC,TenPC,SoHangGhe,SoGheMoiHang,MaRC")] PhongChieu phongChieu)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				_context.PhongChieux.Add(phongChieu);
@@ -70,6 +86,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Delete(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var pc = _context.PhongChieux.Find(id);
 
 			if (pc == null)
@@ -92,6 +112,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Edit(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var pc = _context.PhongChieux.Find(id);
 			if (pc == null)
 			{
@@ -104,6 +128,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaPC,TenPC,SoHangGhe,SoGheMoiHang,MaRC")] PhongChieu phongChieu)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				_context.Entry(phongChieu).State = EntityState.Modified;

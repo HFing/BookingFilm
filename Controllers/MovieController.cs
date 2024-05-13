@@ -19,10 +19,18 @@ namespace BookingFilm.Controllers
 		{
 			_context = new BookingFilmTicketsEntities1();
 		}
-
-        public ActionResult Index(string searchString)
+		private bool IsManager()
+		{
+			var quanLy = Session["User"] as QuanLy;
+			return quanLy != null;
+		}
+		public ActionResult Index(string searchString)
         {
-            var phim = from p in _context.Phims select p;
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			var phim = from p in _context.Phims select p;
             if (!String.IsNullOrEmpty(searchString))
             {
                 phim = phim.Where(p => p.TenPhim.Contains(searchString) || p.MaPhim.ToString() == searchString);
@@ -32,6 +40,10 @@ namespace BookingFilm.Controllers
 
         public ActionResult Create()
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			return View();
 		}
 
@@ -60,6 +72,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaPhim,TenPhim,TheLoai,ThoiLuong,DaoDien,NamSanXuat,HinhPhim,MoTa")] BookingFilm.Phim phim, HttpPostedFileBase HinhPhim)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				phim.HinhPhim = UrlImageAfterUpload(HinhPhim);
@@ -74,6 +90,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Delete(int id)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var phim = _context.Phims.Find(id);
 			if (phim == null)
 			{
@@ -87,6 +107,10 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Edit(int MaPhim)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			var phim = _context.Phims.Find(MaPhim);
 			if (phim == null)
 			{
@@ -100,6 +124,10 @@ namespace BookingFilm.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "MaPhim,TenPhim,TheLoai,ThoiLuong,DaoDien,NamSanXuat,HinhPhim,MoTa")] BookingFilm.Phim phim, HttpPostedFileBase HinhPhim)
 		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
 			if (ModelState.IsValid)
 			{
 				var existingPhim = _context.Phims.Find(phim.MaPhim);
