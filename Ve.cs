@@ -20,12 +20,9 @@ namespace BookingFilm
         public Nullable<int> MaGhe { get; set; }
         public Nullable<int> MaKH { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
-        public string MaDoAn { get; set; }
-        public Nullable<decimal> TongTien { get; set; }
         public Nullable<int> MaSuKien { get; set; }
         public Nullable<decimal> ThanhTien { get; set; }
     
-        public virtual DoAn DoAn { get; set; }
         public virtual Ghe Ghe { get; set; }
         public virtual KhachHang KhachHang { get; set; }
         public virtual Phim Phim { get; set; }

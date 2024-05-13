@@ -18,7 +18,6 @@ namespace BookingFilm
         public DoAn()
         {
             this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
-            this.Ves = new HashSet<Ve>();
         }
     
         public string MaDA { get; set; }
@@ -28,7 +27,5 @@ namespace BookingFilm
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ve> Ves { get; set; }
     }
 }
