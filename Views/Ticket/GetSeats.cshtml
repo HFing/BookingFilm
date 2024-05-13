@@ -10,7 +10,7 @@
     <link href="~/CSS/Ticket.css" rel="stylesheet" />
     <title>Movie Ticket Booking Website</title>
 </head>
-<body>
+<body data-MaLC="@Model.MaLC">
     <div class="book">
         <div class="left">
             <div class="play">
@@ -52,7 +52,7 @@
                         {
                             if (ghe.TinhTrangGhe == false)
                             {
-                                <li class="seat" data-id="@ghe.TenGhe">
+                                <li class="seat" data-id="@ghe.MaGhe">
                                     @ghe.TenGhe
                                 </li>
                             }
@@ -75,7 +75,7 @@
                     <li>Selected</li>
                 </div>
             </div>
-            <a href="/Ticket/ChooseFood">
+            <a href="/Ticket/CreateTicket">
                 <button class="book_tic" id="book_ticket">
                     <i class="bi bi-arrow-right-short"></i>
                 </button>
@@ -101,6 +101,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         var selectedSeats = [];
+        var MaLC = document.body.getAttribute("data-MaLC");
 
         var seats = document.querySelectorAll(".seat");
         seats.forEach(function (seat) {
@@ -124,16 +125,27 @@
             var bookButton = document.getElementById("book_ticket");
             if (selectedSeats.length > 0) {
                 bookButton.style.display = "unset";
-                bookButton.onclick = function () {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/Ticket/CreateTicket", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function () {
-                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                            // Xử lý phản hồi từ server ở đây
-                        }
-                    }
-                    xhr.send("MaLC=" + MaLC + "&selectedSeats=" + encodeURIComponent(JSON.stringify(selectedSeats)));
+                bookButton.onclick = function (e) {
+                    e.preventDefault();
+                    var body = "MaLC=" + MaLC;
+                    selectedSeats.forEach((seat, index) => {
+                        body += `&selectedSeats[${index}]=${encodeURIComponent(seat)}`;
+                    });
+
+                    fetch("/Ticket/SaveSelectedSeats", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: body
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = "/Ticket/CreateTicket";
+                            } else {
+                                // Handle error here
+                            }
+                        });
                 }
             } else {
                 bookButton.style.display = "none";
@@ -141,18 +153,6 @@
         }
         // Call updateButtonDisplay at the start to ensure buttons are in correct state
         updateButtonDisplay();
-
-        bookButton.onclick = function () {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/Ticket/GetSeats", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    // Xử lý phản hồi từ server ở đây
-                }
-            }
-            xhr.send("MaLC=" + MaLC + "&MaRC=" + MaRC + "&selectedSeats=" + encodeURIComponent(JSON.stringify(selectedSeats)));
-        }
     });
 </script>
 <style>

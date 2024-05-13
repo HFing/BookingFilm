@@ -40,24 +40,33 @@
                 <h1 id="title">@Html.DisplayFor(model => model.TenPhim)</h1>
                 <div class="time">
                     <h6><i class="bi bi-clock"></i> @Html.DisplayFor(model => model.ThoiLuong) minutes</h6>
-                    <button>PG-13</button>
                 </div>
             </div>
 
             <div>
                 <img style="width: 70%; height: 50%; " src="@Html.DisplayFor(model => model.HinhPhim)" alt="" id="poster" />
-                <form action="@Url.Action("GetSeats", "Ticket")" method="post">
-                    <div style="display: flex; align-items: center; margin: 20px 10px;">
-                        <h3 style="color: white; margin-right: 10px;">Select Cinema:  </h3>
-                        @Html.DropDownList("MaRC", (SelectList)ViewBag.RapChieuList, "Select Cinema:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required" })
-                    </div>
+                @if (@ViewBag.User != null)
+                {
+                    <form action="@Url.Action("GetSeats", "Ticket")" method="post">
+                        <div style="display: flex; align-items: center; margin: 20px 10px;">
+                            <h3 style="color: white; margin-right: 10px;">Select Cinema:  </h3>
+                            @Html.DropDownList("MaRC", (SelectList)ViewBag.RapChieuList, "Select Cinema:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required" })
+                        </div>
 
-                    <div style="display: flex; align-items: center; margin: 20px 10px;">
-                        <h3 style="color: white; margin-right: 10px;">Select Showtime: </h3>
-                        @Html.DropDownList("MaLC", (SelectList)ViewBag.LichChieuList, "Select Showtime:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required" })
-                        <button type="submit" class="book-ticket">Book</button>
-                    </div>
-                </form>
+                        <div style="display: flex; align-items: center; margin: 20px 10px;">
+                            <h3 style="color: white; margin-right: 10px;">Select Showtime: </h3>
+                            @Html.DropDownList("MaLC", (SelectList)ViewBag.LichChieuList, "Select Showtime:", new { @class = "my-dropdown", @style = "width: 200px; height: 30px; border-radius: 5px; border: 1px solid #ccc;", @required = "required" })
+
+                            <button type="submit" class="book-ticket">Book</button>
+
+
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Login")"> <button class="book-ticket">Log In</button> </a>
+                }
             </div>
             <footer>
                 <p class="footer-text">© 2024 LeeWinHS, By H-Fing</p>
