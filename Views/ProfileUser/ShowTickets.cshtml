@@ -1,0 +1,39 @@
+﻿@model List<BookingFilm.Ve>
+
+@{
+    ViewBag.Title = "ShowTickets";
+    Layout = "~/Views/Shared/_LayoutProfileUser.cshtml";
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Movie Name</th>
+                <th>Seat Name</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Model)
+            {
+                <tr>
+                    <td>@ticket.MaVe</td>
+                    <td>@ticket.Phim.TenPhim</td>
+                    <td>@ticket.Ghe.TenGhe</td>
+                    <td>@ticket.GiaVe</td>
+                    <td>@ticket.ThanhTien</td>
+                    <td>@(ticket.NgayDat.HasValue ? ticket.NgayDat.Value.ToShortDateString() : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have not purchased any tickets.</p>
+}

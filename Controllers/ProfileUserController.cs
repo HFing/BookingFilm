@@ -112,20 +112,19 @@ namespace BookingFilm.Controllers
 		}
 
 
-        public ActionResult BookedTickets()
-        {
-            KhachHang khachHang = Session["User"] as KhachHang;
-            if (khachHang == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+		public ActionResult ShowTickets()
+		{
+			KhachHang khachHang = Session["User"] as KhachHang;
+			if (khachHang == null)
+			{
+				return RedirectToAction("Index", "Login");
+			}
 
-            // Get the booked tickets from the current DbContext
-            var bookedTickets = _context.Ves.Where(bt => bt.MaKH == khachHang.MaKH).ToList();
+			List<Ve> tickets = _context.Ves.Where(v => v.MaKH == khachHang.MaKH).ToList();
 
-            return View(bookedTickets);
-        }
+			return View(tickets);
+		}
 
 
-    }
+	}
 }

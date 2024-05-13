@@ -369,6 +369,7 @@
     <Content Include="Views\Home\FoodOrder.cshtml" />
     <Content Include="Views\Home\OrderSummary.cshtml" />
     <Content Include="Views\Ticket\ShowTickets.cshtml" />
+    <Content Include="Views\ProfileUser\ShowTickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

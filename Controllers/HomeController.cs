@@ -64,8 +64,10 @@ namespace BookingFilm.Controllers
 
         public ActionResult FoodOrder()
         {
-            // Get the list of food from the database
-            var foodList = _context.DoAns.ToList();
+			var user = Session["User"] as KhachHang; // Lấy user từ Session
+			ViewBag.User = user;
+			// Get the list of food from the database
+			var foodList = _context.DoAns.ToList();
 
             // Pass the list of food to the view
             return View(foodList);
@@ -74,8 +76,9 @@ namespace BookingFilm.Controllers
         [HttpPost]
         public ActionResult FoodOrder(FormCollection form)
         {
-            var user = Session["User"] as KhachHang; // Lấy user từ Session
-            if (user == null)
+			var user = Session["User"] as KhachHang; // Lấy user từ Session
+			ViewBag.User = user;
+			if (user == null)
             {
                 // Nếu người dùng chưa đăng nhập, hãy chuyển hướng họ đến trang đăng nhập
                 return RedirectToAction("Login", "Home");
@@ -121,8 +124,10 @@ namespace BookingFilm.Controllers
 
         public ActionResult OrderSummary(int id)
         {
-            // Get the order from the database
-            var order = _context.HoaDonDoAns.Include("ChiTietHoaDons").SingleOrDefault(hd => hd.MaHD == id);
+			var user = Session["User"] as KhachHang; // Lấy user từ Session
+			ViewBag.User = user;
+			// Get the order from the database
+			var order = _context.HoaDonDoAns.Include("ChiTietHoaDons").SingleOrDefault(hd => hd.MaHD == id);
             if (order == null)
             {
                 // If the order does not exist, redirect to the home page
