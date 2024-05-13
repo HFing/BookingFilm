@@ -12,11 +12,11 @@ namespace BookingFilm
     using System;
     using System.Collections.Generic;
     
-    public partial class NVChamSoc
+    public partial class QuanLy
     {
-        public int MaNVCS { get; set; }
-        public Nullable<int> MaNV { get; set; }
-    
-        public virtual NhanVien NhanVien { get; set; }
+        public int ID { get; set; }
+        public string UserNameNV { get; set; }
+        public string MatKhauNV { get; set; }
+        public string Role { get; set; }
     }
 }

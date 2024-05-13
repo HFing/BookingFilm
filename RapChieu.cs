@@ -17,7 +17,6 @@ namespace BookingFilm
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RapChieu()
         {
-            this.NhanViens = new HashSet<NhanVien>();
             this.PhongChieux = new HashSet<PhongChieu>();
         }
     
@@ -25,8 +24,6 @@ namespace BookingFilm
         public string TenRC { get; set; }
         public string DiaChi { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NhanVien> NhanViens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhongChieu> PhongChieux { get; set; }
     }

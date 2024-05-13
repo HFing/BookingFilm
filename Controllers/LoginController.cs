@@ -27,11 +27,18 @@ namespace BookingFilm.Controllers
 		public ActionResult Index(string Email, string MatKhauKH)
 		{
 			var user = _context.KhachHangs.FirstOrDefault(u => u.Email == Email && u.MatKhauKH == MatKhauKH);
+			var quanLy = _context.QuanLies.FirstOrDefault(u => u.UserNameNV == Email && u.MatKhauNV == MatKhauKH);
 
 			if (user != null)
 			{
 				Session["User"] = user; // Lưu user vào Session
 				TempData["Message"] = "Logged in successfully!";
+				return RedirectToAction("Index", "Home");
+			}
+			else if (quanLy != null)
+			{
+				Session["User"] = quanLy; // Lưu quanLy vào Session
+				TempData["Message"] = "ADMIN! Logged in successfully!";
 				return RedirectToAction("Index", "Home");
 			}
 			else

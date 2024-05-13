@@ -31,12 +31,9 @@ namespace BookingFilm
         public virtual DbSet<HoaDonDoAn> HoaDonDoAns { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<LichChieu> LichChieux { get; set; }
-        public virtual DbSet<NhanVien> NhanViens { get; set; }
-        public virtual DbSet<NVChamSoc> NVChamSocs { get; set; }
-        public virtual DbSet<NVDangTai> NVDangTais { get; set; }
-        public virtual DbSet<NVQuanLy> NVQuanLies { get; set; }
         public virtual DbSet<Phim> Phims { get; set; }
         public virtual DbSet<PhongChieu> PhongChieux { get; set; }
+        public virtual DbSet<QuanLy> QuanLies { get; set; }
         public virtual DbSet<RapChieu> RapChieux { get; set; }
         public virtual DbSet<SuKien> SuKiens { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }

@@ -13,8 +13,13 @@ namespace BookingFilm.Controllers
 
 		public ActionResult Index()
 		{
+			var quanLy = Session["User"] as QuanLy;
+			if (quanLy == null)
+			{
+				return HttpNotFound();
+			}
+
 			return View();
 		}
-
 	}
 }
