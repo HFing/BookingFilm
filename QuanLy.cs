@@ -15,8 +15,7 @@ namespace BookingFilm
     public partial class QuanLy
     {
         public int ID { get; set; }
-        public string UserNameNV { get; set; }
-        public string MatKhauNV { get; set; }
-        public string Role { get; set; }
+        public string UserName { get; set; }
+        public string MatKhau { get; set; }
     }
 }

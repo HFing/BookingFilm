@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ThongKeDoanhThu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<style>
+    .doanh-thu-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 20px 0;
+        background-color: #f9f9f9;
+    }
+
+        .doanh-thu-container h2 {
+            color: #007BFF;
+        }
+
+        .doanh-thu-container p {
+            font-size: 18px;
+        }
+</style>
+
+<div class="doanh-thu-container">
+    <h2>Thống kê doanh thu từ @ViewBag.startDate đến @ViewBag.endDate</h2>
+
+    <p>Doanh thu từ vé: <strong>@ViewBag.doanhThuVe.ToString("N2")</strong></p>
+    <p>Doanh thu từ đồ ăn: <strong>@ViewBag.doanhThuDoAn.ToString("N2")</strong></p>
+    <p>Tổng doanh thu: <strong>@ViewBag.tongDoanhThu.ToString("N2")</strong></p>
+</div>

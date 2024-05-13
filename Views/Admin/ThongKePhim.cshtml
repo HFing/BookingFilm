@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "ThongKePhim";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model List<BookingFilm.Phim>
+
+
+
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+<h2>Thống kê phim </h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên phim</th>
+            <th>Đạo diễn</th>
+            <th>Thời lượng</th>
+            <th>Số vé đã bán</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var phim in Model)
+        {
+            <tr>
+                <td>@phim.TenPhim</td>
+                <td>@phim.DaoDien</td>
+                <td>@phim.ThoiLuong</td>
+                <td>@phim.Ves.Count</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,146 +1,100 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ThongKe";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<h2>Thống kê</h2>
 
 
+<div class="form-container">
 
-<div class="main-top">
-    <h1>ADNIM LIST</h1>
-    <i class="fas fa-user-cog"></i>
-</div>
-<div class="users">
-    <div class="card">
-        <img src="./pic/img1.jpg">
-        <h4>Sam David</h4>
-        <p>Ui designer</p>
-        <div class="per">
-            <table>
-                <tr>
-                    <td><span>85%</span></td>
-                    <td><span>87%</span></td>
-                </tr>
-                <tr>
-                    <td>Month</td>
-                    <td>Year</td>
-                </tr>
-            </table>
-        </div>
-        <button>Profile</button>
+    <div class="form-item">
+        <h3>Thống kê vé</h3>
+        <form action="/Admin/ThongKeVe" method="get" style="display: flex;">
+            <label for="startDate">Ngày bắt đầu:</label>
+            <input type="date" id="startDate" name="startDate" required>
+
+            <label for="endDate">Ngày kết thúc:</label>
+            <input type="date" id="endDate" name="endDate" required>
+
+            <input type="submit" value="Thống kê vé">
+        </form>
     </div>
-    <div class="card">
-        <img src="./pic/img2.jpg">
-        <h4>Balbina kherr</h4>
-        <p>Progammer</p>
-        <div class="per">
-            <table>
-                <tr>
-                    <td><span>82%</span></td>
-                    <td><span>85%</span></td>
-                </tr>
-                <tr>
-                    <td>Month</td>
-                    <td>Year</td>
-                </tr>
-            </table>
-        </div>
-        <button>Profile</button>
+
+    <div class="form-item">
+        <h3>Thống kê phim</h3>
+        <form action="/Admin/ThongKePhim" method="get" style="display: flex;">
+            <label for="startDate">Ngày bắt đầu:</label>
+            <input type="date" id="startDate" name="startDate" required>
+
+            <label for="endDate">Ngày kết thúc:</label>
+            <input type="date" id="endDate" name="endDate" required>
+
+            <input type="submit" value="Thống kê phim">
+        </form>
     </div>
-    <div class="card">
-        <img src="./pic/img3.jpg">
-        <h4>Badan John</h4>
-        <p>tester</p>
-        <div class="per">
-            <table>
-                <tr>
-                    <td><span>94%</span></td>
-                    <td><span>92%</span></td>
-                </tr>
-                <tr>
-                    <td>Month</td>
-                    <td>Year</td>
-                </tr>
-            </table>
-        </div>
-        <button>Profile</button>
+
+    <div class="form-item">
+        <h3>Thống kê doanh thu</h3>
+        <form action="/Admin/ThongKeDoanhThu" method="get" style="display: flex;">
+            <label for="startDate">Ngày bắt đầu:</label>
+            <input type="date" id="startDate" name="startDate" required>
+
+            <label for="endDate">Ngày kết thúc:</label>
+            <input type="date" id="endDate" name="endDate" required>
+
+            <input type="submit" value="Thống kê doanh thu">
+        </form>
     </div>
-    <div class="card">
-        <img src="./pic/img4.jpg">
-        <h4>Salina micheal</h4>
-        <p>Ui designer</p>
-        <div class="per">
-            <table>
-                <tr>
-                    <td><span>85%</span></td>
-                    <td><span>82%</span></td>
-                </tr>
-                <tr>
-                    <td>Month</td>
-                    <td>Year</td>
-                </tr>
-            </table>
-        </div>
-        <button>Profile</button>
-    </div>
+
 </div>
 
-<section class="attendance">
-    <div class="attendance-list">
-        <h1>STAFF LIST</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Depart</th>
-                    <th>Date</th>
-                    <th>Join Time</th>
-                    <th>Logout Time</th>
-                    <th id="action">Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>01</td>
-                    <td>Sam David</td>
-                    <td>Design</td>
-                    <td>03-24-22</td>
-                    <td>8:00AM</td>
-                    <td>3:00PM</td>
-                    <td><button>EDIT</button><button>UPDATE</button><button>REMOVE</button></td>
-                </tr>
-                <tr class="active">
-                    <td>02</td>
-                    <td>Balbina Kherr</td>
-                    <td>Coding</td>
-                    <td>03-24-22</td>
-                    <td>9:00AM</td>
-                    <td>4:00PM</td>
-                    <td><button>EDIT</button><button>UPDATE</button><button>REMOVE</button></td>
 
-                </tr>
-                <tr>
-                    <td>03</td>
-                    <td>Badan John</td>
-                    <td>testing</td>
-                    <td>03-24-22</td>
-                    <td>8:00AM</td>
-                    <td>3:00PM</td>
-                    <td><button>EDIT</button><button>UPDATE</button><button>REMOVE</button></td>
 
-                </tr>
-                <tr>
-                    <td>04</td>
-                    <td>Sara David</td>
-                    <td>Design</td>
-                    <td>03-24-22</td>
-                    <td>8:00AM</td>
-                    <td>3:00PM</td>
-                    <td><button>EDIT</button><button>UPDATE</button><button>REMOVE</button></td>
+<style>
 
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+    .form-flex {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2, h3 {
+        color: #333;
+    }
+
+    form {
+        margin-bottom: 2em;
+    }
+
+    label {
+        margin-left: 40px;
+        display: block;
+        margin-top: 1em;
+        margin-right: 10px;
+    }
+
+    input[type="date"] {
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        margin-left: 10px;
+        margin-top: 1em;
+        padding: 0.5em 1em;
+        color: #fff;
+        background-color: #007BFF;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+</style>

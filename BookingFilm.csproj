@@ -361,6 +361,12 @@
     <Content Include="Views\Home\OrderSummary.cshtml" />
     <Content Include="Views\Ticket\ShowTickets.cshtml" />
     <Content Include="Views\ProfileUser\ShowTickets.cshtml" />
+    <Content Include="Views\Admin\ThongKeVe.cshtml" />
+    <Content Include="Views\Admin\ThongKePhim.cshtml" />
+    <Content Include="Views\Admin\ThongKeDoanhThu.cshtml" />
+    <Content Include="Views\Admin\ListAdmin.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

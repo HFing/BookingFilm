@@ -94,9 +94,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserNameNV" Type="nvarchar" MaxLength="45" />
-          <Property Name="MatKhauNV" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="RapChieu">
           <Key>
@@ -429,9 +428,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserNameNV" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="MatKhauNV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhau" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="RapChieu">
           <Key>
@@ -761,9 +759,8 @@
             <EntityTypeMapping TypeName="BookingFilmTicketsModel.QuanLy">
               <MappingFragment StoreEntitySet="QuanLy">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserNameNV" ColumnName="UserNameNV" />
-                <ScalarProperty Name="MatKhauNV" ColumnName="MatKhauNV" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

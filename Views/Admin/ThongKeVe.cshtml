@@ -1,0 +1,60 @@
+﻿@model List<BookingFilm.Ve>
+@{
+    ViewBag.Title = "ThongKeVe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thống kê vé</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã vé</th>
+            <th>Khách hàng</th>
+            <th>Ngày đặt</th>
+            <th>Thành tiền</th>
+            <!-- Thêm các cột khác tương ứng với các thuộc tính của vé -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ve in Model)
+        {
+            <tr>
+                <td>@ve.MaVe</td>
+                <td>@ve.KhachHang.HoTenKH</td>
+                <td>@(ve.NgayDat.HasValue ? ve.NgayDat.Value.ToString("dd/MM/yyyy") : "")</td>
+                <td>@ve.ThanhTien VND</td>
+                <!-- Thêm các giá trị khác tương ứng với các thuộc tính của vé -->
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Tổng cộng</td>
+            <td>@Model.Sum(v => v.ThanhTien) VND</td>
+        </tr>
+    </tfoot>
+</table>
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .table tfoot td {
+            font-weight: bold;
+        }
+</style>

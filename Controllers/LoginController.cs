@@ -27,7 +27,7 @@ namespace BookingFilm.Controllers
 		public ActionResult Index(string Email, string MatKhauKH)
 		{
 			var user = _context.KhachHangs.FirstOrDefault(u => u.Email == Email && u.MatKhauKH == MatKhauKH);
-			var quanLy = _context.QuanLies.FirstOrDefault(u => u.UserNameNV == Email && u.MatKhauNV == MatKhauKH);
+			var quanLy = _context.QuanLies.FirstOrDefault(u => u.UserName == Email && u.MatKhau == MatKhauKH);
 
 			if (user != null)
 			{
