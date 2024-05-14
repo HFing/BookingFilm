@@ -22,14 +22,18 @@ namespace BookingFilm.Controllers
 			var quanLy = Session["User"] as QuanLy;
 			return quanLy != null;
 		}
-		public ActionResult Index()
+		public ActionResult Index(string searchString)
 		{
 			if (!IsManager())
 			{
 				return HttpNotFound();
 			}
-			var khachHangs = _context.KhachHangs.ToList(); // Truy vấn dữ liệu từ database
-			return View(khachHangs); // Truyền dữ liệu sang View
+			var khachHangs = from k in _context.KhachHangs select k;
+			if(!String.IsNullOrEmpty(searchString))
+			{
+				khachHangs = khachHangs.Where(s => s.HoTenKH.Contains(searchString) || s.MaKH.ToString() == searchString);
+			}	
+			return View(khachHangs.ToList()); // Truyền dữ liệu sang View
 		}
 		public ActionResult Delete(int maKH)
 		{
