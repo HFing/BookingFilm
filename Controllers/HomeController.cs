@@ -46,7 +46,7 @@ namespace BookingFilm.Controllers
             List<Phim> searchPhim;
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                searchPhim = allPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+                searchPhim = allPhimList.Where(p => p.TenPhim.ToLower().Contains(searchTerm.ToLower())).ToList();
                 ViewBag.SearchPhim = searchPhim;
                 ViewBag.SearchTerm = searchTerm;
             }
