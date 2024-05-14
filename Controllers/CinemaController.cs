@@ -40,8 +40,17 @@ namespace BookingFilm.Controllers
             return View(ra.ToList());
         }
 
+		public ActionResult Create()
+		{
+			if (!IsManager())
+			{
+				return HttpNotFound();
+			}
+			return View();
+		}
 
-        [HttpPost]
+
+		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "MaRC,TenRC,DiaChi")] RapChieu rapChieu)
 		{
