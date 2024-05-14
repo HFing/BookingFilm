@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -62,6 +63,18 @@ namespace BookingFilm.Controllers
 			{
 				ViewBag.User = quanLy;
 			}
+
+			// Lấy ngày hiện tại (không tính thời gian)
+
+			var today = DateTime.Now.Date;
+
+			var currentSuKienList = _context.SuKiens
+	.Where(sk => sk.NgayBatDau.HasValue && sk.NgayKetThuc.HasValue
+				 && sk.NgayBatDau.Value.Year <= today.Year && sk.NgayBatDau.Value.Month <= today.Month && sk.NgayBatDau.Value.Day <= today.Day
+				 && sk.NgayKetThuc.Value.Year >= today.Year && sk.NgayKetThuc.Value.Month >= today.Month && sk.NgayKetThuc.Value.Day >= today.Day)
+	.ToList();
+			ViewBag.AllSuKienList = currentSuKienList;
+
 			ViewBag.UpcomingPhimList = upcomingPhimList;
 			ViewBag.FuturePhimList = futurePhimList;
 			ViewBag.NoSchedulePhimList = noSchedulePhimList;

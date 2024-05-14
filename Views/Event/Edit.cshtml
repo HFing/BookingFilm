@@ -12,25 +12,25 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.HiddenFor(model => model.MaSK, new { id = "MaSK" })
-        <label>Event ID:</label>
-        @Html.DisplayFor(model => model.MaSK)
+<div class="form-horizontal">
+    @Html.HiddenFor(model => model.MaSK, new { id = "MaSK" })
+    <label>Event ID:</label>
+    @Html.DisplayFor(model => model.MaSK)
 
-        <label for="TenRC">Event Name:</label><br>
-        @Html.TextBoxFor(model => model.TenSK, new { id = "TenSK", @required = "required" })<br>
+    <label for="TenRC">Event Name:</label><br>
+    @Html.TextBoxFor(model => model.TenSK, new { id = "TenSK", @required = "required" })<br>
 
-        <label for="NgaySinh">Start day: </label><br>
-        @Html.TextBoxFor(model => model.NgayBatDau, "{0:yyyy-MM-dd}", new { id = "NgayBatDau", type = "date", @required = "required" })<br>
+    <label for="NgaySinh">Start day: </label><br>
+    @Html.TextBoxFor(model => model.NgayBatDau, "{0:yyyy-MM-dd}", new { id = "NgayBatDau", type = "date", @required = "required" })<br>
 
-        <label for="NgaySinh">End date: </label><br>
-        @Html.TextBoxFor(model => model.NgayKetThuc, "{0:yyyy-MM-dd}", new { id = "NgayKetThuc", type = "date", @required = "required" })<br>
+    <label for="NgaySinh">End date: </label><br>
+    @Html.TextBoxFor(model => model.NgayKetThuc, "{0:yyyy-MM-dd}", new { id = "NgayKetThuc", type = "date", @required = "required" })<br>
 
-        <label for="MucKhuyenMai">Promotion level(Muc Khuyen Mai):</label><br>
-        @Html.TextBoxFor(model => model.MucKhuyenMai, new { id = "MucKhuyenMai", @required = "required" })<br>
+    <label for="MucKhuyenMai">Promotion level(Muc Khuyen Mai)%:</label><br>
+    @Html.TextBoxFor(model => model.MucKhuyenMai, new { id = "MucKhuyenMai", @required = "required", @type = "number", @min = "1", @max = "100" })<br>
 
-        <input type="submit" value="Save Changes">
-    </div>
+    <input type="submit" value="Save Changes">
+</div>
 }
 
 

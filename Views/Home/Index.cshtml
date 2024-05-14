@@ -162,6 +162,21 @@
                 </div>
             }
 
+
+            @if (ViewBag.AllSuKienList != null)
+            {
+                <div class="event-container">
+                    @foreach (var suKien in ViewBag.AllSuKienList)
+                    {
+                        <div class="event-card">
+                            <h2>@suKien.TenSK</h2>
+                            <p>Ngày bắt đầu: @suKien.NgayBatDau.ToString("dd/MM/yyyy")</p>
+                            <p>Ngày kết thúc: @suKien.NgayKetThuc.ToString("dd/MM/yyyy")</p>
+                            <p>Mức khuyến mãi: @suKien.MucKhuyenMai %</p>
+                        </div>
+                    }
+                </div>
+            }
             <div class="content-area" id="movies">
                 <h2 class="content-title">MOVIE IS SHOWING</h2>
                 <div class="card-carousel">
@@ -170,6 +185,7 @@
                             <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
                         </svg>
                     </div>
+
                     @if (ViewBag.UpcomingPhimList != null)
                     {
                         foreach (var item in (List<Phim>)ViewBag.UpcomingPhimList)
@@ -220,16 +236,7 @@
                         <div class="card" style="background-image: url(@item.HinhPhim); background-color: rgb(51, 51, 51); width: 262px; height: 147.375px; margin: 0px 2px; min-width: 262px; min-height: 147.375px;">
                             <div class="overlay">
                                 <h4>@Html.DisplayFor(modelItem => item.TenPhim)</h4><p>@Html.DisplayFor(modelItem => item.ThoiLuong) minutes</p><div class="button-container">
-                                    <div class="bookticket">
-                                        <svg fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path>
-                                        </svg>
-                                    </div><div></div><div></div><div class="star">
-                                        <svg fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                        </svg>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -287,16 +294,7 @@
                         <div class="card" style="background-image: url(@item.HinhPhim); background-color: rgb(51, 51, 51); width: 262px; height: 147.375px; margin: 0px 2px; min-width: 262px; min-height: 147.375px;">
                             <div class="overlay">
                                 <h4>@Html.DisplayFor(modelItem => item.TenPhim)</h4><p>@Html.DisplayFor(modelItem => item.ThoiLuong) minutes</p><div class="button-container">
-                                    <div class="bookticket">
-                                        <svg fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path>
-                                        </svg>
-                                    </div><div></div><div></div><div class="star">
-                                        <svg fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                                        </svg>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -349,3 +347,29 @@
 </body>
 
 </html>
+<style>
+    .event-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .event-card {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        flex: 0 0 100%;
+        margin: 5px 0;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+        .event-card h2, .event-card p {
+            flex: 1;
+            background: linear-gradient(to right, #FFE998, #57370D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+</style>
+

@@ -134,14 +134,15 @@ namespace BookingFilm.Controllers
 
 				// Find related event
 				var suKien = _context.SuKiens
-					.Where(sk => sk.NgayBatDau <= ve.NgayDat && sk.NgayKetThuc >= ve.NgayDat)
-					.OrderByDescending(sk => sk.NgayBatDau)
-					.FirstOrDefault();
+	.Where(sk => sk.NgayBatDau <= ve.NgayDat && sk.NgayKetThuc >= ve.NgayDat)
+	.OrderByDescending(sk => sk.MucKhuyenMai)
+	.FirstOrDefault();
 
 				// Apply discount if event exists
 				if (suKien != null)
 				{
-					ve.ThanhTien = ve.GiaVe * suKien.MucKhuyenMai;
+					ve.MaSuKien = suKien.MaSK;
+					ve.ThanhTien = ve.GiaVe * suKien.MucKhuyenMai/100;
 				}
 				else
 				{
@@ -176,9 +177,10 @@ namespace BookingFilm.Controllers
 			var today = DateTime.Today;
 			// Lấy danh sách vé mà khách hàng này đã đặt trong ngày hôm nay
 			var tickets = _context.Ves
-				.Include(ve => ve.Phim) // Include Phim data
-				.Where(ve => ve.MaKH == khachHang.MaKH && DbFunctions.TruncateTime(ve.NgayDat) == today)
-				.ToList();
+	.Include(ve => ve.Phim) // Include Phim data
+	.Include(ve => ve.SuKien) // Include SuKien data
+	.Where(ve => ve.MaKH == khachHang.MaKH && DbFunctions.TruncateTime(ve.NgayDat) == today)
+	.ToList();
 
 			return View(tickets);
 		}
