@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<BookingFilm.HoaDonDoAn>
+
+<h2>Hóa Đơn Đồ Ăn</h2>
+
+<div style="text-align: center; margin-top: 20px; padding: 10px; border: 2px solid #4CAF50; border-radius: 5px; width: 300px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+    @using (Html.BeginForm("Index", "HoaDonDoAn", FormMethod.Get))
+    {
+        <input type="text" name="searchString" placeholder="Search by ID" style="width: 200px; height: 30px; padding: 3px 10px; border-radius: 5px; border: 1px solid #ccc;" />
+        <input type="submit" value="Search" style="height: 30px; padding: 3px 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #4CAF50; color: white;" />
+    }
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Hóa Đơn</th>
+            <th>Mã Khách Hàng</th>
+            <th>Ngày Đặt</th>
+            <th>Tổng Tiền</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaHD)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaKH)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayDat)</td>
+                <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
+
+                <td>
+                    <a href="@Url.Action("Delete", "HoaDonDoAn", new { id = item.MaHD })" style="display: inline !important" onclick="return confirm('Are you sure you want to delete this item?');">REMOVE</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
