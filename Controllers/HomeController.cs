@@ -15,7 +15,7 @@ namespace BookingFilm.Controllers
 			_context = new BookingFilmTicketsEntities1();
 		}
 		// GET: Home
-		public ActionResult Index(string searchTerm = null)
+		public ActionResult Index(string searchTerm)
 		{
 			var now = DateTime.Now;
 			var future = now.AddDays(7);
@@ -43,13 +43,12 @@ namespace BookingFilm.Controllers
 
 			// Lấy danh sách tất cả các phim
 			var allPhimList = _context.Phims.ToList();
-
+            List<Phim> searchPhim;
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                upcomingPhimList = upcomingPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
-                futurePhimList = futurePhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
-                noSchedulePhimList = noSchedulePhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
-                allPhimList = allPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+                searchPhim = allPhimList.Where(p => p.TenPhim.Contains(searchTerm)).ToList();
+                ViewBag.SearchPhim = searchPhim;
+                ViewBag.SearchTerm = searchTerm;
             }
 
 			var user = Session["User"] as KhachHang;
