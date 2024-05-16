@@ -6,6 +6,12 @@
 
 @model IEnumerable<BookingFilm.DoAn>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        alert("@TempData["ErrorMessage"]");
+    </script>
+}
 
 <a href="@Url.Action("Create", "Food")" class="btntest" style="border-radius: 10px; border: 1px solid; width: 100px; font-size: 16px; ">Add Food</a>
 

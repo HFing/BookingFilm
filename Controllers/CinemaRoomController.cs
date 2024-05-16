@@ -84,33 +84,39 @@ namespace BookingFilm.Controllers
 			return View(phongChieu);
 		}
 
-		public ActionResult Delete(int id)
-		{
-			if (!IsManager())
-			{
-				return HttpNotFound();
-			}
-			var pc = _context.PhongChieux.Find(id);
+        public ActionResult Delete(int id)
+        {
+            if (!IsManager())
+            {
+                return HttpNotFound();
+            }
+            var pc = _context.PhongChieux.Include(p => p.LichChieux).SingleOrDefault(p => p.MaPC == id);
 
-			if (pc == null)
-			{
-				return HttpNotFound();
-			}
+            if (pc == null)
+            {
+                return HttpNotFound();
+            }
 
-			var ghes = _context.Ghes.Where(g => g.MaPC == id).ToList();
+            if (pc.LichChieux.Any())
+            {
+                TempData["ErrorMessage"] = "Cannot delete this cinema room because there are schedules associated with it.";
+                return RedirectToAction("Index");
+            }
 
-			foreach (var ghe in ghes)
-			{
-				_context.Ghes.Remove(ghe);
-			}
+            var ghes = _context.Ghes.Where(g => g.MaPC == id).ToList();
 
-			_context.PhongChieux.Remove(pc);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
+            foreach (var ghe in ghes)
+            {
+                _context.Ghes.Remove(ghe);
+            }
+
+            _context.PhongChieux.Remove(pc);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 
-		public ActionResult Edit(int id)
+        public ActionResult Edit(int id)
 		{
 			if (!IsManager())
 			{

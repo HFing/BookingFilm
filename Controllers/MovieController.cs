@@ -99,8 +99,13 @@ namespace BookingFilm.Controllers
 			{
 				return HttpNotFound();
 			}
+            if (phim.LichChieux.Any())
+            {
+                TempData["ErrorMessage"] = "Cannot delete this movie because there are schedules associated with it.";
+                return RedirectToAction("Index");
+            }
 
-			_context.Phims.Remove(phim);
+            _context.Phims.Remove(phim);
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}

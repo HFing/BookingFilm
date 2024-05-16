@@ -73,25 +73,31 @@ namespace BookingFilm.Controllers
 			return View(rapChieu);
 		}
 
-		public ActionResult Delete(int id)
-		{
-			if (!IsManager())
-			{
-				return HttpNotFound();
-			}
-			var ra = _context.RapChieux.Find(id);
+        public ActionResult Delete(int id)
+        {
+            if (!IsManager())
+            {
+                return HttpNotFound();
+            }
+            var ra = _context.RapChieux.Include(r => r.PhongChieux).SingleOrDefault(r => r.MaRC == id);
 
-			if (ra == null)
-			{
-				return HttpNotFound();
-			}
+            if (ra == null)
+            {
+                return HttpNotFound();
+            }
 
-			_context.RapChieux.Remove(ra);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
+            if (ra.PhongChieux.Any())
+            {
+                // If the cinema has any screening room, return an error message
+                TempData["ErrorMessage"] = "The cinema currently has a screening room and cannot be deleted.";
+                return RedirectToAction("Index");
+            }
 
-		public ActionResult Edit(int id)
+            _context.RapChieux.Remove(ra);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Edit(int id)
 		{
 			if (!IsManager())
 			{

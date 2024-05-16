@@ -4,7 +4,12 @@
 }
 
 @model IEnumerable<BookingFilm.PhongChieu>
-
+@if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        alert("@TempData["ErrorMessage"]");
+    </script>
+}
 <a href="@Url.Action("Create", "CinemaRoom")" class="btntest" style="border-radius: 10px; border: 1px solid; width: 125px; font-size: 16px; color:white; background-color:forestgreen ">Add Cinema Room</a>
 <div style="text-align: center; margin-top: 20px; padding: 10px; border: 2px solid #4CAF50; border-radius: 5px; width: 300px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
     @using (Html.BeginForm("Index", "CinemaRoom", FormMethod.Get))

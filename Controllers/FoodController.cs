@@ -110,7 +110,11 @@ namespace BookingFilm.Controllers
 			{
 				return HttpNotFound();
 			}
-
+			if (doAn.ChiTietHoaDons.Any())
+			{
+                TempData["ErrorMessage"] = "Cannot delete this food because there are food bills associated with it.";
+                return RedirectToAction("Index");
+            }
 			_context.DoAns.Remove(doAn);
 			_context.SaveChanges();
 			return RedirectToAction("Index");

@@ -4,6 +4,14 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 @model IEnumerable<BookingFilm.KhachHang>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        alert("@TempData["ErrorMessage"]");
+    </script>
+}
+
 <a href="@Url.Action("Create", "User")" class="btntest" style="border-radius: 10px; border: 1px solid; width: 100px; font-size: 16px; ">Add Customer</a>
 
 <div style="text-align: center; margin-top: 20px; padding: 10px; border: 2px solid #4CAF50; border-radius: 5px; width: 300px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
@@ -45,7 +53,7 @@
                 {
                     <td>Nữ</td>
                 }
-                <td >@cus.CCCD</td>
+                <td>@cus.CCCD</td>
                 <td>@cus.DiaChi</td>
                 <td>
                     <a href="@Url.Action("Edit", "User", new { maKH = cus.MaKH })" style="display: inline !important;">EDIT</a>

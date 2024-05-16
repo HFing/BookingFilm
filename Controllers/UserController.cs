@@ -46,8 +46,17 @@ namespace BookingFilm.Controllers
 			{
 				return HttpNotFound();
 			}
-
-			_context.KhachHangs.Remove(khachHang);
+            if (khachHang.HoaDonDoAns.Any())
+            {
+                TempData["ErrorMessage"] = "Cannot delete this user because there are food bills associated with it.";
+                return RedirectToAction("Index");
+            }
+			if(khachHang.Ves.Any())
+			{
+                TempData["ErrorMessage"] = "Cannot delete this user because there are ticket bills associated with it.";
+                return RedirectToAction("Index");
+            }	
+            _context.KhachHangs.Remove(khachHang);
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
