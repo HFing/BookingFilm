@@ -56,7 +56,8 @@ namespace BookingFilm.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Entry(ghe).State = EntityState.Modified;
+                ghe.GiaGhe = ghe.LoaiGhe == "VIP" ? 80000 : 65000;
+                _context.Entry(ghe).State = EntityState.Modified;
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			}

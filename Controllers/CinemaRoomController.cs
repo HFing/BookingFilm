@@ -65,13 +65,17 @@ namespace BookingFilm.Controllers
 				{
 					for (int j = 0; j < phongChieu.SoGheMoiHang; j++)
 					{
-						Ghe ghe = new Ghe
+                        string loaiGhe = "Thường";
+                        decimal giaGhe = loaiGhe == "Thường" ? 65000 : 80000;
+
+                        Ghe ghe = new Ghe
 						{
 							// Tên ghế theo dạng "{chữ cái hàng}{số ghế 2 chữ số}"
 							TenGhe = $"{(char)('A' + i)}{j + 1:D2}",
 							LoaiGhe = "Thường", // Thay đổi theo loại ghế thực tế của bạn
 							TinhTrangGhe = false, // giả sử ban đầu tất cả ghế đều trống
-							MaPC = phongChieu.MaPC
+							MaPC = phongChieu.MaPC,
+							GiaGhe = giaGhe
 						};
 						_context.Ghes.Add(ghe);
 					}
